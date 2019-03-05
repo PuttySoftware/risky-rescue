@@ -22,7 +22,7 @@ import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.battle.damageengines.DamageEngine;
 import com.puttysoftware.riskyrescue.creatures.Creature;
 import com.puttysoftware.riskyrescue.creatures.StatConstants;
-import com.puttysoftware.riskyrescue.creatures.monsters.BaseMonster;
+import com.puttysoftware.riskyrescue.creatures.monsters.SystemMonster;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.effects.Effect;
 import com.puttysoftware.riskyrescue.game.scripts.InternalScriptRunner;
@@ -91,8 +91,8 @@ public class BattleLogic {
                 hostileCount++;
                 enemies[x].getTemplate().setTeamID(1);
                 enemies[x].getTemplate().healAndRegenerateFully();
-                if (enemies[x].getTemplate() instanceof BaseMonster) {
-                    BaseMonster mon = (BaseMonster) enemies[x].getTemplate();
+                if (enemies[x].getTemplate() instanceof SystemMonster) {
+                    SystemMonster mon = (SystemMonster) enemies[x].getTemplate();
                     mon.loadMonster();
                 }
             }

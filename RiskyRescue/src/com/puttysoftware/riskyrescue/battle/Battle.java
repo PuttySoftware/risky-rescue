@@ -5,30 +5,29 @@
  */
 package com.puttysoftware.riskyrescue.battle;
 
-import com.puttysoftware.riskyrescue.creatures.monsters.BaseMonster;
-import com.puttysoftware.riskyrescue.creatures.monsters.MonsterFactory;
+import com.puttysoftware.riskyrescue.creatures.monsters.SystemMonster;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.map.objects.BattleCharacter;
 
 public class Battle {
     // Fields
-    private final BaseMonster[] monsterArray;
+    private final SystemMonster[] monsterArray;
     private static final int MAX_MONSTERS = 5;
 
     // Constructors
     public Battle() {
         super();
-        this.monsterArray = new BaseMonster[Battle.MAX_MONSTERS];
+        this.monsterArray = new SystemMonster[Battle.MAX_MONSTERS];
         // Fill array with monsters
         int numMonsters = PartyManager.getParty().getActivePCCount();
         for (int x = 0; x < numMonsters; x++) {
-            this.monsterArray[x] = MonsterFactory.getNewMonsterInstance();
+            this.monsterArray[x] = new SystemMonster();
         }
     }
 
     // Methods
-    private BaseMonster[] compactMonsterArray() {
-        BaseMonster[] temp = new BaseMonster[this.monsterArray.length];
+    private SystemMonster[] compactMonsterArray() {
+        SystemMonster[] temp = new SystemMonster[this.monsterArray.length];
         System.arraycopy(this.monsterArray, 0, temp, 0,
                 this.monsterArray.length);
         for (int x = 0; x < temp.length; x++) {
@@ -42,7 +41,7 @@ public class Battle {
     }
 
     public BattleCharacter[] getBattlers() {
-        BaseMonster[] compacted = this.compactMonsterArray();
+        SystemMonster[] compacted = this.compactMonsterArray();
         BattleCharacter[] battlerArray = new BattleCharacter[compacted.length];
         for (int x = 0; x < battlerArray.length; x++) {
             if (compacted[x] != null) {

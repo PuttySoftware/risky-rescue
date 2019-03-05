@@ -73,14 +73,6 @@ public class SystemMonster extends Creature {
         this.type = newType;
     }
 
-    public boolean scales() {
-        return true;
-    }
-
-    public boolean randomAppearance() {
-        return true;
-    }
-
     @Override
     protected BufferedImageIcon getInitialImage() {
         if (this.getLevel() == 0) {

@@ -8,7 +8,7 @@ package com.puttysoftware.riskyrescue.creatures.monsters;
 import com.puttysoftware.riskyrescue.ai.AIRoutine;
 import com.puttysoftware.riskyrescue.ai.RandomAIRoutinePicker;
 import com.puttysoftware.riskyrescue.creatures.Creature;
-import com.puttysoftware.riskyrescue.creatures.PartyManager;
+import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScript;
 import com.puttysoftware.riskyrescue.spells.SpellBook;
 

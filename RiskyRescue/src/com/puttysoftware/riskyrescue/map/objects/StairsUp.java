@@ -7,7 +7,7 @@ package com.puttysoftware.riskyrescue.map.objects;
 
 import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
-import com.puttysoftware.riskyrescue.creatures.PartyManager;
+import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.map.Map;
 import com.puttysoftware.riskyrescue.map.MapConstants;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScript;

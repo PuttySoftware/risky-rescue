@@ -8,7 +8,6 @@ package com.puttysoftware.riskyrescue.creatures.party;
 import java.io.File;
 
 import com.puttysoftware.commondialogs.CommonDialogs;
-import com.puttysoftware.riskyrescue.creatures.PartyMember;
 import com.puttysoftware.riskyrescue.scenario.Extension;
 import com.puttysoftware.xio.XDataReader;
 import com.puttysoftware.xio.XDataWriter;

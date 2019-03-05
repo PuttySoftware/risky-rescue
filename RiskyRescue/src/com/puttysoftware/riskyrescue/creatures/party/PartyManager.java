@@ -4,7 +4,7 @@
 
  Any questions should be directed to the author via email at: support@puttysoftware.com
  */
-package com.puttysoftware.riskyrescue.creatures;
+package com.puttysoftware.riskyrescue.creatures.party;
 
 import java.io.IOException;
 
@@ -19,6 +19,7 @@ import com.puttysoftware.xio.XDataWriter;
 public class PartyManager {
     // Fields
     private static PCImage buddyPCI;
+    private static String buddyName;
     private static Party party;
     private static final int PARTY_SIZE = 2;
 
@@ -69,28 +70,25 @@ public class PartyManager {
     }
 
     public static void addBuddy() {
-        String name = PCNameGenerator.generate(); // Make a random buddy name
-        PartyMember buddy = new PartyMember(PartyManager.buddyPCI, name);
+        PartyMember buddy = new PartyMember(PartyManager.buddyPCI,
+                PartyManager.buddyName);
         PartyManager.party.addPartyMember(buddy);
     }
 
     private static PartyMember createHero(JFrame owner) {
-        String name = PCNameGenerator.generate(); // Make a random hero name
-        PCImage pci = PCImagePickerDialog.showDialog(owner, "Pick Hero Image");
+        String heroName = PCNameGenerator.generate(); // Make a random hero name
+        PartyManager.buddyName = PCNameGenerator.generate(); // Make a random
+                                                             // buddy name
+        PCImage pci = PCImagePickerDialog.showDialog(owner,
+                heroName + " (Hero): Pick Image");
         if (pci != null) {
             PCImage newBuddyPCI = PCImagePickerDialog.showDialog(owner,
-                    "Pick Buddy Image");
+                    PartyManager.buddyName + " (Buddy): Pick Image");
             if (newBuddyPCI != null) {
                 PartyManager.buddyPCI = newBuddyPCI;
-                return new PartyMember(pci, name);
+                return new PartyMember(pci, heroName);
             }
         }
         return null;
-    }
-
-    public static String showCreationDialog(JFrame owner, String labelText,
-            String title, String[] input, String[] descriptions) {
-        return ListWithDescDialog.showDialog(owner, null, labelText, title,
-                input, input[0], descriptions[0], descriptions);
     }
 }

@@ -18,9 +18,9 @@ import javax.swing.JPanel;
 
 import com.puttysoftware.riskyrescue.Support;
 import com.puttysoftware.riskyrescue.creatures.Creature;
-import com.puttysoftware.riskyrescue.creatures.PartyManager;
-import com.puttysoftware.riskyrescue.creatures.PartyMember;
 import com.puttysoftware.riskyrescue.creatures.PrestigeConstants;
+import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
+import com.puttysoftware.riskyrescue.creatures.party.PartyMember;
 
 public class PrestigeViewer {
     // Fields

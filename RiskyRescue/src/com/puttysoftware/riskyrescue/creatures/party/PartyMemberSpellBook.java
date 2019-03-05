@@ -3,9 +3,11 @@
 
  Any questions should be directed to the author via email at: support@puttysoftware.com
  */
-package com.puttysoftware.riskyrescue.creatures;
+package com.puttysoftware.riskyrescue.creatures.party;
 
 import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.creatures.BattleTarget;
+import com.puttysoftware.riskyrescue.creatures.StatConstants;
 import com.puttysoftware.riskyrescue.effects.Effect;
 import com.puttysoftware.riskyrescue.spells.Spell;
 import com.puttysoftware.riskyrescue.spells.SpellBook;

@@ -2,7 +2,7 @@ package com.puttysoftware.riskyrescue.game;
 
 import java.io.IOException;
 
-import com.puttysoftware.riskyrescue.creatures.PartyManager;
+import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.xio.XDataReader;
 import com.puttysoftware.xio.XDataWriter;
 

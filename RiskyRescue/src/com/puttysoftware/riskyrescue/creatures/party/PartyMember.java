@@ -3,13 +3,16 @@
 
  Any questions should be directed to the author via email at: support@puttysoftware.com
  */
-package com.puttysoftware.riskyrescue.creatures;
+package com.puttysoftware.riskyrescue.creatures.party;
 
 import java.io.IOException;
 
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.page.Page;
 import com.puttysoftware.riskyrescue.assets.ImageManager;
+import com.puttysoftware.riskyrescue.creatures.Creature;
+import com.puttysoftware.riskyrescue.creatures.PrestigeConstants;
+import com.puttysoftware.riskyrescue.creatures.StatConstants;
 import com.puttysoftware.riskyrescue.items.ItemInventory;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScript;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptActionCode;

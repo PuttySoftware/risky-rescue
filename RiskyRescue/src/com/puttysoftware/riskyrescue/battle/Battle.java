@@ -5,9 +5,9 @@
  */
 package com.puttysoftware.riskyrescue.battle;
 
-import com.puttysoftware.riskyrescue.creatures.PartyManager;
 import com.puttysoftware.riskyrescue.creatures.monsters.BaseMonster;
 import com.puttysoftware.riskyrescue.creatures.monsters.MonsterFactory;
+import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.map.objects.BattleCharacter;
 
 public class Battle {

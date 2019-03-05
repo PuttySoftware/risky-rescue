@@ -335,15 +335,15 @@ public abstract class Creature {
                 + this.getMagicPower() + ")";
     }
 
-    final int getAttacksPerRound() {
+    protected final int getAttacksPerRound() {
         return this.getStat(StatConstants.STAT_ATTACKS_PER_ROUND);
     }
 
-    final int getItemsPerRound() {
+    protected final int getItemsPerRound() {
         return this.getStat(StatConstants.STAT_ITEMS_PER_ROUND);
     }
 
-    final int getStealsPerRound() {
+    protected final int getStealsPerRound() {
         return this.getStat(StatConstants.STAT_STEALS_PER_ROUND);
     }
 
@@ -494,7 +494,7 @@ public abstract class Creature {
                 * StatConstants.FACTOR_INTELLIGENCE_MAGIC);
     }
 
-    static int getMaximumLevel() {
+    public static int getMaximumLevel() {
         return StatConstants.LEVEL_MAX;
     }
 
@@ -529,7 +529,7 @@ public abstract class Creature {
         }
     }
 
-    final int getLoad() {
+    protected final int getLoad() {
         return this.getStat(StatConstants.STAT_LOAD);
     }
 
@@ -580,7 +580,7 @@ public abstract class Creature {
         return this.spellsKnown;
     }
 
-    final int getSpellsPerRound() {
+    protected final int getSpellsPerRound() {
         return this.getStat(StatConstants.STAT_SPELLS_PER_ROUND);
     }
 
@@ -653,7 +653,7 @@ public abstract class Creature {
         return this.getStat(StatConstants.STAT_STRENGTH);
     }
 
-    final long getToNextLevelValue() {
+    public final long getToNextLevelValue() {
         if (this.toNextLevel != null) {
             if (this.getLevel() == Creature.getMaximumLevel()) {
                 return this.getExperience();
@@ -761,12 +761,12 @@ public abstract class Creature {
 
     protected abstract InternalScript levelUpHook();
 
-    final void offsetAgility(int value) {
+    protected final void offsetAgility(int value) {
         this.stats[StatConstants.STAT_AGILITY].offsetValue(value);
         this.fixStatValue(StatConstants.STAT_AGILITY);
     }
 
-    final void offsetBlock(int value) {
+    protected final void offsetBlock(int value) {
         this.stats[StatConstants.STAT_BLOCK].offsetValue(value);
         this.fixStatValue(StatConstants.STAT_BLOCK);
     }
@@ -806,7 +806,7 @@ public abstract class Creature {
         this.fixStatValue(StatConstants.STAT_GOLD);
     }
 
-    final void offsetIntelligence(int value) {
+    protected final void offsetIntelligence(int value) {
         this.stats[StatConstants.STAT_INTELLIGENCE].offsetValue(value);
         this.fixStatValue(StatConstants.STAT_INTELLIGENCE);
     }
@@ -816,7 +816,7 @@ public abstract class Creature {
         this.fixStatValue(StatConstants.STAT_LEVEL);
     }
 
-    final void offsetLuck(int value) {
+    protected final void offsetLuck(int value) {
         this.stats[StatConstants.STAT_LUCK].offsetValue(value);
         this.fixStatValue(StatConstants.STAT_LUCK);
     }
@@ -830,12 +830,12 @@ public abstract class Creature {
         this.prestige[which] += value;
     }
 
-    final void offsetStrength(int value) {
+    protected final void offsetStrength(int value) {
         this.stats[StatConstants.STAT_STRENGTH].offsetValue(value);
         this.fixStatValue(StatConstants.STAT_STRENGTH);
     }
 
-    final void offsetVitality(int value) {
+    protected final void offsetVitality(int value) {
         this.stats[StatConstants.STAT_VITALITY].offsetValue(value);
         this.fixStatValue(StatConstants.STAT_VITALITY);
     }
@@ -925,7 +925,7 @@ public abstract class Creature {
         this.setStat(StatConstants.STAT_INTELLIGENCE, value);
     }
 
-    final void setItems(ItemInventory newItems) {
+    protected final void setItems(ItemInventory newItems) {
         this.items = newItems;
     }
 
@@ -937,11 +937,11 @@ public abstract class Creature {
         this.setStat(StatConstants.STAT_LUCK, value);
     }
 
-    final void setLoad(int value) {
+    protected final void setLoad(int value) {
         this.setStat(StatConstants.STAT_LOAD, value);
     }
 
-    final void setPrestigeValue(int which, long value) {
+    protected final void setPrestigeValue(int which, long value) {
         this.prestige[which] = value;
     }
 
@@ -970,7 +970,7 @@ public abstract class Creature {
         this.setStat(StatConstants.STAT_STRENGTH, value);
     }
 
-    final void setToNextLevel(Page nextLevelEquation) {
+    protected final void setToNextLevel(Page nextLevelEquation) {
         this.toNextLevel = nextLevelEquation;
     }
 

@@ -14,8 +14,8 @@ import javax.swing.SwingConstants;
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.riskyrescue.assets.ImageManager;
 import com.puttysoftware.riskyrescue.assets.StatImage;
-import com.puttysoftware.riskyrescue.creatures.PartyManager;
-import com.puttysoftware.riskyrescue.creatures.PartyMember;
+import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
+import com.puttysoftware.riskyrescue.creatures.party.PartyMember;
 
 class StatGUI {
     // Fields

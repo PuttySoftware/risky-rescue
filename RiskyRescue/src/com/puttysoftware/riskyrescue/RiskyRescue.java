@@ -19,7 +19,7 @@ import com.puttysoftware.errorlogger.ErrorLogger;
 import com.puttysoftware.fileutils.DirectoryUtilities;
 import com.puttysoftware.integration.NativeIntegration;
 import com.puttysoftware.riskyrescue.assets.LogoManager;
-import com.puttysoftware.riskyrescue.creatures.PartyManager;
+import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.prefs.PreferencesManager;
 import com.puttysoftware.riskyrescue.scenario.ScenarioManager;
 

@@ -2,8 +2,8 @@ package com.puttysoftware.riskyrescue.game;
 
 import com.puttysoftware.commondialogs.CommonDialogs;
 import com.puttysoftware.riskyrescue.Support;
-import com.puttysoftware.riskyrescue.creatures.PartyManager;
-import com.puttysoftware.riskyrescue.creatures.PartyMember;
+import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
+import com.puttysoftware.riskyrescue.creatures.party.PartyMember;
 
 public final class InventoryViewer {
     private InventoryViewer() {

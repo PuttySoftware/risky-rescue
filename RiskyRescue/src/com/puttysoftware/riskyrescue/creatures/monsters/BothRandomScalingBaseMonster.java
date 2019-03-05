@@ -6,8 +6,8 @@
 package com.puttysoftware.riskyrescue.creatures.monsters;
 
 import com.puttysoftware.randomrange.RandomRange;
-import com.puttysoftware.riskyrescue.creatures.PartyManager;
 import com.puttysoftware.riskyrescue.creatures.StatConstants;
+import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 
 abstract class BothRandomScalingBaseMonster extends BothRandomBaseMonster {
     // Constructors

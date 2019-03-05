@@ -3,7 +3,7 @@
 
  Any questions should be directed to the author via email at: support@puttysoftware.com
  */
-package com.puttysoftware.riskyrescue.creatures;
+package com.puttysoftware.riskyrescue.creatures.party;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import com.puttysoftware.commondialogs.CommonDialogs;
 import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
 import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.battle.VictorySpoilsDescription;
-import com.puttysoftware.riskyrescue.creatures.party.CharacterLoader;
+import com.puttysoftware.riskyrescue.creatures.Creature;
 import com.puttysoftware.riskyrescue.map.objects.BattleCharacter;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScript;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptActionCode;

@@ -513,18 +513,15 @@ class LayeredTower implements Cloneable {
                         if (e == MapConstants.LAYER_GROUND) {
                             for (x = 0; x < columns; x += this.regionSize) {
                                 for (y = 0; y < rows; y += this.regionSize) {
-                                    MapObject placeObj = objectsWithoutPrerequisites[r
+                                    MapObject currObj = objectsWithoutPrerequisites[r
                                             .generate()];
-                                    boolean okay = placeObj
-                                            .shouldGenerateObject(map, y, x, z,
-                                                    w, e);
+                                    boolean okay = currObj.shouldGenerateObject(
+                                            map, y, x, z, w, e);
                                     if (okay) {
                                         for (u = 0; u < this.regionSize; u++) {
                                             for (v = 0; v < this.regionSize; v++) {
-                                                this.setCell(objects
-                                                        .getInstanceByName(
-                                                                placeObj.getName()),
-                                                        v + x, u + y, z, e);
+                                                this.setCell(currObj, v + x,
+                                                        u + y, z, e);
                                             }
                                         }
                                     }
@@ -533,16 +530,12 @@ class LayeredTower implements Cloneable {
                         } else {
                             for (x = 0; x < columns; x++) {
                                 for (y = 0; y < rows; y++) {
-                                    MapObject placeObj = objectsWithoutPrerequisites[r
+                                    MapObject currObj = objectsWithoutPrerequisites[r
                                             .generate()];
-                                    boolean okay = placeObj
-                                            .shouldGenerateObject(map, y, x, z,
-                                                    w, e);
+                                    boolean okay = currObj.shouldGenerateObject(
+                                            map, y, x, z, w, e);
                                     if (okay) {
-                                        this.setCell(
-                                                objects.getInstanceByName(
-                                                        placeObj.getName()),
-                                                x, y, z, e);
+                                        this.setCell(currObj, x, y, z, e);
                                     }
                                 }
                             }
@@ -585,20 +578,16 @@ class LayeredTower implements Cloneable {
                         randomColumn = column.generate();
                         if (currObj.shouldGenerateObject(map, randomRow,
                                 randomColumn, z, w, layer)) {
-                            this.setCell(
-                                    objects.getInstanceByName(
-                                            currObj.getName()),
-                                    randomColumn, randomRow, z, layer);
+                            this.setCell(currObj, randomColumn, randomRow, z,
+                                    layer);
                         } else {
                             while (!currObj.shouldGenerateObject(map,
                                     randomColumn, randomRow, z, w, layer)) {
                                 randomRow = row.generate();
                                 randomColumn = column.generate();
                             }
-                            this.setCell(
-                                    objects.getInstanceByName(
-                                            currObj.getName()),
-                                    randomColumn, randomRow, z, layer);
+                            this.setCell(currObj, randomColumn, randomRow, z,
+                                    layer);
                         }
                     }
                 }
@@ -637,18 +626,16 @@ class LayeredTower implements Cloneable {
                         if (e == MapConstants.LAYER_GROUND) {
                             for (x = 0; x < columns; x += battleRegionSize) {
                                 for (y = 0; y < rows; y += battleRegionSize) {
-                                    MapObject placeObj = objectsWithoutPrerequisites[r
+                                    MapObject currObj = objectsWithoutPrerequisites[r
                                             .generate()];
-                                    boolean okay = placeObj
+                                    boolean okay = currObj
                                             .shouldGenerateObjectInBattle(map,
                                                     y, x, z, w, e);
                                     if (okay) {
                                         for (u = 0; u < battleRegionSize; u++) {
                                             for (v = 0; v < battleRegionSize; v++) {
-                                                this.setCell(objects
-                                                        .getInstanceByName(
-                                                                placeObj.getName()),
-                                                        v + x, u + y, z, e);
+                                                this.setCell(currObj, v + x,
+                                                        u + y, z, e);
                                             }
                                         }
                                     }
@@ -657,16 +644,13 @@ class LayeredTower implements Cloneable {
                         } else {
                             for (x = 0; x < columns; x++) {
                                 for (y = 0; y < rows; y++) {
-                                    MapObject placeObj = objectsWithoutPrerequisites[r
+                                    MapObject currObj = objectsWithoutPrerequisites[r
                                             .generate()];
-                                    boolean okay = placeObj
+                                    boolean okay = currObj
                                             .shouldGenerateObjectInBattle(map,
                                                     y, x, z, w, e);
                                     if (okay) {
-                                        this.setCell(
-                                                objects.getInstanceByName(
-                                                        placeObj.getName()),
-                                                x, y, z, e);
+                                        this.setCell(currObj, x, y, z, e);
                                     }
                                 }
                             }
@@ -703,20 +687,16 @@ class LayeredTower implements Cloneable {
                         randomColumn = column.generate();
                         if (currObj.shouldGenerateObject(map, randomRow,
                                 randomColumn, z, w, layer)) {
-                            this.setCell(
-                                    objects.getInstanceByName(
-                                            currObj.getName()),
-                                    randomColumn, randomRow, z, layer);
+                            this.setCell(currObj, randomColumn, randomRow, z,
+                                    layer);
                         } else {
                             while (!currObj.shouldGenerateObjectInBattle(map,
                                     randomColumn, randomRow, z, w, layer)) {
                                 randomRow = row.generate();
                                 randomColumn = column.generate();
                             }
-                            this.setCell(
-                                    objects.getInstanceByName(
-                                            currObj.getName()),
-                                    randomColumn, randomRow, z, layer);
+                            this.setCell(currObj, randomColumn, randomRow, z,
+                                    layer);
                         }
                     }
                 }

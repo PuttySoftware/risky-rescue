@@ -36,7 +36,7 @@ public class HazardousGround extends MapObject {
         InternalScriptEntry entry1 = new InternalScriptEntry();
         entry1.setActionCode(InternalScriptActionCode.MESSAGE);
         entry1.addActionArg(
-                new InternalScriptEntryArgument("Ow, the lava burned you!"));
+                new InternalScriptEntryArgument("Ow, the hazard hurt you!"));
         entry1.finalizeActionArgs();
         scpt.addAction(entry1);
         scpt.finalizeActions();

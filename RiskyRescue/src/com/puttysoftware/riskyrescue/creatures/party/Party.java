@@ -171,15 +171,6 @@ public class Party {
         }
     }
 
-    void writebackMembers() {
-        for (int x = 0; x < this.members.length; x++) {
-            if (this.members[x] != null) {
-                // Writeback Party Member
-                CharacterLoader.saveCharacter(this.members[x]);
-            }
-        }
-    }
-
     public PartyMember getLeader() {
         return this.members[this.leaderID];
     }

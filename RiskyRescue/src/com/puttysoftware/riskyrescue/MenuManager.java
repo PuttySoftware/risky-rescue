@@ -16,9 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-import com.puttysoftware.commondialogs.CommonDialogs;
 import com.puttysoftware.riskyrescue.battle.BattleLogic;
-import com.puttysoftware.riskyrescue.creatures.party.CharacterRegistration;
 import com.puttysoftware.riskyrescue.game.InventoryViewer;
 import com.puttysoftware.riskyrescue.game.NoteManager;
 import com.puttysoftware.riskyrescue.game.PrestigeViewer;
@@ -31,9 +29,8 @@ public class MenuManager {
     private JMenuBar mainMenuBar;
     private JMenuItem fileOpenSavedGame, fileClose, fileSave, fileSaveAs,
             filePrint, filePreferences, fileExit;
-    private JMenuItem gamePlay, gameEquipment, gameRegisterCharacter,
-            gameUnregisterCharacter, gameRemoveCharacter, gameEditNote,
-            gameViewPrestige, gameViewScore;
+    private JMenuItem gamePlay, gameEquipment, gameEditNote, gameViewPrestige,
+            gameViewScore;
     private JMenuItem battleSpell, battleSteal, battleDrain, battleEndTurn;
     private JMenuItem helpAbout, helpManual;
     private KeyStroke fileOpenSavedGameAccel, fileCloseAccel, fileSaveAccel,
@@ -157,16 +154,10 @@ public class MenuManager {
             this.fileClose.setEnabled(false);
             this.fileSaveAs.setEnabled(false);
             this.gamePlay.setEnabled(true);
-            this.gameRegisterCharacter.setEnabled(true);
-            this.gameUnregisterCharacter.setEnabled(true);
-            this.gameRemoveCharacter.setEnabled(true);
         } else {
             this.fileClose.setEnabled(true);
             this.fileSaveAs.setEnabled(true);
             this.gamePlay.setEnabled(false);
-            this.gameRegisterCharacter.setEnabled(false);
-            this.gameUnregisterCharacter.setEnabled(false);
-            this.gameRemoveCharacter.setEnabled(false);
         }
     }
 
@@ -226,9 +217,6 @@ public class MenuManager {
         this.fileExit = new JMenuItem("Exit");
         this.gamePlay = new JMenuItem("Play");
         this.gamePlay.setAccelerator(this.gamePlayMapAccel);
-        this.gameRegisterCharacter = new JMenuItem("Register Character...");
-        this.gameUnregisterCharacter = new JMenuItem("Unregister Character...");
-        this.gameRemoveCharacter = new JMenuItem("Remove Character...");
         this.gameEquipment = new JMenuItem("Show Equipment...");
         this.gameEditNote = new JMenuItem("Edit Note...");
         this.gameEditNote.setAccelerator(this.gameEditNoteAccel);
@@ -252,9 +240,6 @@ public class MenuManager {
         this.filePreferences.addActionListener(this.handler);
         this.fileExit.addActionListener(this.handler);
         this.gamePlay.addActionListener(this.handler);
-        this.gameRegisterCharacter.addActionListener(this.handler);
-        this.gameUnregisterCharacter.addActionListener(this.handler);
-        this.gameRemoveCharacter.addActionListener(this.handler);
         this.gameEquipment.addActionListener(this.handler);
         this.gameEditNote.addActionListener(this.handler);
         this.gameViewPrestige.addActionListener(this.handler);
@@ -276,9 +261,6 @@ public class MenuManager {
         }
         gameMenu.add(this.gamePlay);
         gameMenu.add(this.gameEquipment);
-        gameMenu.add(this.gameRegisterCharacter);
-        gameMenu.add(this.gameUnregisterCharacter);
-        gameMenu.add(this.gameRemoveCharacter);
         gameMenu.add(this.gameEditNote);
         gameMenu.add(this.gameViewPrestige);
         gameMenu.add(this.gameViewScore);
@@ -306,23 +288,14 @@ public class MenuManager {
         this.filePreferences.setEnabled(true);
         this.fileExit.setEnabled(true);
         this.gamePlay.setEnabled(true);
-        this.gameRegisterCharacter.setEnabled(true);
-        this.gameUnregisterCharacter.setEnabled(true);
-        this.gameRemoveCharacter.setEnabled(true);
         this.disableGameMenus();
         this.disableBattleMenus();
         this.helpAbout.setEnabled(true);
     }
 
     private class EventHandler implements ActionListener {
-        String suffix;
-
         public EventHandler() {
-            if (Support.inDebugMode()) {
-                this.suffix = " (DEBUG)";
-            } else {
-                this.suffix = "";
-            }
+            // Do nothing
         }
 
         // Handle menus
@@ -380,25 +353,6 @@ public class MenuManager {
                     boolean proceed = app.getGameManager().newGame();
                     if (proceed) {
                         app.getGameManager().playMap();
-                    }
-                    break;
-                case "Register Character...":
-                    // Register Character
-                    CharacterRegistration.registerCharacter();
-                    break;
-                case "Unregister Character...":
-                    // Unregister Character
-                    CharacterRegistration.unregisterCharacter();
-                    break;
-                case "Remove Character...":
-                    // Confirm
-                    int confirm = CommonDialogs.showConfirmDialog(
-                            "WARNING: This will DELETE the character from disk,\n"
-                                    + "and CANNOT be undone! Proceed anyway?",
-                            "Remove Character" + this.suffix);
-                    if (confirm == CommonDialogs.YES_OPTION) {
-                        // Remove Character
-                        CharacterRegistration.removeCharacter();
                     }
                     break;
                 case "Show Equipment...":

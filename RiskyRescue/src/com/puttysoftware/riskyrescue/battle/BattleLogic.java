@@ -17,7 +17,7 @@ import com.puttysoftware.riskyrescue.Support;
 import com.puttysoftware.riskyrescue.ai.AIContext;
 import com.puttysoftware.riskyrescue.ai.AIRoutine;
 import com.puttysoftware.riskyrescue.ai.AutoAI;
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.battle.damageengines.DamageEngine;
 import com.puttysoftware.riskyrescue.creatures.Creature;
@@ -128,7 +128,7 @@ public class BattleLogic {
                 .setViewingWindowCenterX(this.bd.getActiveCharacter().getY());
         this.battleGUI.getViewManager()
                 .setViewingWindowCenterY(this.bd.getActiveCharacter().getX());
-        SoundManager.playSound(GameSoundConstants.DRAW_SWORD);
+        SoundManager.playSound(SoundConstants.DRAW_SWORD);
         this.showBattle();
         this.updateStatsAndEffects();
         this.redrawBattle();
@@ -143,7 +143,7 @@ public class BattleLogic {
             if (this.result == BattleResults.WON) {
                 int gold = this.getGold();
                 this.vsd.setGoldWon(gold);
-                SoundManager.playSound(GameSoundConstants.VICTORY);
+                SoundManager.playSound(SoundConstants.VICTORY);
                 CommonDialogs.showTitledDialog("The party is victorious!",
                         "Victory!");
                 Creature enemy = this.bd.getBattlers()[this.bd
@@ -312,32 +312,32 @@ public class BattleLogic {
             if (this.de.weaponMissed()) {
                 displayDamageString = activeName + " tries to hit " + enemyName
                         + ", but MISSES!";
-                SoundManager.playSound(GameSoundConstants.MISSED);
+                SoundManager.playSound(SoundConstants.MISSED);
             } else if (this.de.enemyDodged()) {
                 displayDamageString = activeName + " tries to hit " + enemyName
                         + ", but " + enemyName + " AVOIDS the attack!";
-                SoundManager.playSound(GameSoundConstants.MISSED);
+                SoundManager.playSound(SoundConstants.MISSED);
             } else {
                 displayDamageString = activeName + " tries to hit " + enemyName
                         + ", but the attack is BLOCKED!";
-                SoundManager.playSound(GameSoundConstants.MISSED);
+                SoundManager.playSound(SoundConstants.MISSED);
             }
         } else {
             String displayDamagePrefix = "";
             if (this.de.weaponCrit() && this.de.weaponPierce()) {
                 displayDamagePrefix = "PIERCING CRITICAL HIT! ";
-                SoundManager.playSound(GameSoundConstants.COUNTER);
-                SoundManager.playSound(GameSoundConstants.CRITICAL_HIT);
+                SoundManager.playSound(SoundConstants.COUNTER);
+                SoundManager.playSound(SoundConstants.CRITICAL_HIT);
             } else if (this.de.weaponCrit()) {
                 displayDamagePrefix = "CRITICAL HIT! ";
-                SoundManager.playSound(GameSoundConstants.CRITICAL_HIT);
+                SoundManager.playSound(SoundConstants.CRITICAL_HIT);
             } else if (this.de.weaponPierce()) {
                 displayDamagePrefix = "PIERCING HIT! ";
-                SoundManager.playSound(GameSoundConstants.COUNTER);
+                SoundManager.playSound(SoundConstants.COUNTER);
             }
             displayDamageString = displayDamagePrefix + activeName + " hits "
                     + enemyName + " for " + damageString + " damage!";
-            SoundManager.playSound(GameSoundConstants.HIT);
+            SoundManager.playSound(SoundConstants.HIT);
         }
         this.setStatusMessage(displayDamageString);
     }
@@ -608,7 +608,7 @@ public class BattleLogic {
                     .killedEnemy(this.bd.getActiveCharacter().getTemplate());
             BattleDefinitions.killedInBattle(hit.getTemplate());
             // Play death sound
-            SoundManager.playSound(GameSoundConstants.DEATH);
+            SoundManager.playSound(SoundConstants.DEATH);
             // Remove effects from dead character
             hit.getTemplate().stripAllEffects();
             // Set dead character to inactive
@@ -848,7 +848,7 @@ public class BattleLogic {
                                 && enemy.getCurrentHP() <= enemy.getMaximumHP()
                                         * 3 / 10) {
                             SoundManager.playSound(
-                                    GameSoundConstants.LOW_HEALTH);
+                                    SoundConstants.LOW_HEALTH);
                         }
                         // Handle enemy death
                         if (!enemy.isAlive()) {
@@ -866,7 +866,7 @@ public class BattleLogic {
                             BattleDefinitions.killedInBattle(enemy);
                             // Play death sound
                             SoundManager
-                                    .playSound(GameSoundConstants.DEATH);
+                                    .playSound(SoundConstants.DEATH);
                             // Remove effects from dead character
                             bc.getTemplate().stripAllEffects();
                             // Set dead character to inactive
@@ -882,7 +882,7 @@ public class BattleLogic {
                                     .killedInBattle(active.getTemplate());
                             // Play death sound
                             SoundManager
-                                    .playSound(GameSoundConstants.DEATH);
+                                    .playSound(SoundConstants.DEATH);
                             // Remove effects from dead character
                             active.getTemplate().stripAllEffects();
                             // Set dead character to inactive
@@ -913,7 +913,7 @@ public class BattleLogic {
         } else {
             // Confirm Flee
             if (!active.getTemplate().hasAI() || Support.inDebugMode()) {
-                SoundManager.playSound(GameSoundConstants.QUESTION);
+                SoundManager.playSound(SoundConstants.QUESTION);
                 int confirm = CommonDialogs
                         .showConfirmDialog("Embrace Cowardice?", "Battle");
                 if (confirm != JOptionPane.YES_OPTION) {
@@ -1309,7 +1309,7 @@ public class BattleLogic {
                                         .getExperience());
                     }
                     // Play death sound
-                    SoundManager.playSound(GameSoundConstants.DEATH);
+                    SoundManager.playSound(SoundConstants.DEATH);
                     // Set dead character to inactive
                     this.bd.getBattlers()[x].deactivate();
                     // Remove effects from dead character

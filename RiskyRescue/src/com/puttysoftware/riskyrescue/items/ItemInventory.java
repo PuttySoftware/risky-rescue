@@ -9,7 +9,7 @@ package com.puttysoftware.riskyrescue.items;
 import java.io.IOException;
 import java.util.Arrays;
 
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.creatures.Creature;
 import com.puttysoftware.riskyrescue.creatures.StatConstants;
@@ -56,7 +56,7 @@ public class ItemInventory {
             this.equipment[ei.getSecondSlotUsed()] = ei;
         }
         if (playSound) {
-            SoundManager.playSound(GameSoundConstants.EQUIP);
+            SoundManager.playSound(SoundConstants.EQUIP);
         }
     }
 
@@ -72,7 +72,7 @@ public class ItemInventory {
         // Equip it in second slot
         this.equipment[ei.getSecondSlotUsed()] = ei;
         if (playSound) {
-            SoundManager.playSound(GameSoundConstants.EQUIP);
+            SoundManager.playSound(SoundConstants.EQUIP);
         }
     }
 
@@ -109,7 +109,7 @@ public class ItemInventory {
         // Equip it in first slot
         this.equipment[ei.getFirstSlotUsed()] = ei;
         if (playSound) {
-            SoundManager.playSound(GameSoundConstants.EQUIP);
+            SoundManager.playSound(SoundConstants.EQUIP);
         }
     }
 

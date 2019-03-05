@@ -18,8 +18,6 @@ import com.puttysoftware.xio.XDataWriter;
 
 public class PartyManager {
     // Fields
-    private static PCImage buddyPCI;
-    private static String buddyName;
     private static Party party;
     private static final int PARTY_SIZE = 2;
 
@@ -34,7 +32,7 @@ public class PartyManager {
         int mem = 0;
         PartyMember hero = PartyManager.createHero(owner);
         if (hero != null) {
-            PartyManager.party.addPartyMember(hero);
+            PartyManager.party.addHero(hero);
             mem++;
         }
         if (mem == 0) {
@@ -70,22 +68,22 @@ public class PartyManager {
     }
 
     public static void addBuddy() {
-        PartyMember buddy = new PartyMember(PartyManager.buddyPCI,
-                PartyManager.buddyName);
-        PartyManager.party.addPartyMember(buddy);
+        PartyManager.party.activateBuddy();
     }
 
     private static PartyMember createHero(JFrame owner) {
         String heroName = PCNameGenerator.generate(); // Make a random hero name
-        PartyManager.buddyName = PCNameGenerator.generate(); // Make a random
-                                                             // buddy name
+        String buddyName = PCNameGenerator.generate(); // Make a random
+                                                       // buddy name
         PCImage pci = PCImagePickerDialog.showDialog(owner,
                 heroName + " (Hero): Pick Image");
         if (pci != null) {
             PCImage newBuddyPCI = PCImagePickerDialog.showDialog(owner,
-                    PartyManager.buddyName + " (Buddy): Pick Image");
+                    buddyName + " (Buddy): Pick Image");
             if (newBuddyPCI != null) {
-                PartyManager.buddyPCI = newBuddyPCI;
+                PCImage buddyPCI = newBuddyPCI;
+                PartyMember buddy = new PartyMember(buddyPCI, buddyName);
+                PartyManager.party.addBuddy(buddy);
                 return new PartyMember(pci, heroName);
             }
         }

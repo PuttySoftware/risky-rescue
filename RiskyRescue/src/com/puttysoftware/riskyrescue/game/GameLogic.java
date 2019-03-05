@@ -14,7 +14,7 @@ import com.puttysoftware.commondialogs.CommonDialogs;
 import com.puttysoftware.riskyrescue.Application;
 import com.puttysoftware.riskyrescue.RiskyRescue;
 import com.puttysoftware.riskyrescue.Support;
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.MusicConstants;
 import com.puttysoftware.riskyrescue.assets.MusicManager;
 import com.puttysoftware.riskyrescue.assets.SoundManager;
@@ -559,7 +559,7 @@ public class GameLogic {
 
     public void victory() {
         // Play victory sound
-        SoundManager.playSound(GameSoundConstants.WIN_GAME);
+        SoundManager.playSound(SoundConstants.WIN_GAME);
         // Display YOU WIN! message
         CommonDialogs.showDialog("YOU WIN! The game has ended.");
         this.st.commitScore();
@@ -591,7 +591,7 @@ public class GameLogic {
     }
 
     private void gameOver() {
-        SoundManager.playSound(GameSoundConstants.DEFEAT);
+        SoundManager.playSound(SoundConstants.DEFEAT);
         CommonDialogs.showDialog("You have died - Game Over!");
         this.st.commitScore();
         this.exitGame();

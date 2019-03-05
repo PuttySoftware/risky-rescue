@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.riskyrescue.map.objects;
 
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.map.Map;
@@ -30,7 +30,7 @@ public class HazardousGround extends MapObject {
         InternalScriptEntry entry0 = new InternalScriptEntry();
         entry0.setActionCode(InternalScriptActionCode.SOUND);
         entry0.addActionArg(new InternalScriptEntryArgument(
-                GameSoundConstants.STEP_HAZARD));
+                SoundConstants.STEP_HAZARD));
         entry0.finalizeActionArgs();
         scpt.addAction(entry0);
         InternalScriptEntry entry1 = new InternalScriptEntry();

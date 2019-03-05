@@ -7,7 +7,7 @@ package com.puttysoftware.riskyrescue.battle;
 
 import com.puttysoftware.riskyrescue.Application;
 import com.puttysoftware.riskyrescue.RiskyRescue;
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.map.Map;
 import com.puttysoftware.riskyrescue.map.objects.Arrow;
@@ -48,7 +48,7 @@ class ArrowTask extends Thread {
                 o = new Wall();
             }
             Arrow a = Arrow.createArrow(incX, incY);
-            SoundManager.playSound(GameSoundConstants.ARROW_SHOOT);
+            SoundManager.playSound(SoundConstants.ARROW_SHOOT);
             while (res) {
                 res = o.arrowHitCheck();
                 if (!res) {
@@ -73,14 +73,14 @@ class ArrowTask extends Thread {
             BattleCharacter hit = null;
             if (o instanceof BattleCharacter) {
                 // Arrow hit a creature, hurt it
-                SoundManager.playSound(GameSoundConstants.ARROW_HIT);
+                SoundManager.playSound(SoundConstants.ARROW_HIT);
                 hit = (BattleCharacter) o;
                 BattleLogic bl = app.getBattle();
                 hit.getTemplate().doDamagePercentage(1);
                 bl.setStatusMessage("Ow, you got shot!");
             } else {
                 // Arrow has died
-                SoundManager.playSound(GameSoundConstants.ARROW_DIE);
+                SoundManager.playSound(SoundConstants.ARROW_DIE);
             }
             app.getBattle().arrowDone(hit);
         } catch (Throwable t) {

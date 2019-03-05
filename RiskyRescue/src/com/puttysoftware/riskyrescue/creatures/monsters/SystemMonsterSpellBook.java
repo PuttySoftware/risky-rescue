@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.riskyrescue.creatures.monsters;
 
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.creatures.BattleTarget;
 import com.puttysoftware.riskyrescue.creatures.StatConstants;
 import com.puttysoftware.riskyrescue.effects.Effect;
@@ -33,7 +33,7 @@ class SystemMonsterSpellBook extends SpellBook {
         spell0Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "You are no longer poisoned!");
         Spell spell0 = new Spell(spell0Effect, 1, BattleTarget.ONE_ENEMY,
-                GameSoundConstants.MONSTER_SPELL);
+                SoundConstants.MONSTER_SPELL);
         this.spells[0] = spell0;
         Effect spell1Effect = new Effect("Recover", 1);
         spell1Effect.setAffectedStat(StatConstants.STAT_CURRENT_HP);
@@ -45,7 +45,7 @@ class SystemMonsterSpellBook extends SpellBook {
         spell1Effect.setMessage(Effect.MESSAGE_SUBSEQUENT,
                 "The enemy regains some health!");
         Spell spell1 = new Spell(spell1Effect, 2, BattleTarget.SELF,
-                GameSoundConstants.MONSTER_SPELL);
+                SoundConstants.MONSTER_SPELL);
         this.spells[1] = spell1;
         Effect spell2Effect = new Effect("Weapon Drained", 5);
         spell2Effect.setAffectedStat(StatConstants.STAT_ATTACK);
@@ -58,7 +58,7 @@ class SystemMonsterSpellBook extends SpellBook {
         spell2Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "Your weapon's power has returned!");
         Spell spell2 = new Spell(spell2Effect, 3, BattleTarget.ONE_ENEMY,
-                GameSoundConstants.MONSTER_SPELL);
+                SoundConstants.MONSTER_SPELL);
         this.spells[2] = spell2;
         Effect spell3Effect = new Effect("Armor Drained", 5);
         spell3Effect.setAffectedStat(StatConstants.STAT_DEFENSE);
@@ -71,7 +71,7 @@ class SystemMonsterSpellBook extends SpellBook {
         spell3Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "Your armor's power has returned!");
         Spell spell3 = new Spell(spell3Effect, 5, BattleTarget.ONE_ENEMY,
-                GameSoundConstants.MONSTER_SPELL);
+                SoundConstants.MONSTER_SPELL);
         this.spells[3] = spell3;
         Effect spell4Effect = new Effect("Weapon Charge", 5);
         spell4Effect.setAffectedStat(StatConstants.STAT_ATTACK);
@@ -84,7 +84,7 @@ class SystemMonsterSpellBook extends SpellBook {
         spell4Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The enemy's weapon returns to normal!");
         Spell spell4 = new Spell(spell4Effect, 7, BattleTarget.SELF,
-                GameSoundConstants.MONSTER_SPELL);
+                SoundConstants.MONSTER_SPELL);
         this.spells[4] = spell4;
         Effect spell5Effect = new Effect("Armor Charge", 5);
         spell5Effect.setAffectedStat(StatConstants.STAT_DEFENSE);
@@ -97,7 +97,7 @@ class SystemMonsterSpellBook extends SpellBook {
         spell5Effect.setMessage(Effect.MESSAGE_WEAR_OFF,
                 "The enemy's armor returns to normal!");
         Spell spell5 = new Spell(spell5Effect, 11, BattleTarget.SELF,
-                GameSoundConstants.MONSTER_SPELL);
+                SoundConstants.MONSTER_SPELL);
         this.spells[5] = spell5;
     }
 }

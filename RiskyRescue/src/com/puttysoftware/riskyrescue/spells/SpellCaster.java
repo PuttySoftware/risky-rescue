@@ -6,7 +6,7 @@
 package com.puttysoftware.riskyrescue.spells;
 
 import com.puttysoftware.commondialogs.CommonDialogs;
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.battle.BattleDefinitions;
 import com.puttysoftware.riskyrescue.creatures.BattleTarget;
@@ -47,7 +47,7 @@ public class SpellCaster {
             final String[] displayNames = book.getAllSpellNamesWithCosts();
             if (names != null && displayNames != null) {
                 // Play casting spell sound
-                SoundManager.playSound(GameSoundConstants.QUESTION);
+                SoundManager.playSound(SoundConstants.QUESTION);
                 String dialogResult;
                 dialogResult = CommonDialogs.showInputDialog(
                         "Select a Spell to Cast", "Select Spell", displayNames,
@@ -131,7 +131,7 @@ public class SpellCaster {
                 return new Creature[] {
                         battle.pickOneFriendOfTeamRandomly(teamID) };
             } else {
-                SoundManager.playSound(GameSoundConstants.ON_WHO);
+                SoundManager.playSound(SoundConstants.ON_WHO);
                 return new Creature[] { battle.pickOneFriendOfTeam(teamID) };
             }
         case ONE_ENEMY:
@@ -140,7 +140,7 @@ public class SpellCaster {
                 return new Creature[] {
                         battle.pickOneEnemyOfTeamRandomly(teamID) };
             } else {
-                SoundManager.playSound(GameSoundConstants.ON_WHO);
+                SoundManager.playSound(SoundConstants.ON_WHO);
                 return new Creature[] { battle.pickOneEnemyOfTeam(teamID) };
             }
         default:

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.puttysoftware.commondialogs.CommonDialogs;
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.battle.VictorySpoilsDescription;
 import com.puttysoftware.riskyrescue.creatures.Creature;
@@ -90,7 +90,7 @@ public class Party {
                 if (scpt != null) {
                     retVal.add(scpt);
                 }
-                SoundManager.playSound(GameSoundConstants.LEVEL_UP);
+                SoundManager.playSound(SoundConstants.LEVEL_UP);
                 CommonDialogs
                         .showTitledDialog(
                                 this.battlers[x].getTemplate().getName()
@@ -175,6 +175,10 @@ public class Party {
         return this.members[this.leaderID];
     }
 
+    public PartyMember getMember(final int index) {
+        return this.members[index];
+    }
+
     public int getActivePCCount() {
         return this.activePCs;
     }
@@ -245,15 +249,19 @@ public class Party {
         }
     }
 
-    boolean addPartyMember(PartyMember member) {
-        int pos = this.activePCs;
-        if (pos < this.members.length) {
-            this.members[pos] = member;
-            this.activePCs++;
-            this.generateBattleCharacters();
-            return true;
-        }
-        return false;
+    void addHero(PartyMember hero) {
+        this.members[0] = hero;
+        this.activePCs = 1;
+        this.generateBattleCharacters();
+    }
+
+    void addBuddy(PartyMember buddy) {
+        this.members[1] = buddy;
+    }
+
+    void activateBuddy() {
+        this.activePCs = 2;
+        this.generateBattleCharacters();
     }
 
     private int findMember(String name, int start, int limit) {

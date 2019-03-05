@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.puttysoftware.randomrange.RandomRange;
+import com.puttysoftware.riskyrescue.map.objects.Buddy;
 import com.puttysoftware.riskyrescue.map.objects.MapObject;
 import com.puttysoftware.riskyrescue.map.objects.MapObjectList;
+import com.puttysoftware.riskyrescue.map.objects.Player;
 import com.puttysoftware.riskyrescue.map.objects.RandomGenerationRule;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptActionCode;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptArea;
@@ -544,12 +546,12 @@ class LayeredTower implements Cloneable {
                 }
             }
         }
+        RandomRange row = new RandomRange(0, this.getRows() - 1);
+        RandomRange column = new RandomRange(0, this.getColumns() - 1);
         // Pass 4
         for (int layer = 0; layer < MapConstants.LAYER_COUNT; layer++) {
             MapObject[] requiredObjects = objects.getAllRequired(layer);
             if (requiredObjects != null) {
-                RandomRange row = new RandomRange(0, this.getRows() - 1);
-                RandomRange column = new RandomRange(0, this.getColumns() - 1);
                 int randomColumn, randomRow;
                 for (x = 0; x < requiredObjects.length; x++) {
                     MapObject currObj = requiredObjects[x];
@@ -591,6 +593,40 @@ class LayeredTower implements Cloneable {
                         }
                     }
                 }
+            }
+        }
+        // Add player
+        MapObject currObj = new Player();
+        int layer = currObj.getLayer();
+        int randomRow = row.generate();
+        int randomColumn = column.generate();
+        if (currObj.shouldGenerateObject(map, randomRow, randomColumn, z, w,
+                layer)) {
+            this.setCell(currObj, randomColumn, randomRow, z, layer);
+        } else {
+            while (!currObj.shouldGenerateObject(map, randomColumn, randomRow,
+                    z, w, layer)) {
+                randomRow = row.generate();
+                randomColumn = column.generate();
+            }
+            this.setCell(currObj, randomColumn, randomRow, z, layer);
+        }
+        // Add buddy, if needed
+        if (map.getActiveLevelNumber() == Map.MAX_LEVELS - 1) {
+            currObj = new Buddy();
+            layer = currObj.getLayer();
+            randomRow = row.generate();
+            randomColumn = column.generate();
+            if (currObj.shouldGenerateObject(map, randomRow, randomColumn, z, w,
+                    layer)) {
+                this.setCell(currObj, randomColumn, randomRow, z, layer);
+            } else {
+                while (!currObj.shouldGenerateObject(map, randomColumn,
+                        randomRow, z, w, layer)) {
+                    randomRow = row.generate();
+                    randomColumn = column.generate();
+                }
+                this.setCell(currObj, randomColumn, randomRow, z, layer);
             }
         }
     }

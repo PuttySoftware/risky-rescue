@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.riskyrescue.map.objects;
 
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.map.Map;
@@ -32,7 +32,7 @@ public class StairsDown extends MapObject {
         InternalScriptEntry entry2 = new InternalScriptEntry();
         entry2.setActionCode(InternalScriptActionCode.SOUND);
         entry2.addActionArg(new InternalScriptEntryArgument(
-                GameSoundConstants.DOWN));
+                SoundConstants.DOWN));
         entry2.finalizeActionArgs();
         scpt.addAction(entry2);
         scpt.finalizeActions();

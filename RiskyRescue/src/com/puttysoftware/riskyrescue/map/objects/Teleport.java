@@ -7,7 +7,7 @@ package com.puttysoftware.riskyrescue.map.objects;
 
 import com.puttysoftware.randomrange.RandomRange;
 import com.puttysoftware.riskyrescue.Support;
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
 import com.puttysoftware.riskyrescue.map.MapConstants;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScript;
@@ -44,7 +44,7 @@ public class Teleport extends MapObject {
         InternalScriptEntry act1 = new InternalScriptEntry();
         act1.setActionCode(InternalScriptActionCode.SOUND);
         act1.addActionArg(new InternalScriptEntryArgument(
-                GameSoundConstants.TELEPORT));
+                SoundConstants.TELEPORT));
         act1.finalizeActionArgs();
         this.postMove.addAction(act1);
         this.postMove.finalizeActions();

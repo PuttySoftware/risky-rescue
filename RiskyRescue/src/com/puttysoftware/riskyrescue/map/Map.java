@@ -33,7 +33,7 @@ public class Map implements MapConstants {
     private PrefixIO xmlPrefixHandler;
     private SuffixIO xmlSuffixHandler;
     private final String mapBasePath;
-    private static final int MAX_LEVELS = 5;
+    static final int MAX_LEVELS = 5;
 
     // Constructors
     public Map() {

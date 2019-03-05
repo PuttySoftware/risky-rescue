@@ -19,11 +19,11 @@ public class MapObjectList {
     // Constructor
     public MapObjectList() {
         MapObject[] allDefaultObjects = { new Empty(), new Tile(),
-                new HazardousGround(), new Player(), new Wall(), new WallOff(),
-                new WallOn(), new ClosedDoor(), new OpenDoor(), new Button(),
-                new Teleport(), new StairsDown(), new StairsUp(),
-                new SealingWall(), new ArmorShop(), new HealShop(),
-                new Regenerator(), new WeaponsShop() };
+                new HazardousGround(), new Wall(), new WallOff(), new WallOn(),
+                new ClosedDoor(), new OpenDoor(), new Button(), new Teleport(),
+                new StairsDown(), new StairsUp(), new SealingWall(),
+                new ArmorShop(), new HealShop(), new Regenerator(),
+                new WeaponsShop() };
         this.allObjects = new ArrayList<>();
         for (int x = 0; x < allDefaultObjects.length; x++) {
             this.allObjects.add(allDefaultObjects[x]);

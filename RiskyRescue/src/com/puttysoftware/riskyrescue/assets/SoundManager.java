@@ -29,7 +29,7 @@ public class SoundManager {
                 int offset;
                 RandomRange rr;
                 switch (soundID) {
-                case GameSoundConstants.STEP:
+                case SoundConstants.STEP:
                     rr = new RandomRange(0, 1);
                     offset = rr.generate();
                     break;

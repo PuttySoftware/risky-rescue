@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.riskyrescue.assets;
 
-public class GameSoundConstants {
+public class SoundConstants {
     // Public Sound Constants
     public static final int ACTION_FAILED = 0;
     public static final int ARROW_DIE = 1;
@@ -51,7 +51,7 @@ public class GameSoundConstants {
     public static final int ON_WHO = 40;
 
     // Private constructor
-    private GameSoundConstants() {
+    private SoundConstants() {
         // Do nothing
     }
 }

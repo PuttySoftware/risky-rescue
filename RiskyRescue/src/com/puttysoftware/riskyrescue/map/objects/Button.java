@@ -5,7 +5,7 @@
  */
 package com.puttysoftware.riskyrescue.map.objects;
 
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
 import com.puttysoftware.riskyrescue.map.MapConstants;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScript;
@@ -39,7 +39,7 @@ public class Button extends MapObject {
         InternalScriptEntry act2 = new InternalScriptEntry();
         act2.setActionCode(InternalScriptActionCode.SOUND);
         act2.addActionArg(
-                new InternalScriptEntryArgument(GameSoundConstants.BUTTON));
+                new InternalScriptEntryArgument(SoundConstants.BUTTON));
         act2.finalizeActionArgs();
         this.postMove.addAction(act2);
         this.postMove.finalizeActions();

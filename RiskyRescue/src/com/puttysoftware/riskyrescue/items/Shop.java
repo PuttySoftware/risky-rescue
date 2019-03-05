@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 import com.puttysoftware.commondialogs.CommonDialogs;
 import com.puttysoftware.riskyrescue.Support;
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.creatures.party.PartyMember;
@@ -261,7 +261,7 @@ public class Shop implements ShopTypes {
         // Stage 6
         PartyMember playerCharacter = PartyManager.getParty().getLeader();
         // Play transact sound
-        SoundManager.playSound(GameSoundConstants.TRANSACT);
+        SoundManager.playSound(SoundConstants.TRANSACT);
         if (this.type == ShopTypes.SHOP_TYPE_WEAPONS) {
             playerCharacter.offsetGold(-this.cost);
             if (this.typeResult.equals(this.typeChoices[0])) {

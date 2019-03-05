@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 
 import com.puttysoftware.commondialogs.CommonDialogs;
 import com.puttysoftware.integration.NativeIntegration;
-import com.puttysoftware.riskyrescue.assets.GameSoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.battle.BattleLogic;
 import com.puttysoftware.riskyrescue.game.GameLogic;
@@ -152,7 +152,7 @@ public class Application {
     }
 
     static void playLogoSound() {
-        SoundManager.playSound(GameSoundConstants.LOGO);
+        SoundManager.playSound(SoundConstants.LOGO);
     }
 
     public void attachMenus(final JFrame frame) {

@@ -31,8 +31,8 @@ public class StairsUp extends MapObject {
         scpt.addAction(entry1);
         InternalScriptEntry entry2 = new InternalScriptEntry();
         entry2.setActionCode(InternalScriptActionCode.SOUND);
-        entry2.addActionArg(new InternalScriptEntryArgument(
-                GameSoundConstants.UP));
+        entry2.addActionArg(
+                new InternalScriptEntryArgument(GameSoundConstants.UP));
         entry2.finalizeActionArgs();
         scpt.addAction(entry2);
         scpt.finalizeActions();
@@ -55,7 +55,7 @@ public class StairsUp extends MapObject {
         PartyManager.getParty().decreaseDungeonLevel();
         return this.postMoveScript;
     }
-    
+
     @Override
     public int getLayer() {
         return MapConstants.LAYER_OBJECT;
@@ -63,14 +63,14 @@ public class StairsUp extends MapObject {
 
     @Override
     public String getDescription() {
-        return "Stairs Out lead further away from the depths of the dungeon.";
+        return "Stairs Up lead further away from the depths of the dungeon.";
     }
 
     @Override
     public int getCustomFormat() {
         return 0;
     }
-    
+
     @Override
     public int getCustomProperty(int propID) {
         return MapObject.DEFAULT_CUSTOM_VALUE;
@@ -82,13 +82,17 @@ public class StairsUp extends MapObject {
     }
 
     @Override
-    public boolean shouldGenerateObject(Map map, int row, int col, int floor,
-            int level, int layer) {
-        if (!map.doesLevelExistOffset(-1)) {
-            return false;
-        } else {
-            return super.shouldGenerateObject(map, row, col, floor, level,
-                    layer);
-        }
+    public boolean isRequired() {
+        return true;
+    }
+
+    @Override
+    public int getMinimumRequiredQuantity(Map map) {
+        return 1;
+    }
+
+    @Override
+    public int getMaximumRequiredQuantity(Map map) {
+        return 1;
     }
 }

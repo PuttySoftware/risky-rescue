@@ -63,7 +63,7 @@ public class StairsDown extends MapObject {
 
     @Override
     public String getDescription() {
-        return "Stairs Into lead deeper into the depths of the dungeon.";
+        return "Stairs Down lead deeper into the depths of the dungeon.";
     }
 
     @Override
@@ -88,11 +88,11 @@ public class StairsDown extends MapObject {
 
     @Override
     public int getMinimumRequiredQuantity(Map map) {
-        return map.getRows() * 2;
+        return 1;
     }
 
     @Override
     public int getMaximumRequiredQuantity(Map map) {
-        return map.getRows() * 4;
+        return 1;
     }
 }

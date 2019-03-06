@@ -41,6 +41,7 @@ public class RiskyRescue {
     }
 
     public static void logNonFatalError(final RuntimeException re) {
+        SoundManager.playSound(SoundConstants.WARNING);
         Support.getNonFatalLogger().logNonFatalError(re);
     }
 

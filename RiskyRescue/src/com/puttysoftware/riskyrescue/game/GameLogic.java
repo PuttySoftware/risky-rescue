@@ -14,9 +14,9 @@ import com.puttysoftware.commondialogs.CommonDialogs;
 import com.puttysoftware.riskyrescue.Application;
 import com.puttysoftware.riskyrescue.RiskyRescue;
 import com.puttysoftware.riskyrescue.Support;
-import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.MusicConstants;
 import com.puttysoftware.riskyrescue.assets.MusicManager;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.creatures.party.Party;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
@@ -26,7 +26,6 @@ import com.puttysoftware.riskyrescue.map.MapConstants;
 import com.puttysoftware.riskyrescue.map.objects.Empty;
 import com.puttysoftware.riskyrescue.map.objects.InfiniteRecursionException;
 import com.puttysoftware.riskyrescue.map.objects.MapObject;
-import com.puttysoftware.riskyrescue.map.objects.Player;
 import com.puttysoftware.riskyrescue.map.objects.Tile;
 import com.puttysoftware.riskyrescue.map.objects.Wall;
 import com.puttysoftware.riskyrescue.prefs.PreferencesManager;
@@ -34,7 +33,6 @@ import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptArea;
 
 public class GameLogic {
     // Fields
-    private MapObject savedMapObject;
     private boolean savedGameFlag;
     private final ScoreTracker st;
     private boolean stateChanged;
@@ -45,7 +43,6 @@ public class GameLogic {
     public GameLogic() {
         this.gameGUI = new GameGUI();
         this.st = new ScoreTracker();
-        this.savedMapObject = new Empty();
         this.savedGameFlag = false;
         this.stateChanged = true;
         this.runBattles = true;
@@ -154,9 +151,9 @@ public class GameLogic {
             m.savePlayerLocation();
             this.getViewManager().saveViewingWindow();
             try {
-                if (GameLogic.checkSolid(pz + z, this.savedMapObject, below,
-                        nextBelow, nextAbove)) {
-                    m.setCell(this.savedMapObject, px, py, pz,
+                if (GameLogic.checkSolid(pz + z, GameLogic.getSavedMapObject(),
+                        below, nextBelow, nextAbove)) {
+                    m.setCell(GameLogic.getSavedMapObject(), px, py, pz,
                             MapConstants.LAYER_OBJECT);
                     m.offsetPlayerLocationX(x);
                     m.offsetPlayerLocationY(y);
@@ -166,8 +163,8 @@ public class GameLogic {
                     pz += z;
                     this.getViewManager().offsetViewingWindowLocationX(y);
                     this.getViewManager().offsetViewingWindowLocationY(x);
-                    this.savedMapObject = m.getCell(px, py, pz,
-                            MapConstants.LAYER_OBJECT);
+                    GameLogic.setSavedMapObject(
+                            m.getCell(px, py, pz, MapConstants.LAYER_OBJECT));
                     m.setCell(PartyManager.getParty().getPlayer(), px, py, pz,
                             MapConstants.LAYER_OBJECT);
                     app.getScenarioManager().setDirty(true);
@@ -177,18 +174,21 @@ public class GameLogic {
                     if (groundInto.overridesDefaultPostMove()) {
                         InternalScriptRunner.runScript(groundInto
                                 .getPostMoveScript(false, px, py, pz));
-                        if (!(this.savedMapObject instanceof Empty)) {
-                            InternalScriptRunner.runScript(this.savedMapObject
+                        if (!(GameLogic.getSavedMapObject() instanceof Empty)) {
+                            InternalScriptRunner.runScript(GameLogic
+                                    .getSavedMapObject()
                                     .getPostMoveScript(false, px, py, pz));
                         }
                     } else {
-                        InternalScriptRunner.runScript(this.savedMapObject
-                                .getPostMoveScript(false, px, py, pz));
+                        InternalScriptRunner
+                                .runScript(GameLogic.getSavedMapObject()
+                                        .getPostMoveScript(false, px, py, pz));
                     }
                 } else {
                     // Move failed - object is solid in that direction
                     GameLogic.fireMoveFailedActions(px + x, py + y, pz + z,
-                            this.savedMapObject, below, nextBelow, nextAbove);
+                            GameLogic.getSavedMapObject(), below, nextBelow,
+                            nextAbove);
                     proceed = false;
                 }
             } catch (final ArrayIndexOutOfBoundsException ae) {
@@ -280,9 +280,9 @@ public class GameLogic {
             m.savePlayerLocation();
             this.getViewManager().saveViewingWindow();
             try {
-                if (GameLogic.checkSolid(z + pz, this.savedMapObject, below,
-                        nextBelow, nextAbove)) {
-                    m.setCell(this.savedMapObject, px, py, pz,
+                if (GameLogic.checkSolid(z + pz, GameLogic.getSavedMapObject(),
+                        below, nextBelow, nextAbove)) {
+                    m.setCell(GameLogic.getSavedMapObject(), px, py, pz,
                             MapConstants.LAYER_OBJECT);
                     m.offsetPlayerLocationX(x);
                     m.offsetPlayerLocationY(y);
@@ -292,8 +292,8 @@ public class GameLogic {
                     pz += z;
                     this.getViewManager().offsetViewingWindowLocationX(y);
                     this.getViewManager().offsetViewingWindowLocationY(x);
-                    this.savedMapObject = m.getCell(px, py, pz,
-                            MapConstants.LAYER_OBJECT);
+                    GameLogic.setSavedMapObject(
+                            m.getCell(px, py, pz, MapConstants.LAYER_OBJECT));
                     m.setCell(PartyManager.getParty().getPlayer(), px, py, pz,
                             MapConstants.LAYER_OBJECT);
                     app.getScenarioManager().setDirty(true);
@@ -301,7 +301,8 @@ public class GameLogic {
                 } else {
                     // Move failed - object is solid in that direction
                     GameLogic.fireMoveFailedActions(px + x, py + y, pz + z,
-                            this.savedMapObject, below, nextBelow, nextAbove);
+                            GameLogic.getSavedMapObject(), below, nextBelow,
+                            nextAbove);
                     proceed = false;
                 }
             } catch (final ArrayIndexOutOfBoundsException ae) {
@@ -330,14 +331,12 @@ public class GameLogic {
         this.checkGameOver();
     }
 
-    private void saveSavedMapObject() {
-        Player player = PartyManager.getParty().getPlayer();
-        player.setSavedObject(this.savedMapObject);
+    private static MapObject getSavedMapObject() {
+        return PartyManager.getParty().getPlayer().getSavedObject();
     }
 
-    private void restoreSavedMapObject() {
-        Player player = PartyManager.getParty().getPlayer();
-        this.savedMapObject = player.getSavedObject();
+    private static void setSavedMapObject(final MapObject newSaved) {
+        PartyManager.getParty().getPlayer().setSavedObject(newSaved);
     }
 
     private static boolean checkSolid(final int z, final MapObject inside,
@@ -393,7 +392,7 @@ public class GameLogic {
         try {
             if (!(m.getCell(x, y, z, MapConstants.LAYER_OBJECT)
                     .isConditionallySolid(m, z))) {
-                m.setCell(this.savedMapObject, m.getPlayerLocationX(),
+                m.setCell(GameLogic.getSavedMapObject(), m.getPlayerLocationX(),
                         m.getPlayerLocationY(), m.getPlayerLocationZ(),
                         MapConstants.LAYER_OBJECT);
                 m.setPlayerLocation(x, y, z, 0);
@@ -403,15 +402,15 @@ public class GameLogic {
                 this.getViewManager()
                         .setViewingWindowLocationY(m.getPlayerLocationX()
                                 - GameViewingWindowManager.getOffsetFactor());
-                this.savedMapObject = m.getCell(m.getPlayerLocationX(),
+                GameLogic.setSavedMapObject(m.getCell(m.getPlayerLocationX(),
                         m.getPlayerLocationY(), m.getPlayerLocationZ(),
-                        MapConstants.LAYER_OBJECT);
+                        MapConstants.LAYER_OBJECT));
                 m.setCell(PartyManager.getParty().getPlayer(),
                         m.getPlayerLocationX(), m.getPlayerLocationY(),
                         m.getPlayerLocationZ(), MapConstants.LAYER_OBJECT);
                 app.getScenarioManager().setDirty(true);
-                InternalScriptRunner.runScript(
-                        this.savedMapObject.getPostMoveScript(false, x, y, z));
+                InternalScriptRunner.runScript(GameLogic.getSavedMapObject()
+                        .getPostMoveScript(false, x, y, z));
             }
         } catch (final ArrayIndexOutOfBoundsException ae) {
             m.restorePlayerLocation();
@@ -444,7 +443,7 @@ public class GameLogic {
         try {
             if (!(m.getCell(x, y, z, MapConstants.LAYER_OBJECT)
                     .isConditionallySolid(m, z))) {
-                m.setCell(this.savedMapObject, m.getPlayerLocationX(),
+                m.setCell(GameLogic.getSavedMapObject(), m.getPlayerLocationX(),
                         m.getPlayerLocationY(), m.getPlayerLocationZ(),
                         MapConstants.LAYER_OBJECT);
                 m.setPlayerLocation(x, y, z, m.getPlayerLocationW());
@@ -454,9 +453,9 @@ public class GameLogic {
                 this.getViewManager()
                         .setViewingWindowLocationY(m.getPlayerLocationX()
                                 - GameViewingWindowManager.getOffsetFactor());
-                this.savedMapObject = m.getCell(m.getPlayerLocationX(),
+                GameLogic.setSavedMapObject(m.getCell(m.getPlayerLocationX(),
                         m.getPlayerLocationY(), m.getPlayerLocationZ(),
-                        MapConstants.LAYER_OBJECT);
+                        MapConstants.LAYER_OBJECT));
                 m.setCell(PartyManager.getParty().getPlayer(),
                         m.getPlayerLocationX(), m.getPlayerLocationY(),
                         m.getPlayerLocationZ(), MapConstants.LAYER_OBJECT);
@@ -490,16 +489,12 @@ public class GameLogic {
         final boolean levelExists = m.doesLevelExistOffset(level);
         if (!levelExists && m.isLevelOffsetValid(level)) {
             // Create the level
-            this.saveSavedMapObject();
             m.addLevel(Support.getGameMapSize(), Support.getGameMapSize(),
                     Support.getGameMapFloorSize());
             m.fillLevelRandomly(new Tile(), new Empty());
             m.save();
-            this.restoreSavedMapObject();
         } else if (levelExists && m.isLevelOffsetValid(level)) {
-            this.saveSavedMapObject();
             m.switchLevelOffset(level);
-            this.restoreSavedMapObject();
         } else {
             // Attempted to leave the dungeon...
             Party party = PartyManager.getParty();
@@ -567,7 +562,7 @@ public class GameLogic {
     }
 
     public void decay() {
-        this.savedMapObject = new Empty();
+        GameLogic.setSavedMapObject(new Empty());
     }
 
     public void playMap() {
@@ -603,7 +598,7 @@ public class GameLogic {
             int py = m.getPlayerLocationY();
             int pz = m.getPlayerLocationZ();
             m.updateVisibleSquares(px, py, pz);
-            this.savedMapObject = new Empty();
+            GameLogic.setSavedMapObject(new Empty());
             this.stateChanged = false;
         }
         // Make sure message area is attached to the border pane

@@ -58,8 +58,9 @@ public class Party {
         BattleCharacter[] tempChars = new BattleCharacter[this.members.length];
         int nnc = 0;
         for (int x = 0; x < tempChars.length; x++) {
-            if (this.members[x] != null) {
-                tempChars[x] = new BattleCharacter(this.members[x]);
+            PartyMember pm = this.getMember(x);
+            if (pm != null) {
+                tempChars[x] = new BattleCharacter(pm);
                 nnc++;
             }
         }
@@ -115,9 +116,10 @@ public class Party {
 
     public void stripPartyEffects() {
         for (int x = 0; x < this.members.length; x++) {
-            if (this.members[x] != null) {
+            PartyMember pm = this.getMember(x);
+            if (pm != null) {
                 // Strip All Effects
-                this.members[x].stripAllEffects();
+                pm.stripAllEffects();
             }
         }
     }
@@ -144,9 +146,10 @@ public class Party {
     public long getPartyMaxToNextLevel() {
         long largest = Integer.MIN_VALUE;
         for (int x = 0; x < this.members.length; x++) {
-            if (this.members[x] != null) {
-                if (this.members[x].getToNextLevelValue() > largest) {
-                    largest = this.members[x].getToNextLevelValue();
+            PartyMember pm = this.getMember(x);
+            if (pm != null) {
+                if (pm.getToNextLevelValue() > largest) {
+                    largest = pm.getToNextLevelValue();
                 }
             }
         }
@@ -155,27 +158,33 @@ public class Party {
 
     public void hurtPartyPercentage(int mod) {
         for (int x = 0; x < this.members.length; x++) {
-            if (this.members[x] != null) {
+            PartyMember pm = this.getMember(x);
+            if (pm != null) {
                 // Hurt Party Member
-                this.members[x].doDamagePercentage(mod);
+                pm.doDamagePercentage(mod);
             }
         }
     }
 
     void revivePartyFully() {
         for (int x = 0; x < this.members.length; x++) {
-            if (this.members[x] != null) {
+            PartyMember pm = this.getMember(x);
+            if (pm != null) {
                 // Revive Party Member
-                this.members[x].healAndRegenerateFully();
+                pm.healAndRegenerateFully();
             }
         }
     }
 
     public PartyMember getLeader() {
-        return this.members[this.leaderID];
+        return this.getMember(this.leaderID);
     }
 
     public PartyMember getMember(final int index) {
+        if (index == 1 && this.activePCs != 2) {
+            // Buddy inactive
+            return null;
+        }
         return this.members[index];
     }
 
@@ -206,8 +215,9 @@ public class Party {
     public boolean isAlive() {
         boolean result = false;
         for (int x = 0; x < this.members.length; x++) {
-            if (this.members[x] != null) {
-                result = result || this.members[x].isAlive();
+            PartyMember pm = this.getMember(x);
+            if (pm != null) {
+                result = result || pm.isAlive();
             }
         }
         return result;
@@ -217,8 +227,9 @@ public class Party {
         String[] tempNames = new String[this.members.length];
         int nnc = 0;
         for (int x = 0; x < tempNames.length; x++) {
-            if (this.members[x] != null) {
-                tempNames[x] = this.members[x].getName();
+            PartyMember pm = this.getMember(x);
+            if (pm != null) {
+                tempNames[x] = pm.getName();
                 nnc++;
             }
         }
@@ -240,7 +251,7 @@ public class Party {
         if (response != null) {
             int loc = this.findMember(response, 0, this.members.length);
             if (loc != -1) {
-                return this.members[loc];
+                return this.getMember(loc);
             } else {
                 return null;
             }
@@ -266,8 +277,9 @@ public class Party {
 
     private int findMember(String name, int start, int limit) {
         for (int x = start; x < limit; x++) {
-            if (this.members[x] != null) {
-                if (this.members[x].getName().equals(name)) {
+            PartyMember pm = this.getMember(x);
+            if (pm != null) {
+                if (pm.getName().equals(name)) {
                     return x;
                 }
             }

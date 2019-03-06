@@ -10,12 +10,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.puttysoftware.randomrange.RandomRange;
 import com.puttysoftware.riskyrescue.Support;
 import com.puttysoftware.riskyrescue.map.objects.Empty;
 import com.puttysoftware.riskyrescue.map.objects.MapObject;
-import com.puttysoftware.riskyrescue.map.objects.MapObjectList;
-import com.puttysoftware.riskyrescue.prefs.LocalPreferencesManager;
+import com.puttysoftware.riskyrescue.map.objects.Tile;
 import com.puttysoftware.riskyrescue.scenario.FormatConstants;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptArea;
 import com.puttysoftware.xio.XDataReader;
@@ -63,15 +61,7 @@ public class Map implements MapConstants {
         Map temp = new Map();
         temp.addLevel(Support.getBattleMapSize(), Support.getBattleMapSize(),
                 Support.getBattleMapFloorSize());
-        MapObjectList list = new MapObjectList();
-        MapObject[] glo = list.getAllGroundLayerObjects();
-        RandomRange gen = new RandomRange(0, glo.length - 1);
-        MapObject rand = glo[gen.generate()];
-        if (LocalPreferencesManager.getRandomBattleEnvironment()) {
-            temp.fillLevelRandomlyInBattle(rand, new Empty());
-        } else {
-            temp.fillLevel(rand, new Empty());
-        }
+        temp.fillLevel(new Tile(), new Empty());
         return temp;
     }
 
@@ -309,12 +299,6 @@ public class Map implements MapConstants {
             final MapObject pass1FillTop) {
         this.mapData.fillRandomly(this, this.activeLevel, pass1FillBottom,
                 pass1FillTop);
-    }
-
-    private void fillLevelRandomlyInBattle(final MapObject pass1FillBottom,
-            final MapObject pass1FillTop) {
-        this.mapData.fillRandomlyInBattle(this, this.activeLevel,
-                pass1FillBottom, pass1FillTop);
     }
 
     public void save() {

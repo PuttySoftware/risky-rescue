@@ -8,7 +8,7 @@ package com.puttysoftware.riskyrescue.battle;
 class BattleViewingWindowManager {
     // Fields
     private int oldLocX, oldLocY, locX, locY;
-    private static final int VIEWING_WINDOW_SIZE = 19;
+    private static final int VIEWING_WINDOW_SIZE = 13;
 
     // Constructors
     BattleViewingWindowManager() {

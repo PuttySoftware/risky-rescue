@@ -127,36 +127,13 @@ public class MapObjectList {
         }
     }
 
-    public final MapObject[] getAllRequiredInBattle(int layer) {
-        MapObject[] objs = this.getAllObjects();
-        MapObject[] tempAllRequired = new MapObject[objs.length];
-        int x;
-        int count = 0;
-        for (x = 0; x < objs.length; x++) {
-            if ((objs[x].getLayer() == layer) && objs[x].isRequiredInBattle()) {
-                tempAllRequired[count] = objs[x];
-                count++;
-            }
-        }
-        if (count == 0) {
-            return null;
-        } else {
-            MapObject[] allRequired = new MapObject[count];
-            for (x = 0; x < count; x++) {
-                allRequired[x] = tempAllRequired[x];
-            }
-            return allRequired;
-        }
-    }
-
-    public final MapObject[] getAllNotRequiredInBattle(int layer) {
+    public final MapObject[] getAllOKForBattle(int layer) {
         MapObject[] objs = this.getAllObjects();
         MapObject[] tempAllWithoutPrereq = new MapObject[objs.length];
         int x;
         int count = 0;
         for (x = 0; x < objs.length; x++) {
-            if ((objs[x].getLayer() == layer)
-                    && !(objs[x].isRequiredInBattle())) {
+            if ((objs[x].getLayer() == layer) && objs[x].enabledInBattle()) {
                 tempAllWithoutPrereq[count] = objs[x];
                 count++;
             }

@@ -16,10 +16,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import com.puttysoftware.riskyrescue.battle.Battle;
 import com.puttysoftware.riskyrescue.battle.BattleLogic;
 import com.puttysoftware.riskyrescue.game.InventoryViewer;
 import com.puttysoftware.riskyrescue.game.NoteManager;
 import com.puttysoftware.riskyrescue.game.PrestigeViewer;
+import com.puttysoftware.riskyrescue.map.Map;
 import com.puttysoftware.riskyrescue.prefs.PreferencesManager;
 import com.puttysoftware.riskyrescue.scenario.ScenarioManager;
 import com.puttysoftware.riskyrescue.utilities.BoardPrinter;
@@ -30,7 +32,7 @@ public class MenuManager {
     private JMenuItem fileOpenSavedGame, fileClose, fileSave, fileSaveAs,
             filePrint, filePreferences, fileExit;
     private JMenuItem gamePlay, gameEquipment, gameEditNote, gameViewPrestige,
-            gameViewScore;
+            gameViewScore, gameInstantBattle;
     private JMenuItem battleSpell, battleSteal, battleDrain, battleEndTurn;
     private JMenuItem helpAbout, helpManual;
     private KeyStroke fileOpenSavedGameAccel, fileCloseAccel, fileSaveAccel,
@@ -134,6 +136,7 @@ public class MenuManager {
         this.gameEditNote.setEnabled(true);
         this.gameViewPrestige.setEnabled(true);
         this.gameViewScore.setEnabled(true);
+        this.gameInstantBattle.setEnabled(true);
     }
 
     private void disableGameMenus() {
@@ -141,6 +144,7 @@ public class MenuManager {
         this.gameEditNote.setEnabled(false);
         this.gameViewPrestige.setEnabled(false);
         this.gameViewScore.setEnabled(false);
+        this.gameInstantBattle.setEnabled(false);
     }
 
     public void checkFlags() {
@@ -222,6 +226,7 @@ public class MenuManager {
         this.gameEditNote.setAccelerator(this.gameEditNoteAccel);
         this.gameViewPrestige = new JMenuItem("View Prestige...");
         this.gameViewScore = new JMenuItem("View Current Score...");
+        this.gameInstantBattle = new JMenuItem("[DEBUG] Enter Battle Now");
         this.battleSpell = new JMenuItem("Cast Spell");
         this.battleSpell.setAccelerator(this.battleSpellAccel);
         this.battleSteal = new JMenuItem("Steal Stuff");
@@ -244,6 +249,7 @@ public class MenuManager {
         this.gameEditNote.addActionListener(this.handler);
         this.gameViewPrestige.addActionListener(this.handler);
         this.gameViewScore.addActionListener(this.handler);
+        this.gameInstantBattle.addActionListener(this.handler);
         this.battleSpell.addActionListener(this.handler);
         this.battleSteal.addActionListener(this.handler);
         this.battleDrain.addActionListener(this.handler);
@@ -264,6 +270,9 @@ public class MenuManager {
         gameMenu.add(this.gameEditNote);
         gameMenu.add(this.gameViewPrestige);
         gameMenu.add(this.gameViewScore);
+        if (Support.inDebugMode()) {
+            gameMenu.add(this.gameInstantBattle);
+        }
         battleMenu.add(this.battleSpell);
         battleMenu.add(this.battleSteal);
         battleMenu.add(this.battleDrain);
@@ -369,6 +378,27 @@ public class MenuManager {
                 case "View Current Score...":
                     // View Score
                     app.getGameManager().showCurrentScore();
+                    break;
+                case "[DEBUG] Enter Battle Now":
+                    // Hide the game
+                    RiskyRescue.getApplication().getGameManager().hideOutput();
+                    // Enter Battle
+                    final Battle battle = new Battle();
+                    new Thread("Debug Battle") {
+                        @Override
+                        public void run() {
+                            try {
+                                RiskyRescue.getApplication().getGameManager();
+                                RiskyRescue.getApplication().getBattle()
+                                        .doFixedBattle(
+                                                Map.getTemporaryBattleCopy(),
+                                                battle);
+                            } catch (Exception e1) {
+                                // Something went wrong in the battle
+                                RiskyRescue.logError(e1);
+                            }
+                        }
+                    }.start();
                     break;
                 case "Cast Spell":
                     ba.castSpell();

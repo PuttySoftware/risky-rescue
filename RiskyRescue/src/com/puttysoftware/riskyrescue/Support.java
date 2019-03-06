@@ -33,9 +33,9 @@ public class Support {
     private static final int VERSION_CODE = ProductData.CODE_STABLE;
     private static final int VERSION_PRERELEASE = 0;
     private static Scenario scen = null;
-    private static final int BATTLE_MAP_SIZE = 16;
+    private static final int BATTLE_MAP_SIZE = 12;
     private static final int BATTLE_MAP_FLOOR_SIZE = 1;
-    private static final int GAME_MAP_SIZE = 256;
+    private static final int GAME_MAP_SIZE = 48;
     private static final int GAME_MAP_FLOOR_SIZE = 1;
     private static final boolean debugMode = false;
 

@@ -6,6 +6,7 @@
 package com.puttysoftware.riskyrescue.map.objects;
 
 import com.puttysoftware.riskyrescue.assets.SoundConstants;
+import com.puttysoftware.riskyrescue.RiskyRescue;
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.map.Map;
@@ -51,6 +52,7 @@ public class StairsUp extends MapObject {
     @Override
     public InternalScript getPostMoveScript(final boolean ie, final int dirX,
             final int dirY, final int dirZ) {
+        RiskyRescue.getApplication().getGameManager().skipBattlesOnce();
         PartyManager.getParty().decreaseDungeonLevel();
         return this.postMoveScript;
     }

@@ -39,6 +39,7 @@ public class GameLogic {
     private final ScoreTracker st;
     private boolean stateChanged;
     private GameGUI gameGUI;
+    private boolean runBattles;
 
     // Constructors
     public GameLogic() {
@@ -47,6 +48,7 @@ public class GameLogic {
         this.savedMapObject = new Empty();
         this.savedGameFlag = false;
         this.stateChanged = true;
+        this.runBattles = true;
     }
 
     // Methods
@@ -90,6 +92,10 @@ public class GameLogic {
 
     public void setSavedGameFlag(boolean value) {
         this.savedGameFlag = value;
+    }
+
+    public void skipBattlesOnce() {
+        this.runBattles = false;
     }
 
     public void setStatusMessage(final String msg) {
@@ -207,11 +213,16 @@ public class GameLogic {
             this.redrawMap();
             redrawsSuspended = false;
         }
-        // Post-move actions
-        ArrayList<InternalScriptArea> areaScripts = app.getScenarioManager()
-                .getMap().getScriptAreasAtPoint(new Point(px, py), pz);
-        for (InternalScriptArea isa : areaScripts) {
-            InternalScriptRunner.runScript(isa);
+        if (this.runBattles) {
+            // Process random battles
+            ArrayList<InternalScriptArea> areaScripts = app.getScenarioManager()
+                    .getMap().getScriptAreasAtPoint(new Point(px, py), pz);
+            for (InternalScriptArea isa : areaScripts) {
+                InternalScriptRunner.runScript(isa);
+            }
+        } else {
+            // Random battles are skipped this time
+            this.runBattles = true;
         }
         GameLogic.fireStepActions(px, py, pz);
         this.updateStats();

@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import com.puttysoftware.riskyrescue.creatures.Creature;
 import com.puttysoftware.riskyrescue.utilities.PCImage;
 import com.puttysoftware.riskyrescue.utilities.PCImagePickerDialog;
 import com.puttysoftware.riskyrescue.utilities.PCNameGenerator;
@@ -19,6 +20,7 @@ import com.puttysoftware.xio.XDataWriter;
 public class PartyManager {
     // Fields
     private static Party party;
+    private static int dungeonLevel;
 
     // Constructors
     private PartyManager() {
@@ -28,6 +30,7 @@ public class PartyManager {
     // Methods
     public static boolean createParty(JFrame owner) {
         PartyManager.party = new Party();
+        PartyManager.dungeonLevel = 1;
         int mem = 0;
         PartyMember hero = PartyManager.createHero(owner);
         if (hero != null) {
@@ -42,6 +45,34 @@ public class PartyManager {
 
     public static Party getParty() {
         return PartyManager.party;
+    }
+
+    public static int getMapLevel() {
+        return PartyManager.dungeonLevel - 1;
+    }
+    
+    public static int getDungeonLevel() {
+        return PartyManager.dungeonLevel;
+    }
+
+    static void setDungeonLevel(final int dl) {
+        PartyManager.dungeonLevel = dl;
+    }
+
+    public static String getDungeonLevelString() {
+        return "" + PartyManager.dungeonLevel;
+    }
+
+    public static void increaseDungeonLevel() {
+        if (PartyManager.dungeonLevel < Creature.getMaximumLevel()) {
+            PartyManager.dungeonLevel++;
+        }
+    }
+
+    public static void decreaseDungeonLevel() {
+        if (PartyManager.dungeonLevel > 0) {
+            PartyManager.dungeonLevel--;
+        }
     }
 
     public static void loadGameHook(XDataReader partyFile) throws IOException {

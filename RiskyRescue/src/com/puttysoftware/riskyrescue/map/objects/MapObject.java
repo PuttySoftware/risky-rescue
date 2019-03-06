@@ -9,10 +9,10 @@ import java.io.IOException;
 
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.randomrange.RandomRange;
-import com.puttysoftware.riskyrescue.RiskyRescue;
-import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.ImageManager;
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
+import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.map.Map;
 import com.puttysoftware.riskyrescue.map.MapConstants;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScript;
@@ -145,8 +145,7 @@ public abstract class MapObject implements RandomGenerationRule {
         InternalScript scpt = new InternalScript();
         InternalScriptEntry act0 = new InternalScriptEntry();
         act0.setActionCode(InternalScriptActionCode.SOUND);
-        act0.addActionArg(
-                new InternalScriptEntryArgument(SoundConstants.STEP));
+        act0.addActionArg(new InternalScriptEntryArgument(SoundConstants.STEP));
         act0.finalizeActionArgs();
         scpt.addAction(act0);
         scpt.finalizeActions();
@@ -176,8 +175,8 @@ public abstract class MapObject implements RandomGenerationRule {
         InternalScript scpt = new InternalScript();
         InternalScriptEntry act0 = new InternalScriptEntry();
         act0.setActionCode(InternalScriptActionCode.SOUND);
-        act0.addActionArg(new InternalScriptEntryArgument(
-                SoundConstants.ACTION_FAILED));
+        act0.addActionArg(
+                new InternalScriptEntryArgument(SoundConstants.ACTION_FAILED));
         act0.finalizeActionArgs();
         scpt.addAction(act0);
         InternalScriptEntry act1 = new InternalScriptEntry();
@@ -202,8 +201,7 @@ public abstract class MapObject implements RandomGenerationRule {
     }
 
     public BufferedImageIcon getImage() {
-        Map map = RiskyRescue.getApplication().getScenarioManager().getMap();
-        return ImageManager.getObjectImage(map.getActiveLevelNumber(),
+        return ImageManager.getObjectImage(PartyManager.getMapLevel(),
                 this.imageDesc);
     }
 

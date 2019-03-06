@@ -7,7 +7,6 @@ package com.puttysoftware.riskyrescue.creatures.monsters;
 
 import com.puttysoftware.images.BufferedImageIcon;
 import com.puttysoftware.randomrange.RandomRange;
-import com.puttysoftware.riskyrescue.RiskyRescue;
 import com.puttysoftware.riskyrescue.ai.AIRoutine;
 import com.puttysoftware.riskyrescue.ai.RandomAIRoutinePicker;
 import com.puttysoftware.riskyrescue.assets.ImageManager;
@@ -35,7 +34,7 @@ public class SystemMonster extends Creature {
         spells.learnAllSpells();
         this.setSpellBook(spells);
         this.image = this.getInitialImage();
-        int newLevel = PartyManager.getParty().getDungeonLevel();
+        int newLevel = PartyManager.getDungeonLevel();
         this.setLevel(newLevel);
         this.setVitality(this.getInitialVitality());
         this.setCurrentHP(this.getMaximumHP());
@@ -78,8 +77,7 @@ public class SystemMonster extends Creature {
         if (this.getLevel() == 0) {
             return null;
         } else {
-            int dungeonIndex = RiskyRescue.getApplication().getScenarioManager()
-                    .getMap().getActiveLevelNumber();
+            int dungeonIndex = PartyManager.getMapLevel();
             final String[] types = MonsterNames.getAllNames(dungeonIndex);
             final RandomRange r = new RandomRange(0, types.length - 1);
             int nameIndex = r.generate();

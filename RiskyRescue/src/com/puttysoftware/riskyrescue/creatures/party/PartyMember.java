@@ -78,7 +78,7 @@ public class PartyMember extends Creature {
         InternalScriptEntry act0 = new InternalScriptEntry();
         act0.setActionCode(InternalScriptActionCode.UPDATE_GSA);
         act0.addActionArg(new InternalScriptEntryArgument(
-                PartyManager.getParty().getDungeonLevel() - this.getLevel()));
+                PartyManager.getDungeonLevel() - this.getLevel()));
         act0.finalizeActionArgs();
         levelUpScript.addAction(act0);
         levelUpScript.finalizeActions();

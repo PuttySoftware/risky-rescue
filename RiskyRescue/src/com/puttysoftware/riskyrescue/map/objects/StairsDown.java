@@ -54,7 +54,7 @@ public class StairsDown extends MapObject {
     public InternalScript getPostMoveScript(final boolean ie, final int dirX,
             final int dirY, final int dirZ) {
         RiskyRescue.getApplication().getGameManager().skipBattlesOnce();
-        PartyManager.getParty().increaseDungeonLevel();
+        PartyManager.increaseDungeonLevel();
         return this.postMoveScript;
     }
     

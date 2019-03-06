@@ -46,7 +46,7 @@ class StatGUI {
         this.attackLabel.setText(Integer.toString(pc.getAttack()));
         this.defenseLabel.setText(Integer.toString(pc.getDefense()));
         this.xpLabel.setText(pc.getXPString());
-        this.dlLabel.setText(PartyManager.getParty().getDungeonLevelString());
+        this.dlLabel.setText(PartyManager.getDungeonLevelString());
     }
 
     private void setUpGUI() {

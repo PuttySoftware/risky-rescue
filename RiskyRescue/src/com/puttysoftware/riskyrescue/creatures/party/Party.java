@@ -32,7 +32,6 @@ public class Party {
     private Buddy buddy;
     private int leaderID;
     private int activePCs;
-    private int dungeonLevel;
 
     // Constructor
     Party() {
@@ -40,7 +39,6 @@ public class Party {
         this.battlers = new BattleCharacter[1];
         this.leaderID = 0;
         this.activePCs = 0;
-        this.dungeonLevel = 1;
     }
 
     // Methods
@@ -166,26 +164,6 @@ public class Party {
         return this.activePCs;
     }
 
-    public int getDungeonLevel() {
-        return this.dungeonLevel;
-    }
-
-    public String getDungeonLevelString() {
-        return "" + this.dungeonLevel;
-    }
-
-    public void increaseDungeonLevel() {
-        if (this.dungeonLevel < Creature.getMaximumLevel()) {
-            this.dungeonLevel++;
-        }
-    }
-
-    public void decreaseDungeonLevel() {
-        if (this.dungeonLevel > 0) {
-            this.dungeonLevel--;
-        }
-    }
-
     public boolean isAlive() {
         boolean result = false;
         for (int x = 0; x < this.members.length; x++) {
@@ -274,7 +252,7 @@ public class Party {
         pty.leaderID = lid;
         pty.activePCs = apc;
         pty.members = new PartyMember[memCount];
-        pty.dungeonLevel = dl;
+        PartyManager.setDungeonLevel(dl);
         for (int z = 0; z < memCount; z++) {
             boolean present = worldFile.readBoolean();
             if (present) {
@@ -288,7 +266,7 @@ public class Party {
         worldFile.writeInt(this.members.length);
         worldFile.writeInt(this.leaderID);
         worldFile.writeInt(this.activePCs);
-        worldFile.writeInt(this.dungeonLevel);
+        worldFile.writeInt(PartyManager.getDungeonLevel());
         for (int z = 0; z < this.members.length; z++) {
             if (this.members[z] == null) {
                 worldFile.writeBoolean(false);

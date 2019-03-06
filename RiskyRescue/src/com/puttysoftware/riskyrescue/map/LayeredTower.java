@@ -11,10 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.puttysoftware.randomrange.RandomRange;
-import com.puttysoftware.riskyrescue.map.objects.Buddy;
+import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.map.objects.MapObject;
 import com.puttysoftware.riskyrescue.map.objects.MapObjectList;
-import com.puttysoftware.riskyrescue.map.objects.Player;
 import com.puttysoftware.riskyrescue.map.objects.RandomGenerationRule;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptActionCode;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptArea;
@@ -576,7 +575,7 @@ class LayeredTower implements Cloneable {
             }
         }
         // Add player
-        MapObject currObj = new Player();
+        MapObject currObj = PartyManager.getParty().getPlayer();
         int layer = currObj.getLayer();
         int randomRow = row.generate();
         int randomColumn = column.generate();
@@ -599,7 +598,7 @@ class LayeredTower implements Cloneable {
         }
         // Add buddy, if needed
         if (map.getActiveLevelNumber() == Map.MAX_LEVELS - 1) {
-            currObj = new Buddy();
+            currObj = PartyManager.getParty().getBuddy();
             layer = currObj.getLayer();
             randomRow = row.generate();
             randomColumn = column.generate();

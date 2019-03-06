@@ -162,7 +162,7 @@ public class GameLogic {
                     this.getViewManager().offsetViewingWindowLocationY(x);
                     this.savedMapObject = m.getCell(px, py, pz,
                             MapConstants.LAYER_OBJECT);
-                    m.setCell(new Player(), px, py, pz,
+                    m.setCell(PartyManager.getParty().getPlayer(), px, py, pz,
                             MapConstants.LAYER_OBJECT);
                     app.getScenarioManager().setDirty(true);
                     this.redrawMap();
@@ -188,9 +188,9 @@ public class GameLogic {
             } catch (final ArrayIndexOutOfBoundsException ae) {
                 this.getViewManager().restoreViewingWindow();
                 m.restorePlayerLocation();
-                m.setCell(new Player(), m.getPlayerLocationX(),
-                        m.getPlayerLocationY(), m.getPlayerLocationZ(),
-                        MapConstants.LAYER_OBJECT);
+                m.setCell(PartyManager.getParty().getPlayer(),
+                        m.getPlayerLocationX(), m.getPlayerLocationY(),
+                        m.getPlayerLocationZ(), MapConstants.LAYER_OBJECT);
                 // Move failed - attempted to go outside the map
                 RiskyRescue.getApplication().showMessage("Can't go that way");
                 o = new Empty();
@@ -283,7 +283,7 @@ public class GameLogic {
                     this.getViewManager().offsetViewingWindowLocationY(x);
                     this.savedMapObject = m.getCell(px, py, pz,
                             MapConstants.LAYER_OBJECT);
-                    m.setCell(new Player(), px, py, pz,
+                    m.setCell(PartyManager.getParty().getPlayer(), px, py, pz,
                             MapConstants.LAYER_OBJECT);
                     app.getScenarioManager().setDirty(true);
                     this.redrawMap();
@@ -296,9 +296,9 @@ public class GameLogic {
             } catch (final ArrayIndexOutOfBoundsException ae) {
                 this.getViewManager().restoreViewingWindow();
                 m.restorePlayerLocation();
-                m.setCell(new Player(), m.getPlayerLocationX(),
-                        m.getPlayerLocationY(), m.getPlayerLocationZ(),
-                        MapConstants.LAYER_OBJECT);
+                m.setCell(PartyManager.getParty().getPlayer(),
+                        m.getPlayerLocationX(), m.getPlayerLocationY(),
+                        m.getPlayerLocationZ(), MapConstants.LAYER_OBJECT);
                 // Move failed - attempted to go outside the map
                 RiskyRescue.getApplication().showMessage("Can't go that way");
                 o = new Empty();
@@ -405,9 +405,9 @@ public class GameLogic {
                 this.savedMapObject = m.getCell(m.getPlayerLocationX(),
                         m.getPlayerLocationY(), m.getPlayerLocationZ(),
                         MapConstants.LAYER_OBJECT);
-                m.setCell(new Player(), m.getPlayerLocationX(),
-                        m.getPlayerLocationY(), m.getPlayerLocationZ(),
-                        MapConstants.LAYER_OBJECT);
+                m.setCell(PartyManager.getParty().getPlayer(),
+                        m.getPlayerLocationX(), m.getPlayerLocationY(),
+                        m.getPlayerLocationZ(), MapConstants.LAYER_OBJECT);
                 app.getScenarioManager().setDirty(true);
                 InternalScriptRunner.runScript(
                         this.savedMapObject.getPostMoveScript(false, x, y, z));
@@ -415,17 +415,17 @@ public class GameLogic {
         } catch (final ArrayIndexOutOfBoundsException ae) {
             m.restorePlayerLocation();
             this.getViewManager().restoreViewingWindow();
-            m.setCell(new Player(), m.getPlayerLocationX(),
-                    m.getPlayerLocationY(), m.getPlayerLocationZ(),
-                    MapConstants.LAYER_OBJECT);
+            m.setCell(PartyManager.getParty().getPlayer(),
+                    m.getPlayerLocationX(), m.getPlayerLocationY(),
+                    m.getPlayerLocationZ(), MapConstants.LAYER_OBJECT);
             RiskyRescue.getApplication()
                     .showMessage("Can't go outside the map");
         } catch (final NullPointerException np) {
             m.restorePlayerLocation();
             this.getViewManager().restoreViewingWindow();
-            m.setCell(new Player(), m.getPlayerLocationX(),
-                    m.getPlayerLocationY(), m.getPlayerLocationZ(),
-                    MapConstants.LAYER_OBJECT);
+            m.setCell(PartyManager.getParty().getPlayer(),
+                    m.getPlayerLocationX(), m.getPlayerLocationY(),
+                    m.getPlayerLocationZ(), MapConstants.LAYER_OBJECT);
             RiskyRescue.getApplication()
                     .showMessage("Can't go outside the map");
         }
@@ -456,25 +456,25 @@ public class GameLogic {
                 this.savedMapObject = m.getCell(m.getPlayerLocationX(),
                         m.getPlayerLocationY(), m.getPlayerLocationZ(),
                         MapConstants.LAYER_OBJECT);
-                m.setCell(new Player(), m.getPlayerLocationX(),
-                        m.getPlayerLocationY(), m.getPlayerLocationZ(),
-                        MapConstants.LAYER_OBJECT);
+                m.setCell(PartyManager.getParty().getPlayer(),
+                        m.getPlayerLocationX(), m.getPlayerLocationY(),
+                        m.getPlayerLocationZ(), MapConstants.LAYER_OBJECT);
                 app.getScenarioManager().setDirty(true);
             }
         } catch (final ArrayIndexOutOfBoundsException ae) {
             m.restorePlayerLocation();
             this.getViewManager().restoreViewingWindow();
-            m.setCell(new Player(), m.getPlayerLocationX(),
-                    m.getPlayerLocationY(), m.getPlayerLocationZ(),
-                    MapConstants.LAYER_OBJECT);
+            m.setCell(PartyManager.getParty().getPlayer(),
+                    m.getPlayerLocationX(), m.getPlayerLocationY(),
+                    m.getPlayerLocationZ(), MapConstants.LAYER_OBJECT);
             RiskyRescue.getApplication()
                     .showMessage("Can't go outside the map");
         } catch (final NullPointerException np) {
             m.restorePlayerLocation();
             this.getViewManager().restoreViewingWindow();
-            m.setCell(new Player(), m.getPlayerLocationX(),
-                    m.getPlayerLocationY(), m.getPlayerLocationZ(),
-                    MapConstants.LAYER_OBJECT);
+            m.setCell(PartyManager.getParty().getPlayer(),
+                    m.getPlayerLocationX(), m.getPlayerLocationY(),
+                    m.getPlayerLocationZ(), MapConstants.LAYER_OBJECT);
             RiskyRescue.getApplication()
                     .showMessage("Can't go outside the map");
         }

@@ -14,6 +14,8 @@ import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.battle.VictorySpoilsDescription;
 import com.puttysoftware.riskyrescue.creatures.Creature;
 import com.puttysoftware.riskyrescue.map.objects.BattleCharacter;
+import com.puttysoftware.riskyrescue.map.objects.Buddy;
+import com.puttysoftware.riskyrescue.map.objects.Player;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScript;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptActionCode;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptEntry;
@@ -23,63 +25,35 @@ import com.puttysoftware.xio.XDataWriter;
 
 public class Party {
     // Fields
+    private static final int MAX_MEMBERS = 2;
     private PartyMember[] members;
     private BattleCharacter[] battlers;
+    private Player player;
+    private Buddy buddy;
     private int leaderID;
     private int activePCs;
     private int dungeonLevel;
 
-    // Constructors
-    private Party() {
-        this.members = null;
-        this.battlers = null;
-        this.leaderID = 0;
-        this.activePCs = 0;
-        this.dungeonLevel = 1;
-    }
-
-    Party(PartyMember[] newMembers) {
-        this.members = newMembers;
-        this.battlers = null;
-        this.leaderID = 0;
-        this.activePCs = 0;
-        this.dungeonLevel = 1;
-    }
-
-    Party(final int maxMembers) {
-        this.members = new PartyMember[maxMembers];
+    // Constructor
+    Party() {
+        this.members = new PartyMember[Party.MAX_MEMBERS];
+        this.battlers = new BattleCharacter[1];
         this.leaderID = 0;
         this.activePCs = 0;
         this.dungeonLevel = 1;
     }
 
     // Methods
-    private void generateBattleCharacters() {
-        BattleCharacter[] tempChars = new BattleCharacter[this.members.length];
-        int nnc = 0;
-        for (int x = 0; x < tempChars.length; x++) {
-            PartyMember pm = this.getMember(x);
-            if (pm != null) {
-                tempChars[x] = new BattleCharacter(pm);
-                nnc++;
-            }
-        }
-        BattleCharacter[] chars = new BattleCharacter[nnc];
-        nnc = 0;
-        for (int x = 0; x < tempChars.length; x++) {
-            if (tempChars[x] != null) {
-                chars[nnc] = tempChars[x];
-                nnc++;
-            }
-        }
-        this.battlers = chars;
+    public BattleCharacter[] getBattleCharacters() {
+        return this.battlers;
     }
 
-    public BattleCharacter[] getBattleCharacters() {
-        if (this.battlers == null) {
-            this.generateBattleCharacters();
-        }
-        return this.battlers;
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public Buddy getBuddy() {
+        return this.buddy;
     }
 
     public ArrayList<InternalScript> checkPartyLevelUp() {
@@ -262,17 +236,21 @@ public class Party {
 
     void addHero(PartyMember hero) {
         this.members[0] = hero;
+        this.player = new Player(hero);
+        this.battlers[0] = this.player;
         this.activePCs = 1;
-        this.generateBattleCharacters();
     }
 
-    void addBuddy(PartyMember buddy) {
-        this.members[1] = buddy;
+    void addBuddy(PartyMember newBuddy) {
+        this.members[1] = newBuddy;
+        this.buddy = new Buddy(newBuddy);
     }
 
     void activateBuddy() {
+        this.battlers = new BattleCharacter[Party.MAX_MEMBERS];
+        this.battlers[0] = this.player;
+        this.battlers[1] = this.buddy;
         this.activePCs = 2;
-        this.generateBattleCharacters();
     }
 
     private int findMember(String name, int start, int limit) {

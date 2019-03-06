@@ -19,7 +19,6 @@ import com.puttysoftware.xio.XDataWriter;
 public class PartyManager {
     // Fields
     private static Party party;
-    private static final int PARTY_SIZE = 2;
 
     // Constructors
     private PartyManager() {
@@ -28,7 +27,7 @@ public class PartyManager {
 
     // Methods
     public static boolean createParty(JFrame owner) {
-        PartyManager.party = new Party(PartyManager.PARTY_SIZE);
+        PartyManager.party = new Party();
         int mem = 0;
         PartyMember hero = PartyManager.createHero(owner);
         if (hero != null) {

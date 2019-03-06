@@ -11,6 +11,7 @@ import com.puttysoftware.commondialogs.CommonDialogs;
 import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
+import com.puttysoftware.riskyrescue.creatures.party.PartyMember;
 import com.puttysoftware.riskyrescue.map.Map;
 import com.puttysoftware.riskyrescue.map.MapConstants;
 import com.puttysoftware.xio.XDataReader;
@@ -18,8 +19,8 @@ import com.puttysoftware.xio.XDataWriter;
 
 public class Buddy extends BattleCharacter {
     // Constructors
-    public Buddy() {
-        super(PartyManager.getParty().getMember(1));
+    public Buddy(final PartyMember buddy) {
+        super(buddy);
         this.setSavedObject(new Empty());
     }
 

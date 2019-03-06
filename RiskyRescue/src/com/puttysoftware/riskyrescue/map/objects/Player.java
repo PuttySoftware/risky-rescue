@@ -7,15 +7,15 @@ package com.puttysoftware.riskyrescue.map.objects;
 
 import java.io.IOException;
 
-import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
+import com.puttysoftware.riskyrescue.creatures.party.PartyMember;
 import com.puttysoftware.riskyrescue.map.MapConstants;
 import com.puttysoftware.xio.XDataReader;
 import com.puttysoftware.xio.XDataWriter;
 
 public class Player extends BattleCharacter {
     // Constructors
-    public Player() {
-        super(PartyManager.getParty().getMember(0));
+    public Player(final PartyMember hero) {
+        super(hero);
         this.setSavedObject(new Empty());
     }
 

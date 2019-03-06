@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.puttysoftware.images.BufferedImageIcon;
+import com.puttysoftware.randomrange.RandomRange;
 import com.puttysoftware.riskyrescue.assets.ImageManager;
 
 public class PCImagePickerDialog extends JDialog implements ActionListener {
@@ -53,9 +54,10 @@ public class PCImagePickerDialog extends JDialog implements ActionListener {
     private PCImagePickerDialog(Frame frame, String title) {
         super(frame, title, true);
         // Initialize the combo boxes
-        this.clothing = new JComboBox<>(
-                new DefaultComboBoxModel<>(PCImage.getClothingNames()));
-        this.clothing.setSelectedIndex(0);
+        String[] cNames = PCImage.getClothingNames();
+        this.clothing = new JComboBox<>(new DefaultComboBoxModel<>(cNames));
+        int cStart = new RandomRange(0, cNames.length - 1).generate();
+        this.clothing.setSelectedIndex(cStart);
         this.clothing.addItemListener(il -> {
             int c = this.clothing.getSelectedIndex();
             PCImagePickerDialog.clothingValue = c;
@@ -63,9 +65,10 @@ public class PCImagePickerDialog extends JDialog implements ActionListener {
                     PCImage.getPCImageName(c, PCImagePickerDialog.skinValue,
                             PCImagePickerDialog.hairValue)));
         });
-        this.skin = new JComboBox<>(
-                new DefaultComboBoxModel<>(PCImage.getSkinNames()));
-        this.skin.setSelectedIndex(0);
+        String[] sNames = PCImage.getSkinNames();
+        this.skin = new JComboBox<>(new DefaultComboBoxModel<>(sNames));
+        int sStart = new RandomRange(0, sNames.length - 1).generate();
+        this.skin.setSelectedIndex(sStart);
         this.skin.addItemListener(il -> {
             int s = this.skin.getSelectedIndex();
             PCImagePickerDialog.skinValue = s;
@@ -73,9 +76,10 @@ public class PCImagePickerDialog extends JDialog implements ActionListener {
                     PCImage.getPCImageName(PCImagePickerDialog.clothingValue, s,
                             PCImagePickerDialog.hairValue)));
         });
-        this.hair = new JComboBox<>(
-                new DefaultComboBoxModel<>(PCImage.getHairNames()));
-        this.hair.setSelectedIndex(0);
+        String[] hNames = PCImage.getHairNames();
+        this.hair = new JComboBox<>(new DefaultComboBoxModel<>(hNames));
+        int hStart = new RandomRange(0, hNames.length - 1).generate();
+        this.hair.setSelectedIndex(hStart);
         this.hair.addItemListener(il -> {
             int h = this.hair.getSelectedIndex();
             PCImagePickerDialog.hairValue = h;
@@ -83,7 +87,8 @@ public class PCImagePickerDialog extends JDialog implements ActionListener {
                     PCImage.getPCImageName(PCImagePickerDialog.clothingValue,
                             PCImagePickerDialog.skinValue, h)));
         });
-        BufferedImageIcon image = ImageManager.getPCPickerImage("000");
+        BufferedImageIcon image = ImageManager
+                .getPCPickerImage("" + cStart + sStart + hStart);
         // Create and initialize the buttons.
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(this);

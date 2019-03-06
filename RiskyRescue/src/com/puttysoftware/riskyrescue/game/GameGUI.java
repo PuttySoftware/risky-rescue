@@ -305,7 +305,7 @@ class GameGUI {
                     break;
                 }
             } catch (Exception ex) {
-                RiskyRescue.getErrorLogger().logError(ex);
+                RiskyRescue.logError(ex);
             }
         }
 
@@ -340,7 +340,7 @@ class GameGUI {
                     app.getGameManager().exitGame();
                 }
             } catch (Exception ex) {
-                RiskyRescue.getErrorLogger().logError(ex);
+                RiskyRescue.logError(ex);
             }
         }
 

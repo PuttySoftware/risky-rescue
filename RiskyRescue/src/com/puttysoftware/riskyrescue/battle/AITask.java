@@ -40,7 +40,7 @@ class AITask extends Thread {
                 }
             }
         } catch (Throwable t) {
-            RiskyRescue.getErrorLogger().logError(t);
+            RiskyRescue.logError(t);
         }
     }
 

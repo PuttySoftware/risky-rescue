@@ -84,7 +84,7 @@ class ArrowTask extends Thread {
             }
             app.getBattle().arrowDone(hit);
         } catch (Throwable t) {
-            RiskyRescue.getErrorLogger().logError(t);
+            RiskyRescue.logError(t);
         }
     }
 }

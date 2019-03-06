@@ -87,7 +87,7 @@ class LoadTask extends Thread {
                     "Loading the " + sg.toLowerCase() + " file failed!");
             app.getScenarioManager().handleDeferredSuccess();
         } catch (final Exception ex) {
-            RiskyRescue.getErrorLogger().logError(ex);
+            RiskyRescue.logError(ex);
         } finally {
             this.loadFrame.setVisible(false);
         }

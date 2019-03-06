@@ -103,7 +103,7 @@ public class AboutDialog implements AboutHandler {
                     ad.hideAboutDialog();
                 }
             } catch (Exception ex) {
-                RiskyRescue.getErrorLogger().logError(ex);
+                RiskyRescue.logError(ex);
             }
         }
     }

@@ -315,7 +315,7 @@ class BattleGUI {
                     }
                 }
             } catch (Exception ex) {
-                RiskyRescue.getErrorLogger().logError(ex);
+                RiskyRescue.logError(ex);
             }
         }
 
@@ -387,7 +387,7 @@ class BattleGUI {
                     }
                 }
             } catch (Exception ex) {
-                RiskyRescue.getErrorLogger().logError(ex);
+                RiskyRescue.logError(ex);
             }
         }
     }

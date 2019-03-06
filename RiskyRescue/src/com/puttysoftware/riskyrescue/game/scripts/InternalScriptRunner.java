@@ -146,7 +146,7 @@ public final class InternalScriptRunner {
                                                     battle);
                                 } catch (Exception e) {
                                     // Something went wrong in the battle
-                                    RiskyRescue.getErrorLogger().logError(e);
+                                    RiskyRescue.logError(e);
                                 }
                             }
                         }.start();
@@ -172,7 +172,7 @@ public final class InternalScriptRunner {
                     + ": ";
             String endMsg = e.getMessage();
             String scriptMsg = beginMsg + endMsg;
-            RiskyRescue.getNonFatalLogger().logNonFatalError(
+            RiskyRescue.logNonFatalError(
                     new InternalScriptException(scriptMsg, e));
         }
     }

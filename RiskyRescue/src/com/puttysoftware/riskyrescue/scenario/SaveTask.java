@@ -48,7 +48,7 @@ class SaveTask extends Thread {
             CommonDialogs.showDialog("Writing the " + sg.toLowerCase()
                     + " file failed, probably due to illegal characters in the file name.");
         } catch (final Exception ex) {
-            RiskyRescue.getErrorLogger().logError(ex);
+            RiskyRescue.logError(ex);
         }
         RiskyRescue.getApplication().showMessage(sg + " file saved.");
         app.getScenarioManager().handleDeferredSuccess();

@@ -15,10 +15,11 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 import com.puttysoftware.commondialogs.CommonDialogs;
-import com.puttysoftware.errorlogger.ErrorLogger;
 import com.puttysoftware.fileutils.DirectoryUtilities;
 import com.puttysoftware.integration.NativeIntegration;
 import com.puttysoftware.riskyrescue.assets.LogoManager;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
+import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.prefs.PreferencesManager;
 import com.puttysoftware.riskyrescue.scenario.ScenarioManager;
@@ -34,12 +35,13 @@ public class RiskyRescue {
         return RiskyRescue.application;
     }
 
-    public static ErrorLogger getErrorLogger() {
-        return Support.getErrorLogger();
+    public static void logError(final Throwable t) {
+        SoundManager.playSound(SoundConstants.FATAL_ERROR);
+        Support.getErrorLogger().logError(t);
     }
 
-    public static ErrorLogger getNonFatalLogger() {
-        return Support.getNonFatalLogger();
+    public static void logNonFatalError(final RuntimeException re) {
+        Support.getNonFatalLogger().logNonFatalError(re);
     }
 
     public static String getProgramName() {
@@ -82,10 +84,10 @@ public class RiskyRescue {
             ni.setPreferencesHandler(new PrefsBoxer());
             ni.setQuitHandler(new Quitter());
         } catch (Throwable t) {
-            RiskyRescue.getErrorLogger().logError(t);
+            RiskyRescue.logError(t);
         }
     }
-    
+
     static class PrefsBoxer implements PreferencesHandler {
         public PrefsBoxer() {
             super();
@@ -96,15 +98,17 @@ public class RiskyRescue {
             PreferencesManager.showPrefs();
         }
     }
-    
+
     static class Quitter implements QuitHandler {
         public Quitter() {
             super();
         }
 
         @Override
-        public void handleQuitRequestWith(QuitEvent event, QuitResponse response) {
-            ScenarioManager mm = RiskyRescue.getApplication().getScenarioManager();
+        public void handleQuitRequestWith(QuitEvent event,
+                QuitResponse response) {
+            ScenarioManager mm = RiskyRescue.getApplication()
+                    .getScenarioManager();
             boolean saved = true;
             int status;
             if (mm.getDirty()) {
@@ -121,8 +125,9 @@ public class RiskyRescue {
                 PreferencesManager.writePrefs();
                 // Run cleanup task
                 try {
-                    File dirToDelete = new File(System.getProperty("java.io.tmpdir")
-                            + File.pathSeparator + "RiskyRescue");
+                    File dirToDelete = new File(
+                            System.getProperty("java.io.tmpdir")
+                                    + File.pathSeparator + "RiskyRescue");
                     DirectoryUtilities.removeDirectory(dirToDelete);
                 } catch (Throwable t) {
                     // Ignore

@@ -390,7 +390,7 @@ public class MenuManager {
                 }
                 MenuManager.this.checkFlags();
             } catch (Exception ex) {
-                RiskyRescue.getErrorLogger().logError(ex);
+                RiskyRescue.logError(ex);
             }
         }
     }

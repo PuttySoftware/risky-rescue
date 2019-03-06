@@ -218,7 +218,7 @@ class PreferencesGUIManager {
                     break;
                 }
             } catch (Exception ex) {
-                RiskyRescue.getErrorLogger().logError(ex);
+                RiskyRescue.logError(ex);
             }
         }
 
@@ -242,7 +242,7 @@ class PreferencesGUIManager {
                     }
                 }
             } catch (Exception ex) {
-                RiskyRescue.getErrorLogger().logError(ex);
+                RiskyRescue.logError(ex);
             }
         }
 

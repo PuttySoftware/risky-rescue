@@ -222,13 +222,15 @@ public class GameLogic {
             for (InternalScriptArea isa : areaScripts) {
                 InternalScriptRunner.runScript(isa);
             }
+            // Process step actions
+            GameLogic.fireStepActions(px, py, pz);
         } else {
             // Random battles are skipped this time
             if (!Support.inDebugMode()) {
                 this.runBattles = true;
             }
         }
-        GameLogic.fireStepActions(px, py, pz);
+        // Process general events
         this.updateStats();
         this.checkGameOver();
     }

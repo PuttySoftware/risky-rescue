@@ -509,10 +509,21 @@ public class GameLogic {
             if (party.getActivePCCount() == 2 && party.isAlive()) {
                 // If our buddy is with us and everyone is alive, we win!
                 this.victory();
+            } else if (party.getActivePCCount() != 2 && party.isAlive()) {
+                // Our buddy is not with us...
+                this.gameOverMessage(
+                        "Leaving the dungeon without your buddy, are you? GAME OVER!");
+            } else if (party.getActivePCCount() == 2 && !party.isAlive()) {
+                // Our buddy is with us, but one of us is dead :(
+                this.gameOverMessage(
+                        "Both of you must be alive to achieve victory... GAME OVER!");
             } else {
-                // Our buddy is not with us, or someone in our party is dead
-                this.gameOver();
+                // Something else?
+                this.gameOverMessage(
+                        "I have no clue how you got here, so GAME OVER!");
             }
+            // End of the line...
+            return;
         }
         this.resetViewingWindow();
         GameLogic.fireStepActions(m.getPlayerLocationX(),
@@ -522,7 +533,7 @@ public class GameLogic {
                 .getMusicEnabled(PreferencesManager.MUSIC_DUNGEON)) {
             MusicManager.stopMusic();
             MusicManager.playMusic(MusicConstants.DUNGEON,
-                    m.getPlayerLocationZ());
+                    PartyManager.getMapLevel());
         }
     }
 
@@ -538,7 +549,9 @@ public class GameLogic {
         // Play victory sound
         SoundManager.playSound(SoundConstants.WIN_GAME);
         // Display YOU WIN! message
-        CommonDialogs.showDialog("YOU WIN! The game has ended.");
+        CommonDialogs.showTitledDialog(
+                "You have successfully escaped with your buddy! YOU WIN!",
+                "MISSION COMPLETE");
         this.st.commitScore();
         this.exitGame();
     }
@@ -560,9 +573,18 @@ public class GameLogic {
         }
     }
 
+    private void gameOverMessage(final String message) {
+        SoundManager.playSound(SoundConstants.DEFEAT);
+        CommonDialogs.showErrorDialog(message, "MISSION FAILED");
+        MusicManager.stopMusic();
+        this.st.commitScore();
+        this.exitGame();
+    }
+
     private void gameOver() {
         SoundManager.playSound(SoundConstants.DEFEAT);
         CommonDialogs.showDialog("You have died - Game Over!");
+        MusicManager.stopMusic();
         this.st.commitScore();
         this.exitGame();
     }

@@ -45,7 +45,7 @@ public class GameLogic {
         this.st = new ScoreTracker();
         this.savedGameFlag = false;
         this.stateChanged = true;
-        this.runBattles = true;
+        this.runBattles = !Support.inDebugMode();
     }
 
     // Methods
@@ -92,7 +92,9 @@ public class GameLogic {
     }
 
     public void skipBattlesOnce() {
-        this.runBattles = false;
+        if (!Support.inDebugMode()) {
+            this.runBattles = false;
+        }
     }
 
     public void setStatusMessage(final String msg) {
@@ -222,7 +224,9 @@ public class GameLogic {
             }
         } else {
             // Random battles are skipped this time
-            this.runBattles = true;
+            if (!Support.inDebugMode()) {
+                this.runBattles = true;
+            }
         }
         GameLogic.fireStepActions(px, py, pz);
         this.updateStats();

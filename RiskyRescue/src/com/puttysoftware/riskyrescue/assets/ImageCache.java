@@ -16,12 +16,12 @@ class ImageCache {
     // Methods
     static BufferedImageIcon getCachedImage(final String name,
             final String cat) {
-        if (!ImageCache.isInCache(name)) {
+        if (!ImageCache.isInCache(cat)) {
             BufferedImageIcon bii = ImageManager.getUncachedImage(name, cat);
-            ImageCache.addToCache(name, bii);
+            ImageCache.addToCache(cat, bii);
         }
         for (ImageCacheEntry ice : ImageCache.cache) {
-            if (ice.getName().equals(name)) {
+            if (ice.getName().equals(cat)) {
                 return ice.getEntry();
             }
         }

@@ -59,12 +59,12 @@ public class Regenerator extends MapObject {
 
     @Override
     public String getName() {
-        return null;
+        return "Regenerator";
     }
 
     @Override
     public String getPluralName() {
-        return null;
+        return "Regenerators";
     }
 
     @Override

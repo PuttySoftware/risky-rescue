@@ -60,12 +60,12 @@ public class ArmorShop extends MapObject {
 
     @Override
     public String getName() {
-        return null;
+        return "Armor Shop";
     }
 
     @Override
     public String getPluralName() {
-        return null;
+        return "Armor Shops";
     }
 
     @Override

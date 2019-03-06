@@ -59,12 +59,12 @@ public class HealShop extends MapObject {
 
     @Override
     public String getName() {
-        return null;
+        return "Healer";
     }
 
     @Override
     public String getPluralName() {
-        return null;
+        return "Healers";
     }
 
     @Override

@@ -59,12 +59,12 @@ public class WeaponsShop extends MapObject {
 
     @Override
     public String getName() {
-        return null;
+        return "Weapon Shop";
     }
 
     @Override
     public String getPluralName() {
-        return null;
+        return "Weapon Shops";
     }
 
     @Override

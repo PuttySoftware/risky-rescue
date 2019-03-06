@@ -15,6 +15,7 @@ import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.map.objects.MapObject;
 import com.puttysoftware.riskyrescue.map.objects.MapObjectList;
 import com.puttysoftware.riskyrescue.map.objects.RandomGenerationRule;
+import com.puttysoftware.riskyrescue.map.objects.StairsUp;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptActionCode;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptArea;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptEntry;
@@ -531,7 +532,7 @@ class LayeredTower implements Cloneable {
         for (int layer = 0; layer < MapConstants.LAYER_COUNT; layer++) {
             MapObject[] requiredObjects = objects.getAllRequired(layer);
             if (requiredObjects != null) {
-                int randomColumn, randomRow;
+                int randomColumn = -1, randomRow = -1;
                 for (x = 0; x < requiredObjects.length; x++) {
                     MapObject currObj = requiredObjects[x];
                     int min = currObj.getMinimumRequiredQuantity(map);
@@ -571,37 +572,46 @@ class LayeredTower implements Cloneable {
                                     layer);
                         }
                     }
+                    if (map.getActiveLevelNumber() != 0
+                            && currObj instanceof StairsUp) {
+                        // The player will spawn here upon entering the level
+                        this.playerStartData[1] = this.playerLocationData[1] = randomRow;
+                        this.playerStartData[0] = this.playerLocationData[0] = randomColumn;
+                        this.playerStartData[2] = this.playerLocationData[2] = z;
+                    }
                 }
             }
         }
         // Add player
-        MapObject currObj = PartyManager.getParty().getPlayer();
-        int layer = currObj.getLayer();
-        int randomRow = row.generate();
-        int randomColumn = column.generate();
-        if (currObj.shouldGenerateObject(map, randomRow, randomColumn, z, w,
-                layer)) {
-            this.setCell(currObj, randomColumn, randomRow, z, layer);
-            this.playerStartData[1] = this.playerLocationData[1] = randomRow;
-            this.playerStartData[0] = this.playerLocationData[0] = randomColumn;
-            this.playerStartData[2] = this.playerLocationData[2] = z;
-        } else {
-            while (!currObj.shouldGenerateObject(map, randomColumn, randomRow,
-                    z, w, layer)) {
-                randomRow = row.generate();
-                randomColumn = column.generate();
+        if (map.getActiveLevelNumber() == 0) {
+            MapObject currObj = PartyManager.getParty().getPlayer();
+            int layer = currObj.getLayer();
+            int randomRow = row.generate();
+            int randomColumn = column.generate();
+            if (currObj.shouldGenerateObject(map, randomRow, randomColumn, z, w,
+                    layer)) {
+                this.setCell(currObj, randomColumn, randomRow, z, layer);
+                this.playerStartData[1] = this.playerLocationData[1] = randomRow;
+                this.playerStartData[0] = this.playerLocationData[0] = randomColumn;
+                this.playerStartData[2] = this.playerLocationData[2] = z;
+            } else {
+                while (!currObj.shouldGenerateObject(map, randomColumn,
+                        randomRow, z, w, layer)) {
+                    randomRow = row.generate();
+                    randomColumn = column.generate();
+                }
+                this.setCell(currObj, randomColumn, randomRow, z, layer);
+                this.playerStartData[1] = this.playerLocationData[1] = randomRow;
+                this.playerStartData[0] = this.playerLocationData[0] = randomColumn;
+                this.playerStartData[2] = this.playerLocationData[2] = z;
             }
-            this.setCell(currObj, randomColumn, randomRow, z, layer);
-            this.playerStartData[1] = this.playerLocationData[1] = randomRow;
-            this.playerStartData[0] = this.playerLocationData[0] = randomColumn;
-            this.playerStartData[2] = this.playerLocationData[2] = z;
         }
-        // Add buddy, if needed
+        // Add buddy
         if (map.getActiveLevelNumber() == Map.MAX_LEVELS - 1) {
-            currObj = PartyManager.getParty().getBuddy();
-            layer = currObj.getLayer();
-            randomRow = row.generate();
-            randomColumn = column.generate();
+            MapObject currObj = PartyManager.getParty().getBuddy();
+            int layer = currObj.getLayer();
+            int randomRow = row.generate();
+            int randomColumn = column.generate();
             if (currObj.shouldGenerateObject(map, randomRow, randomColumn, z, w,
                     layer)) {
                 this.setCell(currObj, randomColumn, randomRow, z, layer);

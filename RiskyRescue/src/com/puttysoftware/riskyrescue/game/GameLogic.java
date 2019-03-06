@@ -505,6 +505,7 @@ public class GameLogic {
                 // Our buddy is not with us, or someone in our party is dead
             }
         }
+        this.resetViewingWindow();
         GameLogic.fireStepActions(m.getPlayerLocationX(),
                 m.getPlayerLocationY(), m.getPlayerLocationZ());
         this.redrawMap();

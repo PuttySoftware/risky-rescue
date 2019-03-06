@@ -31,8 +31,7 @@ public class StairsUp extends MapObject {
         scpt.addAction(entry1);
         InternalScriptEntry entry2 = new InternalScriptEntry();
         entry2.setActionCode(InternalScriptActionCode.SOUND);
-        entry2.addActionArg(
-                new InternalScriptEntryArgument(SoundConstants.UP));
+        entry2.addActionArg(new InternalScriptEntryArgument(SoundConstants.UP));
         entry2.finalizeActionArgs();
         scpt.addAction(entry2);
         scpt.finalizeActions();
@@ -79,6 +78,11 @@ public class StairsUp extends MapObject {
     @Override
     public void setCustomProperty(int propID, int value) {
         // Do nothing
+    }
+
+    @Override
+    public boolean enabledInBattle() {
+        return false;
     }
 
     @Override

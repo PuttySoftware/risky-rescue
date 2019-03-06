@@ -80,6 +80,11 @@ public class StairsDown extends MapObject {
     public void setCustomProperty(int propID, int value) {
         // Do nothing
     }
+    
+    @Override
+    public boolean enabledInBattle() {
+        return false;
+    }
 
     @Override
     public boolean isRequired() {

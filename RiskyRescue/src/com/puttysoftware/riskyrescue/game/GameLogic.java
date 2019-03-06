@@ -488,6 +488,9 @@ public class GameLogic {
     }
 
     public void goToLevelRelative(final int level) {
+        // Don't allow the player to take the stairs with them
+        GameLogic.setSavedMapObject(new Empty());
+        // Level change
         Application app = RiskyRescue.getApplication();
         Map m = app.getScenarioManager().getMap();
         final boolean levelExists = m.doesLevelExistOffset(level);
@@ -508,6 +511,7 @@ public class GameLogic {
                 this.victory();
             } else {
                 // Our buddy is not with us, or someone in our party is dead
+                this.gameOver();
             }
         }
         this.resetViewingWindow();

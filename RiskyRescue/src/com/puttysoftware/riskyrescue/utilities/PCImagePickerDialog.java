@@ -58,6 +58,7 @@ public class PCImagePickerDialog extends JDialog implements ActionListener {
         this.clothing = new JComboBox<>(new DefaultComboBoxModel<>(cNames));
         int cStart = new RandomRange(0, cNames.length - 1).generate();
         this.clothing.setSelectedIndex(cStart);
+        PCImagePickerDialog.clothingValue = cStart;
         this.clothing.addItemListener(il -> {
             int c = this.clothing.getSelectedIndex();
             PCImagePickerDialog.clothingValue = c;
@@ -69,6 +70,7 @@ public class PCImagePickerDialog extends JDialog implements ActionListener {
         this.skin = new JComboBox<>(new DefaultComboBoxModel<>(sNames));
         int sStart = new RandomRange(0, sNames.length - 1).generate();
         this.skin.setSelectedIndex(sStart);
+        PCImagePickerDialog.skinValue = sStart;
         this.skin.addItemListener(il -> {
             int s = this.skin.getSelectedIndex();
             PCImagePickerDialog.skinValue = s;
@@ -80,6 +82,7 @@ public class PCImagePickerDialog extends JDialog implements ActionListener {
         this.hair = new JComboBox<>(new DefaultComboBoxModel<>(hNames));
         int hStart = new RandomRange(0, hNames.length - 1).generate();
         this.hair.setSelectedIndex(hStart);
+        PCImagePickerDialog.hairValue = hStart;
         this.hair.addItemListener(il -> {
             int h = this.hair.getSelectedIndex();
             PCImagePickerDialog.hairValue = h;

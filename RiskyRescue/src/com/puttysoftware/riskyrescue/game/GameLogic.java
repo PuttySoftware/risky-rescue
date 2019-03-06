@@ -492,6 +492,7 @@ public class GameLogic {
             m.addLevel(Support.getGameMapSize(), Support.getGameMapSize(),
                     Support.getGameMapFloorSize());
             m.fillLevelRandomly(new Tile(), new Empty());
+            m.resetVisibleSquares();
             m.save();
         } else if (levelExists && m.isLevelOffsetValid(level)) {
             m.switchLevelOffset(level);

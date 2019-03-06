@@ -20,7 +20,7 @@ public class MapObjectList {
     public MapObjectList() {
         MapObject[] allDefaultObjects = { new Empty(), new Tile(),
                 new HazardousGround(), new Wall(), new WallOff(), new WallOn(),
-                new ClosedDoor(), new OpenDoor(), new Button(), new Teleport(),
+                new ClosedDoor(), new OpenDoor(), new Button(),
                 new StairsDown(), new StairsUp(), new SealingWall(),
                 new ArmorShop(), new HealShop(), new Regenerator(),
                 new WeaponsShop() };

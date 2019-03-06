@@ -320,22 +320,12 @@ public class GameLogic {
     }
 
     private void saveSavedMapObject() {
-        Map m = RiskyRescue.getApplication().getScenarioManager().getMap();
-        int px = m.getPlayerLocationX();
-        int py = m.getPlayerLocationY();
-        int pz = m.getPlayerLocationZ();
-        Player player = (Player) m.getCell(px, py, pz,
-                MapConstants.LAYER_OBJECT);
+        Player player = PartyManager.getParty().getPlayer();
         player.setSavedObject(this.savedMapObject);
     }
 
     private void restoreSavedMapObject() {
-        Map m = RiskyRescue.getApplication().getScenarioManager().getMap();
-        int px = m.getPlayerLocationX();
-        int py = m.getPlayerLocationY();
-        int pz = m.getPlayerLocationZ();
-        Player player = (Player) m.getCell(px, py, pz,
-                MapConstants.LAYER_OBJECT);
+        Player player = PartyManager.getParty().getPlayer();
         this.savedMapObject = player.getSavedObject();
     }
 

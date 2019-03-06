@@ -339,16 +339,6 @@ public class GameLogic {
         this.savedMapObject = player.getSavedObject();
     }
 
-    private void findPlayerAndAdjust() {
-        // Find the player, adjust player location
-        Map m = RiskyRescue.getApplication().getScenarioManager().getMap();
-        m.findStart();
-        m.setPlayerLocation(m.getStartColumn(), m.getStartRow(),
-                m.getStartFloor(), m.getActiveLevelNumber());
-        this.resetViewingWindow();
-        this.redrawMap();
-    }
-
     private static boolean checkSolid(final int z, final MapObject inside,
             final MapObject below, final MapObject nextBelow,
             final MapObject nextAbove) {
@@ -504,12 +494,10 @@ public class GameLogic {
                     Support.getGameMapFloorSize());
             m.fillLevelRandomly(new Tile(), new Empty());
             m.save();
-            this.findPlayerAndAdjust();
             this.restoreSavedMapObject();
         } else if (levelExists && m.isLevelOffsetValid(level)) {
             this.saveSavedMapObject();
             m.switchLevelOffset(level);
-            this.findPlayerAndAdjust();
             this.restoreSavedMapObject();
         } else {
             // Attempted to leave the dungeon...
@@ -536,25 +524,8 @@ public class GameLogic {
         this.gameGUI.redrawMap();
     }
 
-    private void resetViewingWindowAndPlayerLocation() {
-        GameLogic.resetPlayerLocation();
-        this.resetViewingWindow();
-    }
-
     public void resetViewingWindow() {
         this.gameGUI.resetViewingWindow();
-    }
-
-    private static void resetPlayerLocation() {
-        GameLogic.resetPlayerLocation(0);
-    }
-
-    private static void resetPlayerLocation(int level) {
-        Application app = RiskyRescue.getApplication();
-        Map m = app.getScenarioManager().getMap();
-        m.switchLevel(level);
-        m.setPlayerLocation(m.getStartColumn(), m.getStartRow(),
-                m.getStartFloor(), level);
     }
 
     public void victory() {
@@ -569,14 +540,7 @@ public class GameLogic {
     public void exitGame() {
         this.stateChanged = true;
         Application app = RiskyRescue.getApplication();
-        Map m = app.getScenarioManager().getMap();
-        // Restore the map
-        m.restore();
-        m.resetVisibleSquares();
-        final boolean playerExists = m.doesPlayerExist();
-        if (playerExists) {
-            this.resetViewingWindowAndPlayerLocation();
-        } // Reset saved game flag
+        // Reset saved game flag
         this.savedGameFlag = false;
         app.getScenarioManager().setDirty(false);
         // Exit game
@@ -606,6 +570,7 @@ public class GameLogic {
     }
 
     public void playMap() {
+        Map m;
         Application app = RiskyRescue.getApplication();
         app.getGUIManager().hideGUI();
         app.setInGame();
@@ -620,21 +585,19 @@ public class GameLogic {
                 didMapExist = false;
             }
             RiskyRescue.newScenario();
-            app.getScenarioManager().setMap(new Map());
-            app.getScenarioManager().getMap().createMaps();
-            app.getScenarioManager().getMap().addLevel(Support.getGameMapSize(),
-                    Support.getGameMapSize(), Support.getGameMapFloorSize());
-            app.getScenarioManager().getMap().fillLevelRandomly(new Tile(),
-                    new Empty());
-            app.getScenarioManager().getMap().setPlayerLocationW(0);
-            app.getScenarioManager().getMap().findStart();
-            app.getScenarioManager().getMap().save();
+            m = new Map();
+            app.getScenarioManager().setMap(m);
+            m.createMaps();
+            m.addLevel(Support.getGameMapSize(), Support.getGameMapSize(),
+                    Support.getGameMapFloorSize());
+            m.fillLevelRandomly(new Tile(), new Empty());
+            m.setPlayerLocationW(0);
+            m.save();
             if (didMapExist) {
-                app.getScenarioManager().getMap().setGeneratorRandomness(
-                        currRandom, RiskyRescue.GENERATOR_RANDOMNESS_MAX);
+                m.setGeneratorRandomness(currRandom,
+                        RiskyRescue.GENERATOR_RANDOMNESS_MAX);
             }
-            this.resetViewingWindowAndPlayerLocation();
-            Map m = app.getScenarioManager().getMap();
+            this.resetViewingWindow();
             int px = m.getPlayerLocationX();
             int py = m.getPlayerLocationY();
             int pz = m.getPlayerLocationZ();

@@ -270,10 +270,6 @@ public class Map implements MapConstants {
         return this.mapData.doesPlayerExist();
     }
 
-    public void findStart() {
-        this.mapData.findStart();
-    }
-
     public void findAllObjectPairsAndSwap(final MapObject o1,
             final MapObject o2) {
         this.mapData.findAllObjectPairsAndSwap(o1, o2);

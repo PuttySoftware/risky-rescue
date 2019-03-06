@@ -17,10 +17,10 @@ public class MusicConstants {
     static String getMusicNameForID(final int musicID, final int offset) {
         String musicStr = "";
         if (musicID == MusicConstants.BATTLE) {
-            musicStr = "battle" + Integer.toString(offset - MusicConstants.BATTLE) + ".mod";
+            musicStr = "battle" + Integer.toString(offset) + ".mod";
         }
         if (musicID == MusicConstants.DUNGEON) {
-            musicStr = "dungeon" + Integer.toString(offset - MusicConstants.DUNGEON) + ".mod";
+            musicStr = "dungeon" + Integer.toString(offset) + ".mod";
         }
         return musicStr;
     }

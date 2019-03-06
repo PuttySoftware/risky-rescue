@@ -15,10 +15,7 @@ import com.puttysoftware.riskyrescue.battle.BattleLogic;
 import com.puttysoftware.riskyrescue.game.GameLogic;
 import com.puttysoftware.riskyrescue.items.Shop;
 import com.puttysoftware.riskyrescue.items.ShopTypes;
-import com.puttysoftware.riskyrescue.map.Map;
-import com.puttysoftware.riskyrescue.map.objects.Empty;
 import com.puttysoftware.riskyrescue.map.objects.MapObjectList;
-import com.puttysoftware.riskyrescue.map.objects.Tile;
 import com.puttysoftware.riskyrescue.prefs.PreferencesManager;
 import com.puttysoftware.riskyrescue.scenario.ScenarioManager;
 
@@ -69,13 +66,6 @@ public class Application {
         ni.setDefaultMenuBar(this.menuMgr.getMainMenuBar());
         // Set Up
         Support.createScenario();
-        this.getScenarioManager().setMap(new Map());
-        this.getScenarioManager().getMap().addLevel(Support.getGameMapSize(),
-                Support.getGameMapSize(), Support.getGameMapFloorSize());
-        this.getScenarioManager().getMap().fillLevelRandomly(new Tile(),
-                new Empty());
-        this.getScenarioManager().getMap().setPlayerLocationW(0);
-        this.getScenarioManager().getMap().findStart();
     }
 
     void setInGUI() {

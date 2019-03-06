@@ -171,26 +171,6 @@ class LayeredTower implements Cloneable {
         return res;
     }
 
-    public void findStart() {
-        int y, x, z;
-        for (x = 0; x < this.getColumns(); x++) {
-            for (y = 0; y < this.getRows(); y++) {
-                for (z = 0; z < this.getFloors(); z++) {
-                    MapObject mo = this.getCell(y, x, z,
-                            MapConstants.LAYER_OBJECT);
-                    if (mo != null) {
-                        if (mo.getName().equals("Player")) {
-                            this.playerStartData[1] = x;
-                            this.playerStartData[0] = y;
-                            this.playerStartData[2] = z;
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     public void findAllObjectPairsAndSwap(final MapObject o1,
             final MapObject o2) {
         int y, x, z;
@@ -603,6 +583,9 @@ class LayeredTower implements Cloneable {
         if (currObj.shouldGenerateObject(map, randomRow, randomColumn, z, w,
                 layer)) {
             this.setCell(currObj, randomColumn, randomRow, z, layer);
+            this.playerStartData[1] = this.playerLocationData[1] = randomRow;
+            this.playerStartData[0] = this.playerLocationData[0] = randomColumn;
+            this.playerStartData[2] = this.playerLocationData[2] = z;
         } else {
             while (!currObj.shouldGenerateObject(map, randomColumn, randomRow,
                     z, w, layer)) {
@@ -610,6 +593,9 @@ class LayeredTower implements Cloneable {
                 randomColumn = column.generate();
             }
             this.setCell(currObj, randomColumn, randomRow, z, layer);
+            this.playerStartData[1] = this.playerLocationData[1] = randomRow;
+            this.playerStartData[0] = this.playerLocationData[0] = randomColumn;
+            this.playerStartData[2] = this.playerLocationData[2] = z;
         }
         // Add buddy, if needed
         if (map.getActiveLevelNumber() == Map.MAX_LEVELS - 1) {

@@ -37,7 +37,7 @@ public class Support {
     private static final int BATTLE_MAP_FLOOR_SIZE = 1;
     private static final int GAME_MAP_SIZE = 48;
     private static final int GAME_MAP_FLOOR_SIZE = 1;
-    private static final boolean debugMode = false;
+    private static final boolean debugMode = true;
 
     // Methods
     public static ErrorLogger getErrorLogger() {

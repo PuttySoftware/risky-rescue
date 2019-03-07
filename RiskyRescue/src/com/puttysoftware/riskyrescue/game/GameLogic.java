@@ -215,13 +215,6 @@ public class GameLogic {
             this.redrawMap();
             redrawsSuspended = false;
         }
-        if (Support.inDebugMode() && this.runBattles) {
-            // Process step actions otherwise skipped
-            GameLogic.fireStepActions(px, py, pz);
-        }
-        // Process general events
-        this.updateStats();
-        this.checkGameOver();
         if (this.runBattles) {
             if (!Support.inDebugMode()) {
                 // Process random battles
@@ -234,11 +227,17 @@ public class GameLogic {
                 // Process step actions
                 GameLogic.fireStepActions(px, py, pz);
             }
-        } else {
-            // Random battles are skipped this time
-            if (!Support.inDebugMode()) {
-                this.runBattles = true;
-            }
+        }
+        if (Support.inDebugMode() && this.runBattles) {
+            // Process step actions otherwise skipped
+            GameLogic.fireStepActions(px, py, pz);
+        }
+        // Process general events
+        this.updateStats();
+        this.checkGameOver();
+        if (!this.runBattles) {
+            // Run battles previously skipped
+            this.runBattles = true;
         }
     }
 

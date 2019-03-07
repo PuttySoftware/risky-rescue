@@ -190,27 +190,10 @@ public class Map implements MapConstants {
         this.mapData[this.activeLevel].restorePlayerLocation();
     }
 
-    public void setPlayerLocation(int x, int y, int z, int w) {
-        this.setPlayerLocationX(x);
-        this.setPlayerLocationY(y);
-        this.setPlayerLocationZ(z);
-        this.setPlayerLocationW(w);
-    }
-
-    private void setPlayerLocationX(final int newPlayerRow) {
-        this.mapData[this.activeLevel].setPlayerRow(newPlayerRow);
-    }
-
-    private void setPlayerLocationY(final int newPlayerColumn) {
-        this.mapData[this.activeLevel].setPlayerColumn(newPlayerColumn);
-    }
-
-    private void setPlayerLocationZ(final int newPlayerFloor) {
-        this.mapData[this.activeLevel].setPlayerFloor(newPlayerFloor);
-    }
-
-    public void setPlayerLocationW(final int newPlayerLevel) {
-        this.locW = newPlayerLevel;
+    public void setPlayerLocation(int x, int y, int z) {
+        this.mapData[this.activeLevel].setPlayerRow(x);
+        this.mapData[this.activeLevel].setPlayerColumn(y);
+        this.mapData[this.activeLevel].setPlayerFloor(z);
     }
 
     public int getRows() {

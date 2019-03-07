@@ -407,7 +407,7 @@ public class GameLogic {
                 m.setCell(GameLogic.getSavedMapObject(), m.getPlayerLocationX(),
                         m.getPlayerLocationY(), m.getPlayerLocationZ(),
                         MapConstants.LAYER_OBJECT);
-                m.setPlayerLocation(x, y, z, 0);
+                m.setPlayerLocation(x, y, z);
                 this.getViewManager()
                         .setViewingWindowLocationX(m.getPlayerLocationY()
                                 - GameViewingWindowManager.getOffsetFactor());
@@ -458,7 +458,7 @@ public class GameLogic {
                 m.setCell(GameLogic.getSavedMapObject(), m.getPlayerLocationX(),
                         m.getPlayerLocationY(), m.getPlayerLocationZ(),
                         MapConstants.LAYER_OBJECT);
-                m.setPlayerLocation(x, y, z, m.getPlayerLocationW());
+                m.setPlayerLocation(x, y, z);
                 this.getViewManager()
                         .setViewingWindowLocationX(m.getPlayerLocationY()
                                 - GameViewingWindowManager.getOffsetFactor());
@@ -513,8 +513,13 @@ public class GameLogic {
             m.addLevel(Support.getGameMapSize(), Support.getGameMapSize(),
                     Support.getGameMapFloorSize());
             m.fillLevelRandomly(new Tile(), new Empty());
-            m.resetVisibleSquares();
             m.save();
+            this.resetViewingWindow();
+            m.resetVisibleSquares();
+            int px = m.getPlayerLocationX();
+            int py = m.getPlayerLocationY();
+            int pz = m.getPlayerLocationZ();
+            m.updateVisibleSquares(px, py, pz);
         } else if (levelExists && m.isLevelOffsetValid(level)) {
             // The player will spawn atop stairs that need saving
             if (level < 0) {
@@ -641,7 +646,6 @@ public class GameLogic {
             m.addLevel(Support.getGameMapSize(), Support.getGameMapSize(),
                     Support.getGameMapFloorSize());
             m.fillLevelRandomly(new Tile(), new Empty());
-            m.setPlayerLocationW(0);
             m.save();
             if (didMapExist) {
                 m.setGeneratorRandomness(currRandom,

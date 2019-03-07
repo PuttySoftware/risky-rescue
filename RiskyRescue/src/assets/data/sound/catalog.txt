@@ -39,3 +39,4 @@ victory
 warning
 win_game
 on_who
+monster_counter

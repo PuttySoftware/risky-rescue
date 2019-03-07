@@ -368,14 +368,14 @@ public class BattleLogic {
             String displayDamagePrefix = "";
             if (this.de.weaponCrit() && this.de.weaponPierce()) {
                 displayDamagePrefix = "PIERCING CRITICAL HIT! ";
-                SoundManager.playSound(SoundConstants.COUNTER);
+                SoundManager.playSound(SoundConstants.MONSTER_COUNTER);
                 SoundManager.playSound(SoundConstants.MONSTER_CRITICAL_HIT);
             } else if (this.de.weaponCrit()) {
                 displayDamagePrefix = "CRITICAL HIT! ";
                 SoundManager.playSound(SoundConstants.MONSTER_CRITICAL_HIT);
             } else if (this.de.weaponPierce()) {
                 displayDamagePrefix = "PIERCING HIT! ";
-                SoundManager.playSound(SoundConstants.COUNTER);
+                SoundManager.playSound(SoundConstants.MONSTER_COUNTER);
             }
             displayDamageString = displayDamagePrefix + enemyName + " hits "
                     + heroName + " for " + damageString + " damage!";

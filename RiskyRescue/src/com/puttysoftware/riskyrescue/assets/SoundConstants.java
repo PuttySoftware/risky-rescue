@@ -49,6 +49,7 @@ public class SoundConstants {
     public static final int WARNING = 38;
     public static final int WIN_GAME = 39;
     public static final int ON_WHO = 40;
+    public static final int MONSTER_COUNTER = 41;
 
     // Private constructor
     private SoundConstants() {

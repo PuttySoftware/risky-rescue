@@ -34,9 +34,13 @@ public class Support {
     private static final int VERSION_PRERELEASE = 0;
     private static Scenario scen = null;
     private static final int BATTLE_MAP_SIZE = 9;
+    private static final int BATTLE_MAP_SIZE_DEBUG = 9;
     private static final int BATTLE_MAP_FLOOR_SIZE = 1;
+    private static final int BATTLE_MAP_FLOOR_SIZE_DEBUG = 1;
     private static final int GAME_MAP_SIZE = 64;
+    private static final int GAME_MAP_SIZE_DEBUG = 16;
     private static final int GAME_MAP_FLOOR_SIZE = 1;
+    private static final int GAME_MAP_FLOOR_SIZE_DEBUG = 1;
     private static final boolean debugMode = false;
 
     // Methods
@@ -90,18 +94,30 @@ public class Support {
     }
 
     public static int getBattleMapSize() {
+        if (Support.inDebugMode()) {
+            return Support.BATTLE_MAP_SIZE_DEBUG;
+        }
         return Support.BATTLE_MAP_SIZE;
     }
 
     public static int getBattleMapFloorSize() {
+        if (Support.inDebugMode()) {
+            return Support.BATTLE_MAP_FLOOR_SIZE_DEBUG;
+        }
         return Support.BATTLE_MAP_FLOOR_SIZE;
     }
 
     public static int getGameMapSize() {
+        if (Support.inDebugMode()) {
+            return Support.GAME_MAP_SIZE_DEBUG;
+        }
         return Support.GAME_MAP_SIZE;
     }
 
     public static int getGameMapFloorSize() {
+        if (Support.inDebugMode()) {
+            return Support.GAME_MAP_FLOOR_SIZE_DEBUG;
+        }
         return Support.GAME_MAP_FLOOR_SIZE;
     }
 

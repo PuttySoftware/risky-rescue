@@ -6,7 +6,6 @@
 package com.puttysoftware.riskyrescue.map.objects;
 
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
-import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.items.ShopTypes;
 import com.puttysoftware.riskyrescue.map.MapConstants;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScript;
@@ -23,11 +22,6 @@ public class Regenerator extends MapObject {
         super(ObjectImage.REGENERATOR, false, false);
         // Create post-move script
         this.postMove = new InternalScript();
-        InternalScriptEntry act0 = new InternalScriptEntry();
-        act0.setActionCode(InternalScriptActionCode.SOUND);
-        act0.addActionArg(new InternalScriptEntryArgument(SoundConstants.STEP));
-        act0.finalizeActionArgs();
-        this.postMove.addAction(act0);
         InternalScriptEntry act0post = new InternalScriptEntry();
         act0post.setActionCode(InternalScriptActionCode.SHOP);
         act0post.addActionArg(new InternalScriptEntryArgument(

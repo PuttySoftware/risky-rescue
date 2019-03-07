@@ -107,6 +107,7 @@ public class Shop implements ShopTypes {
             this.typeIndex = EquipmentSlotConstants.SLOT_OFFHAND;
         }
         if (this.typeChoices != null) {
+            SoundManager.playSound(SoundConstants.QUESTION);
             this.typeResult = CommonDialogs.showInputDialog("Select Type",
                     this.getShopNameFromType(), this.typeChoices,
                     this.typeChoices[this.typeDefault]);
@@ -138,6 +139,7 @@ public class Shop implements ShopTypes {
                 // Choose Hand
                 String[] handChoices = WeaponConstants.getHandChoices();
                 int handDefault = 0;
+                SoundManager.playSound(SoundConstants.QUESTION);
                 String handResult = CommonDialogs.showInputDialog("Select Hand",
                         this.getShopNameFromType(), handChoices,
                         handChoices[handDefault]);
@@ -175,11 +177,13 @@ public class Shop implements ShopTypes {
         // Check
         if (this.type == ShopTypes.SHOP_TYPE_HEALER && playerCharacter
                 .getCurrentHP() == playerCharacter.getMaximumHP()) {
+            SoundManager.playSound(SoundConstants.ERROR);
             CommonDialogs.showDialog("You don't need healing.");
             return false;
         } else if (this.type == ShopTypes.SHOP_TYPE_REGENERATOR
                 && playerCharacter.getCurrentMP() == playerCharacter
                         .getMaximumMP()) {
+            SoundManager.playSound(SoundConstants.ERROR);
             CommonDialogs.showDialog("You don't need regeneration.");
             return false;
         }

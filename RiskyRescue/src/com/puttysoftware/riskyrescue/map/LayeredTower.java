@@ -32,7 +32,6 @@ class LayeredTower {
     private LowLevelNoteDataStore noteData;
     private final int[] playerLocationData;
     private final int[] savedPlayerLocationData;
-    private final int[] findResult;
     private boolean horizontalWraparoundEnabled;
     private boolean verticalWraparoundEnabled;
     private boolean thirdDimensionWraparoundEnabled;
@@ -53,8 +52,6 @@ class LayeredTower {
         Arrays.fill(this.playerLocationData, -1);
         this.savedPlayerLocationData = new int[3];
         Arrays.fill(this.savedPlayerLocationData, -1);
-        this.findResult = new int[3];
-        Arrays.fill(this.findResult, -1);
         this.horizontalWraparoundEnabled = false;
         this.verticalWraparoundEnabled = false;
         this.thirdDimensionWraparoundEnabled = false;

@@ -37,16 +37,16 @@ public class SealingWall extends MapObject {
 
     @Override
     public String getName() {
-        return "Void";
+        return "Sealing Wall";
     }
 
     @Override
     public String getPluralName() {
-        return "Voids";
+        return "Sealing Walls";
     }
 
     @Override
     public String getDescription() {
-        return "The Void surrounds the map, and cannot be altered in any way.";
+        return "Sealing Walls surround the map, and cannot be altered in any way.";
     }
 }

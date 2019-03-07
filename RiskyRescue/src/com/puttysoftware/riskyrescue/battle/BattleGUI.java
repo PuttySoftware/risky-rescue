@@ -372,9 +372,9 @@ class BattleGUI {
                         break;
                     case KeyEvent.VK_NUMPAD5:
                     case KeyEvent.VK_S:
-                        // Confirm before attacking self
+                        // Confirm before shooting self
                         int res = CommonDialogs.showConfirmDialog(
-                                "Are you sure you want to attack yourself?",
+                                "Are you sure you want to shoot yourself?",
                                 "Battle");
                         if (res == JOptionPane.YES_OPTION) {
                             bl.fireArrow(0, 0);

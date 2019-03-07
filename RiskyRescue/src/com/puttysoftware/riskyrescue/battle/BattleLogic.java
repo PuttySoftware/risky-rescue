@@ -488,6 +488,8 @@ public class BattleLogic {
                 this.waitForAI();
                 this.ait = new AITask(this);
                 this.ait.start();
+            } else {
+                SoundManager.playSound(SoundConstants.PLAYER_UP);
             }
             return false;
         } else {
@@ -501,6 +503,7 @@ public class BattleLogic {
             // Perform new round actions
             this.performNewRoundActions();
             // Nobody to act next, set new round flag
+            SoundManager.playSound(SoundConstants.NEXT_ROUND);
             return true;
         }
     }

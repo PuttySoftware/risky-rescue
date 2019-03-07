@@ -42,12 +42,12 @@ public class StairsDown extends MapObject {
 
     @Override
     public String getName() {
-        return "Stairs Into";
+        return "Stairs Down";
     }
 
     @Override
     public String getPluralName() {
-        return "Sets of Stairs Into";
+        return "Sets of Stairs Down";
     }
 
     @Override

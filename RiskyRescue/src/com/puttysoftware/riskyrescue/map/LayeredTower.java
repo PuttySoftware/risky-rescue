@@ -339,7 +339,7 @@ class LayeredTower {
                     }
                 }
             } catch (ArrayIndexOutOfBoundsException aioobe) {
-                // Void blocks LOS
+                // Sealing Walls block LOS
                 return false;
             }
             e2 = 2 * err;

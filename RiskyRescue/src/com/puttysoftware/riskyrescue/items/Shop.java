@@ -183,6 +183,7 @@ public class Shop implements ShopTypes {
             CommonDialogs.showDialog("You don't need regeneration.");
             return false;
         }
+        SoundManager.playSound(SoundConstants.QUESTION);
         this.result = CommonDialogs.showInputDialog("Select",
                 this.getShopNameFromType(), this.choices,
                 this.choices[this.defaultChoice]);
@@ -230,6 +231,7 @@ public class Shop implements ShopTypes {
         double inflatedCost = this.cost * actualInflation;
         this.cost = (int) inflatedCost;
         // Confirm
+        SoundManager.playSound(SoundConstants.QUESTION);
         final int stage4Confirm = CommonDialogs.showConfirmDialog(
                 "This will cost " + this.cost + " Gold. Are you sure?",
                 this.getShopNameFromType());
@@ -250,6 +252,7 @@ public class Shop implements ShopTypes {
         // Stage 5
         PartyMember playerCharacter = PartyManager.getParty().getLeader();
         if (playerCharacter.getGold() < this.cost) {
+            SoundManager.playSound(SoundConstants.ERROR);
             CommonDialogs.showErrorDialog("Not Enough Gold!",
                     this.getShopNameFromType());
             return false;

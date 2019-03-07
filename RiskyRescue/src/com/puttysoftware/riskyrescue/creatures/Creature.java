@@ -123,7 +123,7 @@ public abstract class Creature {
     public final void applyEffect(final Effect e) {
         int x;
         for (x = 0; x < this.effectList.length; x++) {
-            if (this.get(x) == null) {
+            if (this.get(x) == null && e != null) {
                 this.set(x, e);
                 e.scaleEffect(this);
                 return;
@@ -171,7 +171,7 @@ public abstract class Creature {
         for (x = 0; x < this.effectList.length; x++) {
             try {
                 Effect e = this.get(x);
-                if (e.isActive()) {
+                if (e != null && e.isActive()) {
                     c++;
                 }
             } catch (final ArrayIndexOutOfBoundsException np) {
@@ -186,7 +186,7 @@ public abstract class Creature {
         for (x = 0; x < this.effectList.length; x++) {
             try {
                 Effect e = this.get(x);
-                if (!(e.isActive())) {
+                if (e != null && !(e.isActive())) {
                     this.set(x, null);
                 }
             } catch (final ArrayIndexOutOfBoundsException np) {
@@ -232,10 +232,13 @@ public abstract class Creature {
         this.fixStatValue(StatConstants.STAT_CURRENT_MP);
     }
 
-    public final void extendEffect(final Effect e, final int rounds) {
-        final int index = this.indexOf(e);
+    public final void extendEffect(final Effect which, final int rounds) {
+        final int index = this.indexOf(which);
         if (index != -1) {
-            this.get(index).extendEffect(rounds);
+            Effect e = this.get(index);
+            if (e != null) {
+                e.extendEffect(rounds);
+            }
         }
     }
 
@@ -291,8 +294,11 @@ public abstract class Creature {
         StringBuilder sb = new StringBuilder(Effect.getNullMessage());
         for (x = 0; x < this.effectList.length; x++) {
             try {
-                sb.append(this.get(x).getCurrentMessage());
-                sb.append("\n");
+                Effect e = this.get(x);
+                if (e != null) {
+                    sb.append(e.getCurrentMessage());
+                    sb.append("\n");
+                }
             } catch (final ArrayIndexOutOfBoundsException np) {
                 // Do nothing
             }
@@ -405,7 +411,7 @@ public abstract class Creature {
         for (x = 0; x < this.effectList.length; x++) {
             try {
                 Effect e = this.get(x);
-                if (e.getAffectedStat() == stat) {
+                if (e != null && e.getAffectedStat() == stat) {
                     if (e.isMultiply()) {
                         p *= e.getEffect();
                     } else {
@@ -744,10 +750,12 @@ public abstract class Creature {
     public final boolean isEffectActive(final Effect e) {
         final int index = this.indexOf(e);
         if (index != -1) {
-            return this.get(index).isActive();
-        } else {
-            return false;
+            Effect le = this.get(index);
+            if (le != null) {
+                return le.isActive();
+            }
         }
+        return false;
     }
 
     public final InternalScript levelUp() {
@@ -985,7 +993,10 @@ public abstract class Creature {
         int x;
         for (x = 0; x < this.effectList.length; x++) {
             try {
-                this.get(x).useEffect(this);
+                Effect e = this.get(x);
+                if (e != null) {
+                    e.useEffect(this);
+                }
             } catch (final ArrayIndexOutOfBoundsException np) {
                 // Do nothing
             }

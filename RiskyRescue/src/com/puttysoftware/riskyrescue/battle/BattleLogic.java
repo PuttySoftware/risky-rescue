@@ -24,6 +24,7 @@ import com.puttysoftware.riskyrescue.creatures.Creature;
 import com.puttysoftware.riskyrescue.creatures.StatConstants;
 import com.puttysoftware.riskyrescue.creatures.monsters.SystemMonster;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
+import com.puttysoftware.riskyrescue.creatures.party.PartyMember;
 import com.puttysoftware.riskyrescue.effects.Effect;
 import com.puttysoftware.riskyrescue.game.scripts.InternalScriptRunner;
 import com.puttysoftware.riskyrescue.map.Map;
@@ -303,23 +304,23 @@ public class BattleLogic {
         }
     }
 
-    private void displayRoundResults(Creature enemy, Creature active) {
+    private void displayRoundResultsHero(Creature enemy, Creature hero) {
         // Display round results
-        final String activeName = active.getName();
+        final String heroName = hero.getName();
         final String enemyName = enemy.getName();
         final String damageString = Integer.toString(this.damage);
         String displayDamageString;
         if (this.damage == 0) {
             if (this.de.weaponMissed()) {
-                displayDamageString = activeName + " tries to hit " + enemyName
+                displayDamageString = heroName + " tries to hit " + enemyName
                         + ", but MISSES!";
                 SoundManager.playSound(SoundConstants.MISSED);
             } else if (this.de.enemyDodged()) {
-                displayDamageString = activeName + " tries to hit " + enemyName
+                displayDamageString = heroName + " tries to hit " + enemyName
                         + ", but " + enemyName + " AVOIDS the attack!";
                 SoundManager.playSound(SoundConstants.MISSED);
             } else {
-                displayDamageString = activeName + " tries to hit " + enemyName
+                displayDamageString = heroName + " tries to hit " + enemyName
                         + ", but the attack is BLOCKED!";
                 SoundManager.playSound(SoundConstants.MISSED);
             }
@@ -336,9 +337,49 @@ public class BattleLogic {
                 displayDamagePrefix = "PIERCING HIT! ";
                 SoundManager.playSound(SoundConstants.COUNTER);
             }
-            displayDamageString = displayDamagePrefix + activeName + " hits "
+            displayDamageString = displayDamagePrefix + heroName + " hits "
                     + enemyName + " for " + damageString + " damage!";
             SoundManager.playSound(SoundConstants.HIT);
+        }
+        this.setStatusMessage(displayDamageString);
+    }
+
+    private void displayRoundResultsMonster(Creature hero, Creature enemy) {
+        // Display round results
+        final String enemyName = enemy.getName();
+        final String heroName = hero.getName();
+        final String damageString = Integer.toString(this.damage);
+        String displayDamageString;
+        if (this.damage == 0) {
+            if (this.de.weaponMissed()) {
+                displayDamageString = enemyName + " tries to hit " + heroName
+                        + ", but MISSES!";
+                SoundManager.playSound(SoundConstants.MONSTER_MISSED);
+            } else if (this.de.enemyDodged()) {
+                displayDamageString = enemyName + " tries to hit " + heroName
+                        + ", but " + heroName + " AVOIDS the attack!";
+                SoundManager.playSound(SoundConstants.MONSTER_MISSED);
+            } else {
+                displayDamageString = enemyName + " tries to hit " + heroName
+                        + ", but the attack is BLOCKED!";
+                SoundManager.playSound(SoundConstants.MONSTER_MISSED);
+            }
+        } else {
+            String displayDamagePrefix = "";
+            if (this.de.weaponCrit() && this.de.weaponPierce()) {
+                displayDamagePrefix = "PIERCING CRITICAL HIT! ";
+                SoundManager.playSound(SoundConstants.COUNTER);
+                SoundManager.playSound(SoundConstants.MONSTER_CRITICAL_HIT);
+            } else if (this.de.weaponCrit()) {
+                displayDamagePrefix = "CRITICAL HIT! ";
+                SoundManager.playSound(SoundConstants.MONSTER_CRITICAL_HIT);
+            } else if (this.de.weaponPierce()) {
+                displayDamagePrefix = "PIERCING HIT! ";
+                SoundManager.playSound(SoundConstants.COUNTER);
+            }
+            displayDamageString = displayDamagePrefix + enemyName + " hits "
+                    + heroName + " for " + damageString + " damage!";
+            SoundManager.playSound(SoundConstants.MONSTER_HIT);
         }
         this.setStatusMessage(displayDamageString);
     }
@@ -360,7 +401,11 @@ public class BattleLogic {
         // Hit or Missed
         this.damage = actual;
         enemy.doDamage(this.damage);
-        this.displayRoundResults(enemy, acting);
+        if (acting instanceof PartyMember) {
+            this.displayRoundResultsHero(enemy, acting);
+        } else {
+            this.displayRoundResultsMonster(enemy, acting);
+        }
     }
 
     private void generateSpeedArray() {

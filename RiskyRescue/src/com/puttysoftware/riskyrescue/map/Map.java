@@ -21,7 +21,7 @@ import com.puttysoftware.xio.XDataWriter;
 
 public class Map implements MapConstants {
     // Properties
-    private LayeredTower mapData;
+    private LayeredTower[] mapData;
     private int startW;
     private int locW;
     private int saveW;
@@ -35,7 +35,7 @@ public class Map implements MapConstants {
 
     // Constructors
     public Map() {
-        this.mapData = null;
+        this.mapData = new LayeredTower[Map.MAX_LEVELS];
         this.levelCount = 0;
         this.startW = 0;
         this.locW = 0;
@@ -66,7 +66,7 @@ public class Map implements MapConstants {
     }
 
     public void rebuildGSA(int mod) {
-        this.mapData.rebuildGSA(mod);
+        this.mapData[this.activeLevel].rebuildGSA(mod);
     }
 
     public void setXPrefixHandler(PrefixIO xph) {
@@ -78,11 +78,11 @@ public class Map implements MapConstants {
     }
 
     public int getRegionSize() {
-        return this.mapData.getRegionSize();
+        return this.mapData[this.activeLevel].getRegionSize();
     }
 
     public void setGeneratorRandomness(int value, int max) {
-        this.mapData.setGeneratorRandomness(value, max);
+        this.mapData[this.activeLevel].setGeneratorRandomness(value, max);
     }
 
     public int getActiveLevelNumber() {
@@ -103,21 +103,7 @@ public class Map implements MapConstants {
 
     private void switchLevelInternal(int level) {
         if (this.activeLevel != level) {
-            if (this.mapData != null) {
-                try (XDataWriter writer = this.getLevelWriterX()) {
-                    // Save old level
-                    this.writeMapLevelX(writer);
-                } catch (IOException io) {
-                    // Ignore
-                }
-            }
             this.activeLevel = level;
-            try (XDataReader reader = this.getLevelReaderX()) {
-                // Load new level
-                this.readMapLevelX(reader);
-            } catch (IOException io) {
-                // Ignore
-            }
         }
     }
 
@@ -132,26 +118,19 @@ public class Map implements MapConstants {
     }
 
     public void resetVisibleSquares() {
-        this.mapData.resetVisibleSquares();
+        this.mapData[this.activeLevel].resetVisibleSquares();
     }
 
     public void updateVisibleSquares(int xp, int yp, int zp) {
-        this.mapData.updateVisibleSquares(xp, yp, zp);
+        this.mapData[this.activeLevel].updateVisibleSquares(xp, yp, zp);
     }
 
     public boolean addLevel(final int rows, final int cols, final int floors) {
         if (this.levelCount < Map.MAX_LEVELS) {
-            if (this.mapData != null) {
-                try (XDataWriter writer = this.getLevelWriterX()) {
-                    // Save old level
-                    this.writeMapLevelX(writer);
-                } catch (IOException io) {
-                    // Ignore
-                }
-            }
-            this.mapData = new LayeredTower(rows, cols, floors);
             this.levelCount++;
             this.activeLevel = this.levelCount - 1;
+            this.mapData[this.activeLevel] = new LayeredTower(rows, cols,
+                    floors);
             return true;
         } else {
             return false;
@@ -159,28 +138,30 @@ public class Map implements MapConstants {
     }
 
     public MapObject getBattleCell(final int row, final int col) {
-        return this.mapData.getCell(row, col, 0, MapConstants.LAYER_OBJECT);
+        return this.mapData[this.activeLevel].getCell(row, col, 0,
+                MapConstants.LAYER_OBJECT);
     }
 
     public MapObject getBattleGround(final int row, final int col) {
-        return this.mapData.getCell(row, col, 0, MapConstants.LAYER_GROUND);
+        return this.mapData[this.activeLevel].getCell(row, col, 0,
+                MapConstants.LAYER_GROUND);
     }
 
     public MapObject getCell(final int row, final int col, final int floor,
             final int extra) {
-        return this.mapData.getCell(row, col, floor, extra);
+        return this.mapData[this.activeLevel].getCell(row, col, floor, extra);
     }
 
     public int getStartRow() {
-        return this.mapData.getStartRow();
+        return this.mapData[this.activeLevel].getStartRow();
     }
 
     public int getStartColumn() {
-        return this.mapData.getStartColumn();
+        return this.mapData[this.activeLevel].getStartColumn();
     }
 
     public int getStartFloor() {
-        return this.mapData.getStartFloor();
+        return this.mapData[this.activeLevel].getStartFloor();
     }
 
     public int getStartLevel() {
@@ -188,15 +169,15 @@ public class Map implements MapConstants {
     }
 
     public int getPlayerLocationX() {
-        return this.mapData.getPlayerRow();
+        return this.mapData[this.activeLevel].getPlayerRow();
     }
 
     public int getPlayerLocationY() {
-        return this.mapData.getPlayerColumn();
+        return this.mapData[this.activeLevel].getPlayerColumn();
     }
 
     public int getPlayerLocationZ() {
-        return this.mapData.getPlayerFloor();
+        return this.mapData[this.activeLevel].getPlayerFloor();
     }
 
     public int getPlayerLocationW() {
@@ -205,12 +186,12 @@ public class Map implements MapConstants {
 
     public void savePlayerLocation() {
         this.saveW = this.locW;
-        this.mapData.savePlayerLocation();
+        this.mapData[this.activeLevel].savePlayerLocation();
     }
 
     public void restorePlayerLocation() {
         this.locW = this.saveW;
-        this.mapData.restorePlayerLocation();
+        this.mapData[this.activeLevel].restorePlayerLocation();
     }
 
     public void setPlayerLocation(int x, int y, int z, int w) {
@@ -221,15 +202,15 @@ public class Map implements MapConstants {
     }
 
     private void setPlayerLocationX(final int newPlayerRow) {
-        this.mapData.setPlayerRow(newPlayerRow);
+        this.mapData[this.activeLevel].setPlayerRow(newPlayerRow);
     }
 
     private void setPlayerLocationY(final int newPlayerColumn) {
-        this.mapData.setPlayerColumn(newPlayerColumn);
+        this.mapData[this.activeLevel].setPlayerColumn(newPlayerColumn);
     }
 
     private void setPlayerLocationZ(final int newPlayerFloor) {
-        this.mapData.setPlayerFloor(newPlayerFloor);
+        this.mapData[this.activeLevel].setPlayerFloor(newPlayerFloor);
     }
 
     public void setPlayerLocationW(final int newPlayerLevel) {
@@ -237,80 +218,81 @@ public class Map implements MapConstants {
     }
 
     public int getRows() {
-        return this.mapData.getRows();
+        return this.mapData[this.activeLevel].getRows();
     }
 
     public int getColumns() {
-        return this.mapData.getColumns();
+        return this.mapData[this.activeLevel].getColumns();
     }
 
     public boolean hasNote(int x, int y, int z) {
-        return this.mapData.hasNote(y, x, z);
+        return this.mapData[this.activeLevel].hasNote(y, x, z);
     }
 
     public void createNote(int x, int y, int z) {
-        this.mapData.createNote(y, x, z);
+        this.mapData[this.activeLevel].createNote(y, x, z);
     }
 
     public MapNote getNote(int x, int y, int z) {
-        return this.mapData.getNote(y, x, z);
+        return this.mapData[this.activeLevel].getNote(y, x, z);
     }
 
     public boolean doesPlayerExist() {
-        return this.mapData.doesPlayerExist();
+        return this.mapData[this.activeLevel].doesPlayerExist();
     }
 
     public void findAllObjectPairsAndSwap(final MapObject o1,
             final MapObject o2) {
-        this.mapData.findAllObjectPairsAndSwap(o1, o2);
+        this.mapData[this.activeLevel].findAllObjectPairsAndSwap(o1, o2);
     }
 
     public boolean isSquareVisible(int x1, int y1, int x2, int y2) {
-        return this.mapData.isSquareVisible(x1, y1, x2, y2);
+        return this.mapData[this.activeLevel].isSquareVisible(x1, y1, x2, y2);
     }
 
     public void setBattleCell(final MapObject mo, final int row,
             final int col) {
-        this.mapData.setCell(mo, row, col, 0, MapConstants.LAYER_OBJECT);
+        this.mapData[this.activeLevel].setCell(mo, row, col, 0,
+                MapConstants.LAYER_OBJECT);
     }
 
     public void setCell(final MapObject mo, final int row, final int col,
             final int floor, final int extra) {
-        this.mapData.setCell(mo, row, col, floor, extra);
+        this.mapData[this.activeLevel].setCell(mo, row, col, floor, extra);
     }
 
     public void offsetPlayerLocationX(final int newPlayerRow) {
-        this.mapData.offsetPlayerRow(newPlayerRow);
+        this.mapData[this.activeLevel].offsetPlayerRow(newPlayerRow);
     }
 
     public void offsetPlayerLocationY(final int newPlayerColumn) {
-        this.mapData.offsetPlayerColumn(newPlayerColumn);
+        this.mapData[this.activeLevel].offsetPlayerColumn(newPlayerColumn);
     }
 
     public void offsetPlayerLocationZ(final int newPlayerFloor) {
-        this.mapData.offsetPlayerFloor(newPlayerFloor);
+        this.mapData[this.activeLevel].offsetPlayerFloor(newPlayerFloor);
     }
 
     private void fillLevel(MapObject bottom, MapObject top) {
-        this.mapData.fill(bottom, top);
+        this.mapData[this.activeLevel].fill(bottom, top);
     }
 
     public void fillLevelRandomly(final MapObject pass1FillBottom,
             final MapObject pass1FillTop) {
-        this.mapData.fillRandomly(this, this.activeLevel, pass1FillBottom,
-                pass1FillTop);
+        this.mapData[this.activeLevel].fillRandomly(this, this.activeLevel,
+                pass1FillBottom, pass1FillTop);
     }
 
     public void save() {
-        this.mapData.save();
+        this.mapData[this.activeLevel].save();
     }
 
     public void restore() {
-        this.mapData.restore();
+        this.mapData[this.activeLevel].restore();
     }
 
     public ArrayList<InternalScriptArea> getScriptAreasAtPoint(Point p, int z) {
-        return this.mapData.getScriptAreasAtPoint(p, z);
+        return this.mapData[this.activeLevel].getScriptAreasAtPoint(p, z);
     }
 
     public Map readMapX() throws IOException {
@@ -359,16 +341,13 @@ public class Map implements MapConstants {
         return ver;
     }
 
-    private void readMapLevelX(XDataReader reader) throws IOException {
-        this.readMapLevelX(reader, FormatConstants.LATEST_SCENARIO_FORMAT);
-    }
-
     private void readMapLevelX(XDataReader reader, int formatVersion)
             throws IOException {
         if (formatVersion == FormatConstants.SCENARIO_FORMAT_1) {
-            this.mapData = LayeredTower.readXLayeredTower(reader,
+            this.mapData[this.activeLevel] = LayeredTower
+                    .readXLayeredTower(reader, formatVersion);
+            this.mapData[this.activeLevel].readSavedTowerStateX(reader,
                     formatVersion);
-            this.mapData.readSavedTowerStateX(reader, formatVersion);
         } else {
             throw new IOException("Unknown map format version!");
         }
@@ -413,7 +392,7 @@ public class Map implements MapConstants {
 
     private void writeMapLevelX(XDataWriter writer) throws IOException {
         // Write the level
-        this.mapData.writeXLayeredTower(writer);
-        this.mapData.writeSavedTowerStateX(writer);
+        this.mapData[this.activeLevel].writeXLayeredTower(writer);
+        this.mapData[this.activeLevel].writeSavedTowerStateX(writer);
     }
 }

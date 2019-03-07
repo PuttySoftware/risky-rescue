@@ -26,6 +26,8 @@ import com.puttysoftware.riskyrescue.map.MapConstants;
 import com.puttysoftware.riskyrescue.map.objects.Empty;
 import com.puttysoftware.riskyrescue.map.objects.InfiniteRecursionException;
 import com.puttysoftware.riskyrescue.map.objects.MapObject;
+import com.puttysoftware.riskyrescue.map.objects.StairsDown;
+import com.puttysoftware.riskyrescue.map.objects.StairsUp;
 import com.puttysoftware.riskyrescue.map.objects.Tile;
 import com.puttysoftware.riskyrescue.map.objects.Wall;
 import com.puttysoftware.riskyrescue.prefs.PreferencesManager;
@@ -92,9 +94,7 @@ public class GameLogic {
     }
 
     public void skipBattlesOnce() {
-        if (!Support.inDebugMode()) {
-            this.runBattles = false;
-        }
+        this.runBattles = false;
     }
 
     public void setStatusMessage(final String msg) {
@@ -496,13 +496,19 @@ public class GameLogic {
     }
 
     public void goToLevelRelative(final int level) {
-        // Don't allow the player to take the stairs with them
-        GameLogic.setSavedMapObject(new Empty());
         // Level change
         Application app = RiskyRescue.getApplication();
         Map m = app.getScenarioManager().getMap();
         final boolean levelExists = m.doesLevelExistOffset(level);
         if (!levelExists && m.isLevelOffsetValid(level)) {
+            // The player will spawn atop stairs that need saving
+            if (level < 0) {
+                // Going up
+                GameLogic.setSavedMapObject(new StairsDown());
+            } else {
+                // Going down
+                GameLogic.setSavedMapObject(new StairsUp());
+            }
             // Create the level
             m.addLevel(Support.getGameMapSize(), Support.getGameMapSize(),
                     Support.getGameMapFloorSize());
@@ -510,6 +516,14 @@ public class GameLogic {
             m.resetVisibleSquares();
             m.save();
         } else if (levelExists && m.isLevelOffsetValid(level)) {
+            // The player will spawn atop stairs that need saving
+            if (level < 0) {
+                // Going up
+                GameLogic.setSavedMapObject(new StairsDown());
+            } else {
+                // Going down
+                GameLogic.setSavedMapObject(new StairsUp());
+            }
             m.switchLevelOffset(level);
         } else {
             // Attempted to leave the dungeon...

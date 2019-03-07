@@ -24,8 +24,6 @@ class SystemMonsterSpellBook extends SpellBook {
         Effect spell0Effect = new Effect("Poisoned", 3);
         spell0Effect.setAffectedStat(StatConstants.STAT_CURRENT_HP);
         spell0Effect.setEffect(-1, 1);
-        spell0Effect.setScaleStat(StatConstants.STAT_LEVEL);
-        spell0Effect.setScaleFactor(1, 1);
         spell0Effect.setMessage(Effect.MESSAGE_INITIAL,
                 "The enemy breathes poisonous breath at you!");
         spell0Effect.setMessage(Effect.MESSAGE_SUBSEQUENT,

@@ -148,22 +148,6 @@ public class Map implements MapConstants {
         return this.mapData[this.activeLevel].getCell(row, col, floor, extra);
     }
 
-    public int getStartRow() {
-        return this.mapData[this.activeLevel].getStartRow();
-    }
-
-    public int getStartColumn() {
-        return this.mapData[this.activeLevel].getStartColumn();
-    }
-
-    public int getStartFloor() {
-        return this.mapData[this.activeLevel].getStartFloor();
-    }
-
-    public int getStartLevel() {
-        return this.startW;
-    }
-
     public int getPlayerLocationX() {
         return this.mapData[this.activeLevel].getPlayerRow();
     }
@@ -214,10 +198,6 @@ public class Map implements MapConstants {
 
     public MapNote getNote(int x, int y, int z) {
         return this.mapData[this.activeLevel].getNote(y, x, z);
-    }
-
-    public boolean doesPlayerExist() {
-        return this.mapData[this.activeLevel].doesPlayerExist();
     }
 
     public void findAllObjectPairsAndSwap(final MapObject o1,

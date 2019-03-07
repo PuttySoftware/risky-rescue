@@ -47,7 +47,6 @@ class LoadTask extends Thread {
     public void run() {
         this.loadFrame.setVisible(true);
         Application app = RiskyRescue.getApplication();
-        int startW;
         String sg;
         app.getGameManager().setSavedGameFlag(true);
         sg = "Saved Game";
@@ -68,12 +67,7 @@ class LoadTask extends Thread {
                 throw new InvalidMapException("Unknown object encountered.");
             }
             app.getScenarioManager().setMap(gameMap);
-            startW = gameMap.getStartLevel();
-            gameMap.switchLevel(startW);
-            final boolean playerExists = gameMap.doesPlayerExist();
-            if (playerExists) {
-                app.getGameManager().resetViewingWindow();
-            }
+            app.getGameManager().resetViewingWindow();
             // Final cleanup
             app.getGameManager().stateChanged();
             CommonDialogs.showDialog(sg + " file loaded.");

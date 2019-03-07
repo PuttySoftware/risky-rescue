@@ -24,7 +24,7 @@ import com.puttysoftware.storage.FlagStorage;
 import com.puttysoftware.xio.XDataReader;
 import com.puttysoftware.xio.XDataWriter;
 
-class LayeredTower implements Cloneable {
+class LayeredTower {
     // Properties
     private LowLevelDataStore data;
     private SavedTowerState savedTowerState;
@@ -32,7 +32,6 @@ class LayeredTower implements Cloneable {
     private LowLevelNoteDataStore noteData;
     private final int[] playerLocationData;
     private final int[] savedPlayerLocationData;
-    private final int[] playerStartData;
     private final int[] findResult;
     private boolean horizontalWraparoundEnabled;
     private boolean verticalWraparoundEnabled;
@@ -44,14 +43,12 @@ class LayeredTower implements Cloneable {
     private int regionSize;
 
     // Constructors
-    public LayeredTower(final int rows, final int cols, final int floors) {
+    LayeredTower(final int rows, final int cols, final int floors) {
         this.data = new LowLevelDataStore(cols, rows, floors,
                 MapConstants.LAYER_COUNT);
         this.noteData = new LowLevelNoteDataStore(cols, rows, floors);
         this.savedTowerState = new SavedTowerState(rows, cols, floors);
         this.visionData = new FlagStorage(cols, rows, floors);
-        this.playerStartData = new int[3];
-        Arrays.fill(this.playerStartData, -1);
         this.playerLocationData = new int[3];
         Arrays.fill(this.playerLocationData, -1);
         this.savedPlayerLocationData = new int[3];
@@ -70,7 +67,7 @@ class LayeredTower implements Cloneable {
     }
 
     // Methods
-    public final void rebuildGSA(int mod) {
+    final void rebuildGSA(int mod) {
         // Rebuild and add global script area
         InternalScriptArea globalScriptArea = new InternalScriptArea();
         globalScriptArea.setUpperLeft(new Point(0, 0));
@@ -90,15 +87,15 @@ class LayeredTower implements Cloneable {
         this.scriptAreas.add(globalScriptArea);
     }
 
-    public int getRegionSize() {
+    int getRegionSize() {
         return this.regionSize;
     }
 
-    public void setGeneratorRandomness(int value, int max) {
+    void setGeneratorRandomness(int value, int max) {
         this.regionSize = 2 ^ (max - value);
     }
 
-    public MapObject getCell(final int row, final int col, final int floor,
+    MapObject getCell(final int row, final int col, final int floor,
             final int extra) {
         int fR = row;
         int fC = col;
@@ -115,63 +112,43 @@ class LayeredTower implements Cloneable {
         return this.data.getMapCell(fC, fR, fF, extra);
     }
 
-    public int getStartRow() {
-        return this.playerStartData[1];
-    }
-
-    public int getStartColumn() {
-        return this.playerStartData[0];
-    }
-
-    public int getStartFloor() {
-        return this.playerStartData[2];
-    }
-
-    public int getPlayerRow() {
+    int getPlayerRow() {
         return this.playerLocationData[1];
     }
 
-    public int getPlayerColumn() {
+    int getPlayerColumn() {
         return this.playerLocationData[0];
     }
 
-    public int getPlayerFloor() {
+    int getPlayerFloor() {
         return this.playerLocationData[2];
     }
 
-    public int getRows() {
+    int getRows() {
         return this.data.getShape()[1];
     }
 
-    public int getColumns() {
+    int getColumns() {
         return this.data.getShape()[0];
     }
 
-    public int getFloors() {
+    int getFloors() {
         return this.data.getShape()[2];
     }
 
-    public boolean hasNote(int x, int y, int z) {
+    boolean hasNote(int x, int y, int z) {
         return this.noteData.getNote(y, x, z) != null;
     }
 
-    public void createNote(int x, int y, int z) {
+    void createNote(int x, int y, int z) {
         this.noteData.setNote(new MapNote(), y, x, z);
     }
 
-    public MapNote getNote(int x, int y, int z) {
+    MapNote getNote(int x, int y, int z) {
         return this.noteData.getNote(y, x, z);
     }
 
-    public boolean doesPlayerExist() {
-        boolean res = true;
-        for (int x = 0; x < this.playerStartData.length; x++) {
-            res = res && (this.playerStartData[x] != -1);
-        }
-        return res;
-    }
-
-    public void findAllObjectPairsAndSwap(final MapObject o1,
+    void findAllObjectPairsAndSwap(final MapObject o1,
             final MapObject o2) {
         int y, x, z;
         for (x = 0; x < this.getColumns(); x++) {
@@ -193,7 +170,7 @@ class LayeredTower implements Cloneable {
         }
     }
 
-    public void resetVisibleSquares() {
+    void resetVisibleSquares() {
         for (int x = 0; x < this.getRows(); x++) {
             for (int y = 0; y < this.getColumns(); y++) {
                 for (int z = 0; z < this.getFloors(); z++) {
@@ -203,7 +180,7 @@ class LayeredTower implements Cloneable {
         }
     }
 
-    public void updateVisibleSquares(int xp, int yp, int zp) {
+    void updateVisibleSquares(int xp, int yp, int zp) {
         if ((this.visionMode
                 | VisionModeConstants.VISION_MODE_EXPLORE) == this.visionMode) {
             for (int x = xp - this.visionModeExploreRadius; x <= xp
@@ -250,7 +227,7 @@ class LayeredTower implements Cloneable {
         }
     }
 
-    public boolean isSquareVisible(int x1, int y1, int x2, int y2) {
+    boolean isSquareVisible(int x1, int y1, int x2, int y2) {
         if (this.visionMode == VisionModeConstants.VISION_MODE_NONE) {
             return LayeredTower.isSquareVisibleNone();
         } else {
@@ -383,7 +360,7 @@ class LayeredTower implements Cloneable {
         return true;
     }
 
-    public void setCell(final MapObject mo, final int row, final int col,
+    void setCell(final MapObject mo, final int row, final int col,
             final int floor, final int extra) {
         int fR = row;
         int fC = col;
@@ -400,42 +377,42 @@ class LayeredTower implements Cloneable {
         this.data.setMapCell(mo, fC, fR, fF, extra);
     }
 
-    public void savePlayerLocation() {
+    void savePlayerLocation() {
         System.arraycopy(this.playerLocationData, 0,
                 this.savedPlayerLocationData, 0,
                 this.playerLocationData.length);
     }
 
-    public void restorePlayerLocation() {
+    void restorePlayerLocation() {
         System.arraycopy(this.savedPlayerLocationData, 0,
                 this.playerLocationData, 0, this.playerLocationData.length);
     }
 
-    public void setPlayerRow(final int newPlayerRow) {
+    void setPlayerRow(final int newPlayerRow) {
         this.playerLocationData[1] = newPlayerRow;
     }
 
-    public void setPlayerColumn(final int newPlayerColumn) {
+    void setPlayerColumn(final int newPlayerColumn) {
         this.playerLocationData[0] = newPlayerColumn;
     }
 
-    public void setPlayerFloor(final int newPlayerFloor) {
+    void setPlayerFloor(final int newPlayerFloor) {
         this.playerLocationData[2] = newPlayerFloor;
     }
 
-    public void offsetPlayerRow(final int newPlayerRow) {
+    void offsetPlayerRow(final int newPlayerRow) {
         this.playerLocationData[1] += newPlayerRow;
     }
 
-    public void offsetPlayerColumn(final int newPlayerColumn) {
+    void offsetPlayerColumn(final int newPlayerColumn) {
         this.playerLocationData[0] += newPlayerColumn;
     }
 
-    public void offsetPlayerFloor(final int newPlayerFloor) {
+    void offsetPlayerFloor(final int newPlayerFloor) {
         this.playerLocationData[2] += newPlayerFloor;
     }
 
-    public void fill(MapObject bottom, MapObject top) {
+    void fill(MapObject bottom, MapObject top) {
         int y, x, z, e;
         for (x = 0; x < this.getColumns(); x++) {
             for (y = 0; y < this.getRows(); y++) {
@@ -467,7 +444,7 @@ class LayeredTower implements Cloneable {
         }
     }
 
-    public void fillRandomly(final Map map, final int w,
+    void fillRandomly(final Map map, final int w,
             final MapObject pass1FillBottom, final MapObject pass1FillTop) {
         for (int z = 0; z < this.getFloors(); z++) {
             this.fillFloorRandomly(map, z, w, pass1FillBottom, pass1FillTop);
@@ -582,9 +559,9 @@ class LayeredTower implements Cloneable {
                                     layer);
                             playerObj.setSavedObject(currObj);
                         }
-                        this.playerStartData[1] = this.playerLocationData[1] = randomRow;
-                        this.playerStartData[0] = this.playerLocationData[0] = randomColumn;
-                        this.playerStartData[2] = this.playerLocationData[2] = z;
+                        this.playerLocationData[1] = randomRow;
+                        this.playerLocationData[0] = randomColumn;
+                        this.playerLocationData[2] = z;
                     }
                 }
             }
@@ -609,7 +586,7 @@ class LayeredTower implements Cloneable {
         }
     }
 
-    public void save() {
+    void save() {
         int y, x, z, e;
         for (x = 0; x < this.getColumns(); x++) {
             for (y = 0; y < this.getRows(); y++) {
@@ -623,7 +600,7 @@ class LayeredTower implements Cloneable {
         }
     }
 
-    public void restore() {
+    void restore() {
         int y, x, z, e;
         for (x = 0; x < this.getColumns(); x++) {
             for (y = 0; y < this.getRows(); y++) {
@@ -694,7 +671,7 @@ class LayeredTower implements Cloneable {
         return this.verticalWraparoundEnabled;
     }
 
-    public ArrayList<InternalScriptArea> getScriptAreasAtPoint(Point p, int z) {
+    ArrayList<InternalScriptArea> getScriptAreasAtPoint(Point p, int z) {
         ArrayList<InternalScriptArea> retVal = new ArrayList<>();
         for (InternalScriptArea isa : this.scriptAreas) {
             if (p.x >= isa.getUpperLeft().x && p.x <= isa.getLowerRight().x
@@ -707,7 +684,7 @@ class LayeredTower implements Cloneable {
         return retVal;
     }
 
-    public void writeXLayeredTower(XDataWriter writer) throws IOException {
+    void writeXLayeredTower(XDataWriter writer) throws IOException {
         int y, x, z, e;
         writer.writeInt(this.getColumns());
         writer.writeInt(this.getRows());
@@ -728,7 +705,6 @@ class LayeredTower implements Cloneable {
             }
         }
         for (y = 0; y < 3; y++) {
-            writer.writeInt(this.playerStartData[y]);
             writer.writeInt(this.playerLocationData[y]);
         }
         writer.writeBoolean(this.horizontalWraparoundEnabled);
@@ -739,7 +715,7 @@ class LayeredTower implements Cloneable {
         writer.writeInt(this.visionModeExploreRadius);
     }
 
-    public static LayeredTower readXLayeredTower(XDataReader reader, int ver)
+    static LayeredTower readXLayeredTower(XDataReader reader, int ver)
             throws IOException {
         MapObjectList objects = new MapObjectList();
         int y, x, z, e, mapSizeX, mapSizeY, mapSizeZ;
@@ -766,7 +742,6 @@ class LayeredTower implements Cloneable {
             }
         }
         for (y = 0; y < 3; y++) {
-            lt.playerStartData[y] = reader.readInt();
             lt.playerLocationData[y] = reader.readInt();
         }
         lt.horizontalWraparoundEnabled = reader.readBoolean();
@@ -778,11 +753,11 @@ class LayeredTower implements Cloneable {
         return lt;
     }
 
-    public void writeSavedTowerStateX(XDataWriter writer) throws IOException {
+    void writeSavedTowerStateX(XDataWriter writer) throws IOException {
         this.savedTowerState.writeSavedTowerStateX(writer);
     }
 
-    public void readSavedTowerStateX(XDataReader reader, int formatVersion)
+    void readSavedTowerStateX(XDataReader reader, int formatVersion)
             throws IOException {
         this.savedTowerState = SavedTowerState.readSavedTowerStateX(reader,
                 formatVersion);

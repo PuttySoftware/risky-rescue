@@ -145,8 +145,7 @@ class LayeredTower {
         return this.noteData.getNote(y, x, z);
     }
 
-    void findAllObjectPairsAndSwap(final MapObject o1,
-            final MapObject o2) {
+    void findAllObjectPairsAndSwap(final MapObject o1, final MapObject o2) {
         int y, x, z;
         for (x = 0; x < this.getColumns(); x++) {
             for (y = 0; y < this.getRows(); y++) {
@@ -552,8 +551,6 @@ class LayeredTower {
                             // Add player to map
                             MapObject playerObj = PartyManager.getParty()
                                     .getPlayer();
-                            this.setCell(playerObj, randomColumn, randomRow, z,
-                                    layer);
                             playerObj.setSavedObject(currObj);
                         }
                         this.playerLocationData[1] = randomRow;

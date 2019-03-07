@@ -26,6 +26,7 @@ import com.puttysoftware.riskyrescue.assets.MusicConstants;
 import com.puttysoftware.riskyrescue.assets.MusicManager;
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
 import com.puttysoftware.riskyrescue.assets.modifiers.ImageComposer;
+import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.map.Map;
 import com.puttysoftware.riskyrescue.map.MapConstants;
 import com.puttysoftware.riskyrescue.map.objects.MapObject;
@@ -94,19 +95,47 @@ class GameGUI {
                                     MapConstants.LAYER_OBJECT);
                             boolean hasNote = m.hasNote(y, x,
                                     m.getPlayerLocationZ());
+                            boolean isPlayer = (u == y && v == x);
                             if (hasNote) {
-                                this.drawGrid.setImageCell(
-                                        ImageComposer.getCompositeImage(
-                                                obj1.getImage(),
-                                                obj2.getImage(),
-                                                ImageManager.getObjectImage(0,
-                                                        ObjectImage.NOTE)),
-                                        xFix, yFix);
+                                if (isPlayer) {
+                                    this.drawGrid.setImageCell(
+                                            ImageComposer.getCompositeImage(
+                                                    obj1.getImage(),
+                                                    obj2.getImage(),
+                                                    PartyManager.getParty()
+                                                            .getPlayer()
+                                                            .getImage(),
+                                                    ImageManager.getObjectImage(
+                                                            0,
+                                                            ObjectImage.NOTE)),
+                                            xFix, yFix);
+                                } else {
+                                    this.drawGrid.setImageCell(
+                                            ImageComposer.getCompositeImage(
+                                                    obj1.getImage(),
+                                                    obj2.getImage(),
+                                                    ImageManager.getObjectImage(
+                                                            0,
+                                                            ObjectImage.NOTE)),
+                                            xFix, yFix);
+                                }
                             } else {
-                                this.drawGrid.setImageCell(ImageComposer
-                                        .getCompositeImage(obj1.getImage(),
-                                                obj2.getImage()),
-                                        xFix, yFix);
+                                if (isPlayer) {
+                                    this.drawGrid.setImageCell(
+                                            ImageComposer.getCompositeImage(
+                                                    obj1.getImage(),
+                                                    obj2.getImage(),
+                                                    PartyManager.getParty()
+                                                            .getPlayer()
+                                                            .getImage()),
+                                            xFix, yFix);
+                                } else {
+                                    this.drawGrid.setImageCell(
+                                            ImageComposer.getCompositeImage(
+                                                    obj1.getImage(),
+                                                    obj2.getImage()),
+                                            xFix, yFix);
+                                }
                             }
                         } else {
                             this.drawGrid

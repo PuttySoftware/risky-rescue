@@ -8,7 +8,6 @@ package com.puttysoftware.riskyrescue.map.objects;
 import java.io.IOException;
 
 import com.puttysoftware.riskyrescue.creatures.party.PartyMember;
-import com.puttysoftware.riskyrescue.map.MapConstants;
 import com.puttysoftware.xio.XDataReader;
 import com.puttysoftware.xio.XDataWriter;
 
@@ -21,7 +20,8 @@ public class Player extends BattleCharacter {
 
     @Override
     public int getLayer() {
-        return MapConstants.LAYER_OBJECT;
+        // Player is not allowed to be placed directly
+        return -1;
     }
 
     @Override

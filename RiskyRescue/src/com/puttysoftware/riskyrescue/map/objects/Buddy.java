@@ -35,7 +35,7 @@ public class Buddy extends BattleCharacter {
         SoundManager.playSound(SoundConstants.VICTORY);
         CommonDialogs
                 .showDialog("You have found your buddy! Time to head out!");
-        return false;
+        return true;
     }
 
     @Override

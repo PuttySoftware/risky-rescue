@@ -574,7 +574,7 @@ class LayeredTower implements Cloneable {
                     }
                     if (currObj instanceof StairsUp) {
                         // The player will spawn here upon entering the level
-                        if (map.getActiveLevelNumber() == 0) {
+                        if (w == 0) {
                             // Add player to map
                             MapObject playerObj = PartyManager.getParty()
                                     .getPlayer();
@@ -590,7 +590,7 @@ class LayeredTower implements Cloneable {
             }
         }
         // Add buddy
-        if (map.getActiveLevelNumber() == Map.MAX_LEVELS - 1) {
+        if (w == Map.MAX_LEVELS - 1) {
             MapObject currObj = PartyManager.getParty().getBuddy();
             int layer = currObj.getLayer();
             int randomRow = row.generate();

@@ -85,10 +85,6 @@ public class Map implements MapConstants {
         this.mapData[this.activeLevel].setGeneratorRandomness(value, max);
     }
 
-    public int getActiveLevelNumber() {
-        return this.activeLevel;
-    }
-
     public boolean isLevelOffsetValid(int level) {
         return (this.activeLevel + level) >= 0;
     }

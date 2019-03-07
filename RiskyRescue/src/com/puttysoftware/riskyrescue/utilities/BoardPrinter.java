@@ -59,7 +59,7 @@ public class BoardPrinter {
                 Doc doc = new SimpleDoc(bais, flavor, das);
                 job.print(doc, pras);
             }
-        } catch (IOException | PrintException | NullPointerException ioe) {
+        } catch (IOException | PrintException ioe) {
             CommonDialogs.showErrorDialog("Printing failed!",
                     "Print GameBoard");
         }

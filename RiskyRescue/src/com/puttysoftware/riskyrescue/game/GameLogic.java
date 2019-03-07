@@ -370,8 +370,6 @@ public class GameLogic {
                     y, z, m);
         } catch (final ArrayIndexOutOfBoundsException ae) {
             // Do nothing
-        } catch (final NullPointerException np) {
-            // Do nothing
         }
         m.savePlayerLocation();
         this.getViewManager().saveViewingWindow();
@@ -393,11 +391,6 @@ public class GameLogic {
                         .getPostMoveScript(false, x, y, z));
             }
         } catch (final ArrayIndexOutOfBoundsException ae) {
-            m.restorePlayerLocation();
-            this.getViewManager().restoreViewingWindow();
-            RiskyRescue.getApplication()
-                    .showMessage("Can't go outside the map");
-        } catch (final NullPointerException np) {
             m.restorePlayerLocation();
             this.getViewManager().restoreViewingWindow();
             RiskyRescue.getApplication()
@@ -430,11 +423,6 @@ public class GameLogic {
                 app.getScenarioManager().setDirty(true);
             }
         } catch (final ArrayIndexOutOfBoundsException ae) {
-            m.restorePlayerLocation();
-            this.getViewManager().restoreViewingWindow();
-            RiskyRescue.getApplication()
-                    .showMessage("Can't go outside the map");
-        } catch (final NullPointerException np) {
             m.restorePlayerLocation();
             this.getViewManager().restoreViewingWindow();
             RiskyRescue.getApplication()

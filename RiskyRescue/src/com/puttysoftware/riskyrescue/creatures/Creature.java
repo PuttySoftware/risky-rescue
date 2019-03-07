@@ -174,8 +174,7 @@ public abstract class Creature {
                 if (e.isActive()) {
                     c++;
                 }
-            } catch (final NullPointerException
-                    | ArrayIndexOutOfBoundsException np) {
+            } catch (final ArrayIndexOutOfBoundsException np) {
                 // Do nothing
             }
         }
@@ -190,8 +189,7 @@ public abstract class Creature {
                 if (!(e.isActive())) {
                     this.set(x, null);
                 }
-            } catch (final NullPointerException
-                    | ArrayIndexOutOfBoundsException np) {
+            } catch (final ArrayIndexOutOfBoundsException np) {
                 // Do nothing
             }
         }
@@ -295,8 +293,7 @@ public abstract class Creature {
             try {
                 sb.append(this.get(x).getCurrentMessage());
                 sb.append("\n");
-            } catch (final NullPointerException
-                    | ArrayIndexOutOfBoundsException np) {
+            } catch (final ArrayIndexOutOfBoundsException np) {
                 // Do nothing
             }
         }
@@ -415,8 +412,7 @@ public abstract class Creature {
                         s += e.getEffect();
                     }
                 }
-            } catch (final NullPointerException
-                    | ArrayIndexOutOfBoundsException np) {
+            } catch (final ArrayIndexOutOfBoundsException np) {
                 // Do nothing
             }
         }
@@ -990,8 +986,7 @@ public abstract class Creature {
         for (x = 0; x < this.effectList.length; x++) {
             try {
                 this.get(x).useEffect(this);
-            } catch (final NullPointerException
-                    | ArrayIndexOutOfBoundsException np) {
+            } catch (final ArrayIndexOutOfBoundsException np) {
                 // Do nothing
             }
         }

@@ -25,8 +25,7 @@ public class LogoManager {
                     .getResource(LogoManager.LOAD_PATH + name + ".png");
             final BufferedImage image = ImageIO.read(url);
             return new BufferedImageIcon(image);
-        } catch (final IOException | NullPointerException
-                | IllegalArgumentException ie) {
+        } catch (final IOException | IllegalArgumentException ie) {
             return null;
         }
     }

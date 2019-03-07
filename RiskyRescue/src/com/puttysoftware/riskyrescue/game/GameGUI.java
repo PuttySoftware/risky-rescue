@@ -144,8 +144,7 @@ class GameGUI {
                                                     ObjectImage.DARKNESS),
                                             xFix, yFix);
                         }
-                    } catch (final ArrayIndexOutOfBoundsException
-                            | NullPointerException ae) {
+                    } catch (final ArrayIndexOutOfBoundsException ae) {
                         this.drawGrid.setImageCell(ImageManager.getObjectImage(
                                 0, ObjectImage.SEALING_WALL), xFix, yFix);
                     }

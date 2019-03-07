@@ -114,8 +114,7 @@ class BattleGUI {
                         this.drawGrid.setImageCell(
                                 ImageComposer.getCompositeImage(icon1, icon2),
                                 xFix, yFix);
-                    } catch (final ArrayIndexOutOfBoundsException
-                            | NullPointerException ae) {
+                    } catch (final ArrayIndexOutOfBoundsException ae) {
                         this.drawGrid.setImageCell(ImageManager.getObjectImage(
                                 0, ObjectImage.SEALING_WALL), xFix, yFix);
                     }
@@ -146,8 +145,7 @@ class BattleGUI {
                         ImageComposer.getCompositeImage(icon1, icon2, icon3),
                         xFix, yFix);
                 this.battlePane.repaint();
-            } catch (final ArrayIndexOutOfBoundsException
-                    | NullPointerException ae) {
+            } catch (final ArrayIndexOutOfBoundsException ae) {
                 // Do nothing
             }
             this.battleFrame.pack();

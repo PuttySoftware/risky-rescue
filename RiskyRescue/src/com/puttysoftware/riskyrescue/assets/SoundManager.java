@@ -14,13 +14,9 @@ public class SoundManager {
     private final static Class<?> LOAD_CLASS = SoundManager.class;
 
     private static WAVFactory getSound(final String filename) {
-        try {
-            return WAVFactory.loadResource(SoundManager.LOAD_CLASS
-                    .getResource(SoundManager.INTERNAL_LOAD_PATH
-                            + filename.toLowerCase() + ".wav"));
-        } catch (final NullPointerException np) {
-            return null;
-        }
+        return WAVFactory.loadResource(SoundManager.LOAD_CLASS
+                .getResource(SoundManager.INTERNAL_LOAD_PATH
+                        + filename.toLowerCase() + ".wav"));
     }
 
     public static void playSound(int soundID) {

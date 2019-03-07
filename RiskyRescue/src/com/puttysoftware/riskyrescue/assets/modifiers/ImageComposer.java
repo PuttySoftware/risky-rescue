@@ -54,8 +54,6 @@ public class ImageComposer {
                     return null;
                 }
             }
-        } catch (final NullPointerException np) {
-            return null;
         } catch (final IllegalArgumentException ia) {
             return null;
         }

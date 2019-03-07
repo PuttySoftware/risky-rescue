@@ -572,38 +572,21 @@ class LayeredTower implements Cloneable {
                                     layer);
                         }
                     }
-                    if (map.getActiveLevelNumber() != 0
-                            && currObj instanceof StairsUp) {
+                    if (currObj instanceof StairsUp) {
                         // The player will spawn here upon entering the level
+                        if (map.getActiveLevelNumber() == 0) {
+                            // Add player to map
+                            MapObject playerObj = PartyManager.getParty()
+                                    .getPlayer();
+                            this.setCell(playerObj, randomColumn, randomRow, z,
+                                    layer);
+                            playerObj.setSavedObject(currObj);
+                        }
                         this.playerStartData[1] = this.playerLocationData[1] = randomRow;
                         this.playerStartData[0] = this.playerLocationData[0] = randomColumn;
                         this.playerStartData[2] = this.playerLocationData[2] = z;
                     }
                 }
-            }
-        }
-        // Add player
-        if (map.getActiveLevelNumber() == 0) {
-            MapObject currObj = PartyManager.getParty().getPlayer();
-            int layer = currObj.getLayer();
-            int randomRow = row.generate();
-            int randomColumn = column.generate();
-            if (currObj.shouldGenerateObject(map, randomRow, randomColumn, z, w,
-                    layer)) {
-                this.setCell(currObj, randomColumn, randomRow, z, layer);
-                this.playerStartData[1] = this.playerLocationData[1] = randomRow;
-                this.playerStartData[0] = this.playerLocationData[0] = randomColumn;
-                this.playerStartData[2] = this.playerLocationData[2] = z;
-            } else {
-                while (!currObj.shouldGenerateObject(map, randomColumn,
-                        randomRow, z, w, layer)) {
-                    randomRow = row.generate();
-                    randomColumn = column.generate();
-                }
-                this.setCell(currObj, randomColumn, randomRow, z, layer);
-                this.playerStartData[1] = this.playerLocationData[1] = randomRow;
-                this.playerStartData[0] = this.playerLocationData[0] = randomColumn;
-                this.playerStartData[2] = this.playerLocationData[2] = z;
             }
         }
         // Add buddy

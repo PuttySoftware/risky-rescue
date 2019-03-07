@@ -652,13 +652,11 @@ public class GameLogic {
             int py = m.getPlayerLocationY();
             int pz = m.getPlayerLocationZ();
             m.updateVisibleSquares(px, py, pz);
-            GameLogic.setSavedMapObject(new Empty());
             this.stateChanged = false;
         }
         // Make sure message area is attached to the border pane
         this.gameGUI.updateGameGUI();
         this.showOutput();
-        this.checkGameOver();
         this.redrawMap();
     }
 

@@ -42,7 +42,6 @@ public class BattleLogic {
     private BattleDefinitions bd;
     private DamageEngine de;
     private final AutoAI auto;
-    private int damage;
     private int result;
     private int activeIndex;
     private boolean terminatedEarly;
@@ -304,13 +303,14 @@ public class BattleLogic {
         }
     }
 
-    private void displayRoundResultsHero(Creature enemy, Creature hero) {
+    private void displayRoundResultsHero(Creature enemy, Creature hero,
+            int damage) {
         // Display round results
         final String heroName = hero.getName();
         final String enemyName = enemy.getName();
-        final String damageString = Integer.toString(this.damage);
+        final String damageString = Integer.toString(damage);
         String displayDamageString;
-        if (this.damage == 0) {
+        if (damage == 0) {
             if (this.de.weaponMissed()) {
                 displayDamageString = heroName + " tries to hit " + enemyName
                         + ", but MISSES!";
@@ -344,13 +344,14 @@ public class BattleLogic {
         this.setStatusMessage(displayDamageString);
     }
 
-    private void displayRoundResultsMonster(Creature hero, Creature enemy) {
+    private void displayRoundResultsMonster(Creature hero, Creature enemy,
+            int damage) {
         // Display round results
         final String enemyName = enemy.getName();
         final String heroName = hero.getName();
-        final String damageString = Integer.toString(this.damage);
+        final String damageString = Integer.toString(damage);
         String displayDamageString;
-        if (this.damage == 0) {
+        if (damage == 0) {
             if (this.de.weaponMissed()) {
                 displayDamageString = enemyName + " tries to hit " + heroName
                         + ", but MISSES!";
@@ -386,7 +387,7 @@ public class BattleLogic {
 
     private void computeDamage(Creature enemy, Creature acting) {
         // Compute Damage
-        this.damage = 0;
+        int damage = 0;
         int actual = this.de.computeDamage(enemy, acting);
         // Update Prestige
         if (actual != 0) {
@@ -399,12 +400,12 @@ public class BattleLogic {
             BattleDefinitions.dodgedAttack(enemy);
         }
         // Hit or Missed
-        this.damage = actual;
-        enemy.doDamage(this.damage);
+        damage = actual;
+        enemy.doDamage(damage);
         if (acting instanceof PartyMember) {
-            this.displayRoundResultsHero(enemy, acting);
+            this.displayRoundResultsHero(enemy, acting, damage);
         } else {
-            this.displayRoundResultsMonster(enemy, acting);
+            this.displayRoundResultsMonster(enemy, acting, damage);
         }
     }
 

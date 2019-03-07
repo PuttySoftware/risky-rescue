@@ -24,6 +24,10 @@ class PercentDamageEngine extends DamageEngine {
 
     @Override
     public int computeDamage(Creature enemy, Creature acting) {
+        this.dodged = false;
+        this.missed = false;
+        this.crit = false;
+        this.pierce = false;
         // Compute Damage
         double attack = acting.getEffectedAttack();
         double defense = enemy.getEffectedStat(StatConstants.STAT_DEFENSE);
@@ -41,22 +45,16 @@ class PercentDamageEngine extends DamageEngine {
         if (rHit > aHit) {
             // Weapon missed
             this.missed = true;
-            this.dodged = false;
-            this.crit = false;
             return 0;
         } else {
             int rEvade = new RandomRange(0, 10000).generate();
             int aEvade = enemy.getEvade();
             if (rEvade < aEvade) {
                 // Enemy dodged
-                this.missed = false;
                 this.dodged = true;
-                this.crit = false;
                 return 0;
             } else {
                 // Hit
-                this.missed = false;
-                this.dodged = false;
                 RandomRange rDamage;
                 this.didCrit();
                 if (this.crit) {

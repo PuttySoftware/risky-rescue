@@ -75,7 +75,7 @@ public class HazardousGround extends MapObject {
     }
 
     @Override
-    public int getMinimumRequiredQuantity(Map map) {
+    public int getMinimumRequiredQuantity(Map map, int level) {
         int regionSizeSquared = map.getRegionSize() ^ 2;
         int mapSize = map.getRows() * map.getColumns();
         int regionsPerMap = mapSize / regionSizeSquared;
@@ -83,7 +83,7 @@ public class HazardousGround extends MapObject {
     }
 
     @Override
-    public int getMaximumRequiredQuantity(Map map) {
+    public int getMaximumRequiredQuantity(Map map, int level) {
         int regionSizeSquared = map.getRegionSize() ^ 2;
         int mapSize = map.getRows() * map.getColumns();
         int regionsPerMap = mapSize / regionSizeSquared;
@@ -91,7 +91,7 @@ public class HazardousGround extends MapObject {
     }
 
     @Override
-    public boolean isRequired() {
+    public boolean isRequired(int level) {
         return true;
     }
 

@@ -31,7 +31,7 @@ public class Map implements MapConstants {
     private PrefixIO xmlPrefixHandler;
     private SuffixIO xmlSuffixHandler;
     private final String mapBasePath;
-    static final int MAX_LEVELS = 5;
+    private static final int MAX_LEVELS = 5;
 
     // Constructors
     public Map() {
@@ -55,6 +55,10 @@ public class Map implements MapConstants {
             mapDir.mkdirs();
         }
         return this;
+    }
+    
+    public static int getLastLevelNumber() {
+        return Map.MAX_LEVELS - 1;
     }
 
     public static Map getTemporaryBattleCopy() {

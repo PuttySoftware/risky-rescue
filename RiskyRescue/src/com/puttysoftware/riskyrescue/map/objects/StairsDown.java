@@ -89,17 +89,26 @@ public class StairsDown extends MapObject {
     }
 
     @Override
-    public boolean isRequired() {
+    public boolean isRequired(int level) {
+        if (level == Map.getLastLevelNumber()) {
+            return false;
+        }
         return true;
     }
 
     @Override
-    public int getMinimumRequiredQuantity(Map map) {
+    public int getMinimumRequiredQuantity(Map map, int level) {
+        if (level == Map.getLastLevelNumber()) {
+            return 0;
+        }
         return 1;
     }
 
     @Override
-    public int getMaximumRequiredQuantity(Map map) {
+    public int getMaximumRequiredQuantity(Map map, int level) {
+        if (level == Map.getLastLevelNumber()) {
+            return 0;
+        }
         return 1;
     }
 }

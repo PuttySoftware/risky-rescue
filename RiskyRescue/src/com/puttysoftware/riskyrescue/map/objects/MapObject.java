@@ -291,7 +291,7 @@ public abstract class MapObject implements RandomGenerationRule {
             // Handle object layer
             if (!(this instanceof Empty)) {
                 // Limit generation of other objects to 20%, unless required
-                if (this.isRequired()) {
+                if (this.isRequired(-2)) {
                     return true;
                 } else {
                     RandomRange r = new RandomRange(1, 100);
@@ -323,17 +323,17 @@ public abstract class MapObject implements RandomGenerationRule {
     }
 
     @Override
-    public int getMinimumRequiredQuantity(Map map) {
+    public int getMinimumRequiredQuantity(Map map, int level) {
         return RandomGenerationRule.NO_LIMIT;
     }
 
     @Override
-    public int getMaximumRequiredQuantity(Map map) {
+    public int getMaximumRequiredQuantity(Map map, int level) {
         return RandomGenerationRule.NO_LIMIT;
     }
 
     @Override
-    public boolean isRequired() {
+    public boolean isRequired(int level) {
         return false;
     }
 

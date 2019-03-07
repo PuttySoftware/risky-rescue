@@ -503,13 +503,13 @@ class LayeredTower {
         RandomRange column = new RandomRange(0, this.getColumns() - 1);
         // Pass 4
         for (int layer = 0; layer < MapConstants.LAYER_COUNT; layer++) {
-            MapObject[] requiredObjects = objects.getAllRequired(layer);
+            MapObject[] requiredObjects = objects.getAllRequired(layer, w);
             if (requiredObjects != null) {
                 int randomColumn = -1, randomRow = -1;
                 for (x = 0; x < requiredObjects.length; x++) {
                     MapObject currObj = requiredObjects[x];
-                    int min = currObj.getMinimumRequiredQuantity(map);
-                    int max = currObj.getMaximumRequiredQuantity(map);
+                    int min = currObj.getMinimumRequiredQuantity(map, w);
+                    int max = currObj.getMaximumRequiredQuantity(map, w);
                     if (min == RandomGenerationRule.NO_LIMIT) {
                         // Minimum undefined, so define it relative to this map
                         min = this.getRows() * this.getColumns() / 100;
@@ -547,12 +547,6 @@ class LayeredTower {
                     }
                     if (currObj instanceof StairsUp) {
                         // The player will spawn here upon entering the level
-                        if (w == 0) {
-                            // Add player to map
-                            MapObject playerObj = PartyManager.getParty()
-                                    .getPlayer();
-                            playerObj.setSavedObject(currObj);
-                        }
                         this.playerLocationData[1] = randomRow;
                         this.playerLocationData[0] = randomColumn;
                         this.playerLocationData[2] = z;
@@ -561,7 +555,7 @@ class LayeredTower {
             }
         }
         // Add buddy
-        if (w == Map.MAX_LEVELS - 1) {
+        if (w == Map.getLastLevelNumber()) {
             MapObject currObj = PartyManager.getParty().getBuddy();
             int layer = currObj.getLayer();
             int randomRow = row.generate();

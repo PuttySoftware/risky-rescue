@@ -13,11 +13,11 @@ public interface RandomGenerationRule {
     public boolean shouldGenerateObject(Map map, int row, int col, int floor,
             int level, int layer);
 
-    public int getMinimumRequiredQuantity(Map map);
+    public int getMinimumRequiredQuantity(Map map, int level);
 
-    public int getMaximumRequiredQuantity(Map map);
+    public int getMaximumRequiredQuantity(Map map, int level);
 
-    public boolean isRequired();
+    public boolean isRequired(int level);
 
     public boolean shouldGenerateObjectInBattle(Map map, int row, int col,
             int floor, int level, int layer);

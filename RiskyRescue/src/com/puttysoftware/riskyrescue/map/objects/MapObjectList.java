@@ -83,13 +83,13 @@ public class MapObjectList {
         return allGroundLayerObjects;
     }
 
-    public final MapObject[] getAllRequired(int layer) {
+    public final MapObject[] getAllRequired(int layer, int level) {
         MapObject[] objs = this.getAllObjects();
         MapObject[] tempAllRequired = new MapObject[objs.length];
         int x;
         int count = 0;
         for (x = 0; x < objs.length; x++) {
-            if ((objs[x].getLayer() == layer) && objs[x].isRequired()) {
+            if ((objs[x].getLayer() == layer) && objs[x].isRequired(level)) {
                 tempAllRequired[count] = objs[x];
                 count++;
             }
@@ -111,7 +111,7 @@ public class MapObjectList {
         int x;
         int count = 0;
         for (x = 0; x < objs.length; x++) {
-            if ((objs[x].getLayer() == layer) && !(objs[x].isRequired())) {
+            if ((objs[x].getLayer() == layer) && !(objs[x].isRequired(-2))) {
                 tempAllWithoutPrereq[count] = objs[x];
                 count++;
             }

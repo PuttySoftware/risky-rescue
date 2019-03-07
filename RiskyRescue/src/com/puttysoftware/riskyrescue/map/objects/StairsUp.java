@@ -88,17 +88,17 @@ public class StairsUp extends MapObject {
     }
 
     @Override
-    public boolean isRequired() {
+    public boolean isRequired(int level) {
         return true;
     }
 
     @Override
-    public int getMinimumRequiredQuantity(Map map) {
+    public int getMinimumRequiredQuantity(Map map, int level) {
         return 1;
     }
 
     @Override
-    public int getMaximumRequiredQuantity(Map map) {
+    public int getMaximumRequiredQuantity(Map map, int level) {
         return 1;
     }
 }

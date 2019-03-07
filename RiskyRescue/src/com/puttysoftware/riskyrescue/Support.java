@@ -19,8 +19,8 @@ public class Support {
     private static final String PROGRAM_NAME = "RiskyRescue";
     private static final String ERROR_MESSAGE = "Perhaps a bug is to blame for this error message.\n"
             + "Include the debug log with your bug report.\n"
-            + "Email bug reports to: support@puttysoftware.com\n"
-            + "Subject: RiskyRescue Bug Report";
+            + "Report bugs at the project's GitHub issue tracker:\n"
+            + "https://github.com/PuttySoftware/risky-rescue/issues/new";
     private static final String SCRIPT_ERROR_MESSAGE = "A problem has occurred while running a script.\n"
             + "This error is non-fatal, and has been logged.";
     private static final String ERROR_TITLE = "RiskyRescue Error";

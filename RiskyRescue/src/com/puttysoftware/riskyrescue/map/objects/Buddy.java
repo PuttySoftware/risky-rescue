@@ -32,7 +32,7 @@ public class Buddy extends BattleCharacter {
                 this.getLayer());
         // ...and joins your party!
         PartyManager.addBuddy();
-        SoundManager.playSound(SoundConstants.VICTORY);
+        SoundManager.playSound(SoundConstants.QUESTION);
         CommonDialogs
                 .showDialog("You have found your buddy! Time to head out!");
         return true;

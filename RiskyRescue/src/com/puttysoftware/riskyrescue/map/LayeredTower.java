@@ -73,7 +73,7 @@ class LayeredTower {
         InternalScriptEntry act0 = new InternalScriptEntry();
         act0.setActionCode(InternalScriptActionCode.RANDOM_CHANCE);
         act0.addActionArg(new InternalScriptEntryArgument(
-                Math.max(1000 + (mod * 200), 0)));
+                Math.max(500 + (mod * 250), 0)));
         act0.finalizeActionArgs();
         globalScriptArea.addAction(act0);
         InternalScriptEntry act1 = new InternalScriptEntry();

@@ -22,7 +22,7 @@ public class Support {
             + "Report bugs at the project's GitHub issue tracker:\n"
             + "https://github.com/PuttySoftware/risky-rescue/issues/new";
     private static final String SCRIPT_ERROR_MESSAGE = "A problem has occurred while running a script.\n"
-            + "This error is non-fatal, and has been logged.";
+            + "This problem has been logged.";
     private static final String ERROR_TITLE = "RiskyRescue Error";
     private static final String NF_ERROR_TITLE = "RiskyRescue Script Error";
     private static final ErrorLogger elog = new ErrorLogger(

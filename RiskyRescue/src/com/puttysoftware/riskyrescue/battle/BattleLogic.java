@@ -92,7 +92,8 @@ public class BattleLogic {
                 enemies[x].getTemplate().setTeamID(1);
                 enemies[x].getTemplate().healAndRegenerateFully();
                 if (enemies[x].getTemplate() instanceof SystemMonster) {
-                    SystemMonster mon = (SystemMonster) enemies[x].getTemplate();
+                    SystemMonster mon = (SystemMonster) enemies[x]
+                            .getTemplate();
                     mon.loadMonster();
                 }
             }
@@ -847,8 +848,7 @@ public class BattleLogic {
                                 && enemy.getTeamID() == Creature.TEAM_PARTY
                                 && enemy.getCurrentHP() <= enemy.getMaximumHP()
                                         * 3 / 10) {
-                            SoundManager.playSound(
-                                    SoundConstants.LOW_HEALTH);
+                            SoundManager.playSound(SoundConstants.LOW_HEALTH);
                         }
                         // Handle enemy death
                         if (!enemy.isAlive()) {
@@ -865,8 +865,7 @@ public class BattleLogic {
                             BattleDefinitions.killedEnemy(active.getTemplate());
                             BattleDefinitions.killedInBattle(enemy);
                             // Play death sound
-                            SoundManager
-                                    .playSound(SoundConstants.DEATH);
+                            SoundManager.playSound(SoundConstants.DEATH);
                             // Remove effects from dead character
                             bc.getTemplate().stripAllEffects();
                             // Set dead character to inactive
@@ -881,8 +880,7 @@ public class BattleLogic {
                             BattleDefinitions
                                     .killedInBattle(active.getTemplate());
                             // Play death sound
-                            SoundManager
-                                    .playSound(SoundConstants.DEATH);
+                            SoundManager.playSound(SoundConstants.DEATH);
                             // Remove effects from dead character
                             active.getTemplate().stripAllEffects();
                             // Set dead character to inactive
@@ -1049,12 +1047,7 @@ public class BattleLogic {
     public boolean steal() {
         // Check Steal Counter
         if (this.getActiveStealCounter() > 0) {
-            Creature activeEnemy = null;
-            try {
-                activeEnemy = this.getEnemy().getTemplate();
-            } catch (NullPointerException npe) {
-                // Ignore
-            }
+            Creature activeEnemy = this.getEnemy().getTemplate();
             int stealChance;
             int stealAmount;
             this.bd.getActiveCharacter().modifySteals(1);
@@ -1128,12 +1121,7 @@ public class BattleLogic {
     public boolean drain() {
         // Check Action Counter
         if (this.getActiveActionCounter() > 0) {
-            Creature activeEnemy = null;
-            try {
-                activeEnemy = this.getEnemy().getTemplate();
-            } catch (NullPointerException npe) {
-                // Ignore
-            }
+            Creature activeEnemy = this.getEnemy().getTemplate();
             int drainChance;
             int drainAmount;
             this.bd.getActiveCharacter()

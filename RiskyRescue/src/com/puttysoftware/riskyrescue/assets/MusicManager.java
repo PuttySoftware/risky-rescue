@@ -55,8 +55,6 @@ public class MusicManager {
                 MusicManager.CURRENT_MUSIC.stopLoop();
             } catch (BufferUnderflowException bue) {
                 // Ignore
-            } catch (NullPointerException np) {
-                // Ignore
             } catch (Throwable t) {
                 Support.getErrorLogger().logError(t);
             }

@@ -88,8 +88,6 @@ public final class PageEditor {
                             inputValid = true;
                         } catch (NumberFormatException nf) {
                             // Ignore exception
-                        } catch (NullPointerException np) {
-                            return null;
                         }
                         if (!inputValid) {
                             CommonDialogs.showErrorDialog(

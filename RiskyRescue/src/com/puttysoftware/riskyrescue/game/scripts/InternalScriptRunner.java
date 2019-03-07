@@ -182,9 +182,9 @@ public final class InternalScriptRunner {
         int rargc = InternalScriptConstants.ARGUMENT_COUNT_VALIDATION[code
                 .ordinal()];
         int aargc;
-        try {
+        if (se.getActionArgs() != null) {
             aargc = se.getActionArgs().length;
-        } catch (NullPointerException npe) {
+        } else {
             aargc = 0;
         }
         if (rargc != aargc) {

@@ -91,8 +91,6 @@ public final class PageViewer {
                         valid = true;
                     } catch (NumberFormatException nf) {
                         // Ignore exception
-                    } catch (NullPointerException np) {
-                        // Ignore exception
                     }
                     if (!valid) {
                         CommonDialogs.showErrorDialog(
@@ -134,8 +132,6 @@ public final class PageViewer {
                     }
                     valid = true;
                 } catch (NumberFormatException nf) {
-                    // Ignore exception
-                } catch (NullPointerException np) {
                     // Ignore exception
                 }
                 if (!valid) {

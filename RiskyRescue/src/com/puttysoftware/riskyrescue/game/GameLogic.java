@@ -109,45 +109,39 @@ public class GameLogic {
         int pz = m.getPlayerLocationZ();
         Application app = RiskyRescue.getApplication();
         boolean proceed = false;
-        MapObject o = null;
+        MapObject o = new Empty();
         MapObject groundInto = new Empty();
         MapObject below = null;
         MapObject nextBelow = null;
         MapObject nextAbove = null;
         try {
-            try {
-                o = m.getCell(px + x, py + y, pz + z,
-                        MapConstants.LAYER_OBJECT);
-            } catch (final ArrayIndexOutOfBoundsException ae) {
-                o = new Empty();
-            }
-            try {
-                below = m.getCell(px, py, pz, MapConstants.LAYER_GROUND);
-            } catch (final ArrayIndexOutOfBoundsException ae) {
-                below = new Empty();
-            }
-            try {
-                nextBelow = m.getCell(px + x, py + y, pz + z,
-                        MapConstants.LAYER_GROUND);
-            } catch (final ArrayIndexOutOfBoundsException ae) {
-                nextBelow = new Empty();
-            }
-            try {
-                nextAbove = m.getCell(px + x, py + y, pz + z,
-                        MapConstants.LAYER_OBJECT);
-            } catch (final ArrayIndexOutOfBoundsException ae) {
-                nextAbove = new Wall();
-            }
-            try {
-                proceed = o.preMoveCheck(true, px + x, py + y, pz + z, m);
-            } catch (final ArrayIndexOutOfBoundsException ae) {
-                proceed = true;
-            } catch (final InfiniteRecursionException ir) {
-                proceed = false;
-            }
-        } catch (NullPointerException np) {
-            proceed = false;
+            o = m.getCell(px + x, py + y, pz + z, MapConstants.LAYER_OBJECT);
+        } catch (final ArrayIndexOutOfBoundsException ae) {
             o = new Empty();
+        }
+        try {
+            below = m.getCell(px, py, pz, MapConstants.LAYER_GROUND);
+        } catch (final ArrayIndexOutOfBoundsException ae) {
+            below = new Empty();
+        }
+        try {
+            nextBelow = m.getCell(px + x, py + y, pz + z,
+                    MapConstants.LAYER_GROUND);
+        } catch (final ArrayIndexOutOfBoundsException ae) {
+            nextBelow = new Empty();
+        }
+        try {
+            nextAbove = m.getCell(px + x, py + y, pz + z,
+                    MapConstants.LAYER_OBJECT);
+        } catch (final ArrayIndexOutOfBoundsException ae) {
+            nextAbove = new Wall();
+        }
+        try {
+            proceed = o.preMoveCheck(true, px + x, py + y, pz + z, m);
+        } catch (final ArrayIndexOutOfBoundsException ae) {
+            proceed = true;
+        } catch (final InfiniteRecursionException ir) {
+            proceed = false;
         }
         if (proceed) {
             m.savePlayerLocation();
@@ -242,44 +236,38 @@ public class GameLogic {
         int pz = m.getPlayerLocationZ();
         Application app = RiskyRescue.getApplication();
         boolean proceed = false;
-        MapObject o = null;
+        MapObject o = new Empty();
         MapObject below = null;
         MapObject nextBelow = null;
         MapObject nextAbove = null;
         try {
-            try {
-                o = m.getCell(px + x, py + y, pz + z,
-                        MapConstants.LAYER_OBJECT);
-            } catch (final ArrayIndexOutOfBoundsException ae) {
-                o = new Empty();
-            }
-            try {
-                below = m.getCell(px, py, pz, MapConstants.LAYER_GROUND);
-            } catch (final ArrayIndexOutOfBoundsException ae) {
-                below = new Empty();
-            }
-            try {
-                nextBelow = m.getCell(px + x, py + y, pz + z,
-                        MapConstants.LAYER_GROUND);
-            } catch (final ArrayIndexOutOfBoundsException ae) {
-                nextBelow = new Empty();
-            }
-            try {
-                nextAbove = m.getCell(px + x, py + y, pz + z,
-                        MapConstants.LAYER_OBJECT);
-            } catch (final ArrayIndexOutOfBoundsException ae) {
-                nextAbove = new Wall();
-            }
-            try {
-                proceed = o.preMoveCheck(true, px + x, py + y, pz + z, m);
-            } catch (final ArrayIndexOutOfBoundsException ae) {
-                proceed = true;
-            } catch (final InfiniteRecursionException ir) {
-                proceed = false;
-            }
-        } catch (NullPointerException np) {
-            proceed = false;
+            o = m.getCell(px + x, py + y, pz + z, MapConstants.LAYER_OBJECT);
+        } catch (final ArrayIndexOutOfBoundsException ae) {
             o = new Empty();
+        }
+        try {
+            below = m.getCell(px, py, pz, MapConstants.LAYER_GROUND);
+        } catch (final ArrayIndexOutOfBoundsException ae) {
+            below = new Empty();
+        }
+        try {
+            nextBelow = m.getCell(px + x, py + y, pz + z,
+                    MapConstants.LAYER_GROUND);
+        } catch (final ArrayIndexOutOfBoundsException ae) {
+            nextBelow = new Empty();
+        }
+        try {
+            nextAbove = m.getCell(px + x, py + y, pz + z,
+                    MapConstants.LAYER_OBJECT);
+        } catch (final ArrayIndexOutOfBoundsException ae) {
+            nextAbove = new Wall();
+        }
+        try {
+            proceed = o.preMoveCheck(true, px + x, py + y, pz + z, m);
+        } catch (final ArrayIndexOutOfBoundsException ae) {
+            proceed = true;
+        } catch (final InfiniteRecursionException ir) {
+            proceed = false;
         }
         if (proceed) {
             m.savePlayerLocation();
@@ -390,7 +378,6 @@ public class GameLogic {
         try {
             if (!(m.getCell(x, y, z, MapConstants.LAYER_OBJECT)
                     .isConditionallySolid(m, z))) {
-
                 m.setPlayerLocation(x, y, z);
                 this.getViewManager()
                         .setViewingWindowLocationX(m.getPlayerLocationY()

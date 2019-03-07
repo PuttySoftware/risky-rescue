@@ -14,12 +14,12 @@ class SeekerAI extends AIRoutine {
     private final RandomRange randMove;
     private int failedMoveAttempts;
     private int[] roundsRemaining;
-    private static final int STUCK_THRESHOLD = 16;
-    private static final int CAST_SPELL_CHANCE = 50;
+    private static final int STUCK_THRESHOLD = 8;
+    private static final int CAST_SPELL_CHANCE = 35;
     private static final int STEAL_CHANCE = 5;
-    private static final int DRAIN_CHANCE = 20;
+    private static final int DRAIN_CHANCE = 2;
     private static final int SPELL_INDEX_HEAL = 1;
-    private static final int HEAL_THRESHOLD = 50;
+    private static final int HEAL_THRESHOLD = 25;
 
     // Constructor
     public SeekerAI() {

@@ -13,7 +13,6 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
-import com.puttysoftware.riskyrescue.RiskyRescue;
 import com.puttysoftware.riskyrescue.battle.BattleSpeedConstants;
 import com.puttysoftware.riskyrescue.scenario.Extension;
 
@@ -41,17 +40,6 @@ public class PreferencesManager {
     }
 
     // Methods
-    public static int getGeneratorRandomness() {
-        return PreferencesManager.storeMgr.getInteger("GeneratorRandomness", 3);
-    }
-
-    static void setGeneratorRandomness(int value) {
-        PreferencesManager.storeMgr.setInteger("GeneratorRandomness", value);
-        RiskyRescue.getApplication().getScenarioManager().getMap()
-                .setGeneratorRandomness(value,
-                        RiskyRescue.GENERATOR_RANDOMNESS_MAX);
-    }
-
     public static int getBattleSpeed() {
         return BattleSpeedConstants.BATTLE_SPEED_ARRAY[PreferencesManager.storeMgr
                 .getInteger("BattleSpeed",

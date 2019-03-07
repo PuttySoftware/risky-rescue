@@ -21,9 +21,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import com.puttysoftware.riskyrescue.Application;
@@ -36,10 +34,8 @@ class PreferencesGUIManager {
     private JComboBox<String> battleSpeedChoices;
     final JCheckBox[] music;
     private JCheckBox sound;
-    private JCheckBox randomBattle;
     private JCheckBox moveOneAtATime;
-    private JSlider generatorRandomness;
-    private static final int GRID_LENGTH = 6;
+    private static final int GRID_LENGTH = 4;
     private static final String[] battleSpeedChoiceArray = new String[] {
             "Very Slow", "Slow", "Moderate", "Fast", "Very Fast" };
 
@@ -91,8 +87,6 @@ class PreferencesGUIManager {
     }
 
     private void loadPrefs() {
-        this.generatorRandomness
-                .setValue(PreferencesManager.getGeneratorRandomness());
         this.battleSpeedChoices
                 .setSelectedIndex(PreferencesManager.getBattleSpeedValue());
         for (int x = 0; x < PreferencesManager.MUSIC_LENGTH; x++) {
@@ -100,13 +94,9 @@ class PreferencesGUIManager {
         }
         this.moveOneAtATime.setSelected(PreferencesManager.oneMove());
         this.sound.setSelected(LocalPreferencesManager.getSoundsEnabled());
-        this.randomBattle.setSelected(
-                LocalPreferencesManager.getRandomBattleEnvironment());
     }
 
     void setPrefs() {
-        PreferencesManager
-                .setGeneratorRandomness(this.generatorRandomness.getValue());
         PreferencesManager
                 .setBattleSpeed(this.battleSpeedChoices.getSelectedIndex());
         for (int x = 0; x < PreferencesManager.MUSIC_LENGTH; x++) {
@@ -114,8 +104,6 @@ class PreferencesGUIManager {
         }
         PreferencesManager.setOneMove(this.moveOneAtATime.isSelected());
         LocalPreferencesManager.setSoundsEnabled(this.sound.isSelected());
-        LocalPreferencesManager
-                .setRandomBattleEnvironment(this.randomBattle.isSelected());
         this.hidePrefs();
     }
 
@@ -147,13 +135,6 @@ class PreferencesGUIManager {
         prefsCancel = new JButton("Cancel");
         prefsCancel.setDefaultCapable(false);
         this.battleSpeedChoices = new JComboBox<>(battleSpeedChoiceArray);
-        this.generatorRandomness = new JSlider(SwingConstants.HORIZONTAL, 0, 6,
-                3);
-        this.generatorRandomness.setMajorTickSpacing(1);
-        this.generatorRandomness.setPaintTicks(true);
-        this.generatorRandomness.setSnapToTicks(true);
-        JLabel generatorRandomnessValue = new JLabel("Generator Randomness");
-        this.randomBattle = new JCheckBox("Randomize Battlefield", true);
         this.music[PreferencesManager.MUSIC_ALL] = new JCheckBox(
                 "Enable ALL music", true);
         this.music[PreferencesManager.MUSIC_DUNGEON] = new JCheckBox(
@@ -173,9 +154,6 @@ class PreferencesGUIManager {
         gamePane.add(new JLabel("Battle Speed"));
         gamePane.add(this.battleSpeedChoices);
         gamePane.add(this.moveOneAtATime);
-        gamePane.add(generatorRandomnessValue);
-        gamePane.add(this.generatorRandomness);
-        gamePane.add(this.randomBattle);
         mediaPane.setLayout(
                 new GridLayout(PreferencesGUIManager.GRID_LENGTH, 1));
         for (int x = 0; x < PreferencesManager.MUSIC_LENGTH; x++) {

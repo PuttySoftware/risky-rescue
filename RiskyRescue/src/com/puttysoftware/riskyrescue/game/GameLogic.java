@@ -572,11 +572,6 @@ public class GameLogic {
         }
         if (this.stateChanged) {
             // Initialize only if the map state has changed
-            boolean didMapExist = true;
-            int currRandom = PreferencesManager.getGeneratorRandomness();
-            if (app.getScenarioManager().getMap() == null) {
-                didMapExist = false;
-            }
             RiskyRescue.newScenario();
             m = new Map();
             app.getScenarioManager().setMap(m);
@@ -585,10 +580,6 @@ public class GameLogic {
                     Support.getGameMapFloorSize());
             m.fillLevelRandomly(new Tile(), new Empty());
             m.save();
-            if (didMapExist) {
-                m.setGeneratorRandomness(currRandom,
-                        RiskyRescue.GENERATOR_RANDOMNESS_MAX);
-            }
             this.resetViewingWindow();
             int px = m.getPlayerLocationX();
             int py = m.getPlayerLocationY();

@@ -25,11 +25,6 @@ public abstract class WAVFactory extends Thread {
     abstract int getNumber();
 
     // Factories
-    public static WAVFactory loadFile(final String file) {
-        return WAVFactory.provisionMedia(new WAVFile(WAVFactory.MEDIA_GROUP,
-                file, WAVFactory.ACTIVE_MEDIA_COUNT));
-    }
-
     public static WAVFactory loadResource(final URL resource) {
         return WAVFactory.provisionMedia(new WAVResource(WAVFactory.MEDIA_GROUP,
                 resource, WAVFactory.ACTIVE_MEDIA_COUNT));

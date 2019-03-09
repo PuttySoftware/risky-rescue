@@ -64,11 +64,7 @@ public class SystemMonster extends Creature {
         return null;
     }
 
-    final String getType() {
-        return this.type;
-    }
-
-    final void setType(String newType) {
+    private final void setType(String newType) {
         this.type = newType;
     }
 

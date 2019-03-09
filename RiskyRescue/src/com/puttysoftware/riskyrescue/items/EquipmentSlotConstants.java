@@ -14,7 +14,7 @@ public class EquipmentSlotConstants {
     private static String[] SLOT_NAMES = null;
     private static String[] ARMOR_SLOT_NAMES = null;
 
-    static String[] getSlotNames() {
+    synchronized static String[] getSlotNames() {
         if (SLOT_NAMES == null) {
             SLOT_NAMES = new String[MAX_SLOTS];
             SLOT_NAMES[0] = "Main Hand";

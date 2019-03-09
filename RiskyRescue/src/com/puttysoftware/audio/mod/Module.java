@@ -585,28 +585,4 @@ public class Module {
             return Module.isoLatin1(buf, offset, len);
         }
     }
-
-    public void toStringBuffer(final StringBuffer out) {
-        out.append("Song Name: " + this.songName + '\n' + "Num Channels: " //$NON-NLS-1$ //$NON-NLS-2$
-                + this.numChannels + '\n' + "Num Instruments: " //$NON-NLS-1$
-                + this.numInstruments + '\n' + "Num Patterns: " //$NON-NLS-1$
-                + this.numPatterns + '\n' + "Sequence Length: " //$NON-NLS-1$
-                + this.sequenceLength + '\n' + "Restart Pos: " + this.restartPos //$NON-NLS-1$
-                + '\n' + "Default Speed: " + this.defaultSpeed + '\n' //$NON-NLS-1$
-                + "Default Tempo: " + this.defaultTempo + '\n' //$NON-NLS-1$
-                + "Linear Periods: " + this.linearPeriods + '\n'); //$NON-NLS-1$
-        out.append("Sequence: "); //$NON-NLS-1$
-        for (final int element : this.sequence) {
-            out.append(element + ", "); //$NON-NLS-1$
-        }
-        out.append('\n');
-        for (int patIdx = 0; patIdx < this.patterns.length; patIdx++) {
-            out.append("Pattern " + patIdx + ":\n"); //$NON-NLS-1$ //$NON-NLS-2$
-            this.patterns[patIdx].toStringBuffer(out);
-        }
-        for (int insIdx = 1; insIdx < this.instruments.length; insIdx++) {
-            out.append("Instrument " + insIdx + ":\n"); //$NON-NLS-1$ //$NON-NLS-2$
-            this.instruments[insIdx].toStringBuffer(out);
-        }
-    }
 }

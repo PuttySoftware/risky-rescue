@@ -42,7 +42,7 @@ public class SoundConstants {
     // public static final int STEP_1 = 31;
     // public static final int STEP_2 = 32;
     public static final int STEP_HAZARD = 33;
-    public static final int TELEPORT = 34;
+    // public static final int TELEPORT = 34;
     public static final int TRANSACT = 35;
     public static final int UP = 36;
     public static final int VICTORY = 37;

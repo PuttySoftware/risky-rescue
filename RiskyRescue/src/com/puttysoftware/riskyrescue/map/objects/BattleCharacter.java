@@ -17,7 +17,6 @@ public class BattleCharacter extends MapObject {
     private int actionCounter;
     private int attackCounter;
     private int spellCounter;
-    private int itemCounter;
     private int stealCounter;
     private boolean isActive;
 
@@ -28,7 +27,6 @@ public class BattleCharacter extends MapObject {
         this.actionCounter = newTemplate.getActionsPerRound();
         this.attackCounter = newTemplate.getEffectedAttacksPerRound();
         this.spellCounter = newTemplate.getEffectedSpellsPerRound();
-        this.itemCounter = newTemplate.getEffectedItemsPerRound();
         this.stealCounter = newTemplate.getEffectedStealsPerRound();
         this.isActive = true;
         this.setSavedObject(new Empty());
@@ -135,18 +133,6 @@ public class BattleCharacter extends MapObject {
         return this.spellCounter;
     }
 
-    public final void resetItems() {
-        this.itemCounter = this.template.getEffectedItemsPerRound();
-    }
-
-    public final void modifyItems(int mod) {
-        this.itemCounter -= mod;
-    }
-
-    public final int getCurrentIT() {
-        return this.itemCounter;
-    }
-
     public final void resetSteals() {
         this.stealCounter = this.template.getEffectedStealsPerRound();
     }
@@ -172,11 +158,6 @@ public class BattleCharacter extends MapObject {
     public final String getSpellString() {
         return "Spells Left: "
                 + (this.spellCounter >= 0 ? this.spellCounter : 0);
-    }
-
-    public final String getItemString() {
-        return "Item Uses Left: "
-                + (this.itemCounter >= 0 ? this.itemCounter : 0);
     }
 
     public final String getStealString() {
@@ -250,7 +231,6 @@ public class BattleCharacter extends MapObject {
         result = prime * result + this.attackCounter;
         result = prime * result + (this.isActive ? 1231 : 1237);
         result = prime * result + this.spellCounter;
-        result = prime * result + this.itemCounter;
         result = prime * result + this.stealCounter;
         return prime * result
                 + ((this.template == null) ? 0 : this.template.hashCode());
@@ -278,9 +258,6 @@ public class BattleCharacter extends MapObject {
             return false;
         }
         if (this.spellCounter != other.spellCounter) {
-            return false;
-        }
-        if (this.itemCounter != other.itemCounter) {
             return false;
         }
         if (this.stealCounter != other.stealCounter) {

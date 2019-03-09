@@ -1,10 +1,5 @@
 package com.puttysoftware.page;
 
-import java.io.IOException;
-
-import com.puttysoftware.xio.XDataReader;
-import com.puttysoftware.xio.XDataWriter;
-
 public final class Page extends Polynomial {
     // Fields
     private int maxRange;
@@ -72,21 +67,6 @@ public final class Page extends Polynomial {
             result[x] = this.evaluate(x + 1);
         }
         return result;
-    }
-
-    public static Page readPage(XDataReader reader) throws IOException {
-        Page p = new Page(Polynomial.readPolynomial(reader));
-        int tempMaxRange = reader.readInt();
-        boolean tempExperience = reader.readBoolean();
-        p.maxRange = tempMaxRange;
-        p.experience = tempExperience;
-        return p;
-    }
-
-    public void writePage(XDataWriter writer) throws IOException {
-        this.writePolynomial(writer);
-        writer.writeInt(this.maxRange);
-        writer.writeBoolean(this.experience);
     }
 
     @Override

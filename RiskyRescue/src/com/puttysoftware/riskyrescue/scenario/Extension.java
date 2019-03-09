@@ -11,8 +11,6 @@ public class Extension {
     private static final String REGISTRY_EXTENSION = "gemreg";
     private static final String SCENARIO_EXTENSION = "gemadv";
     private static final String SAVED_GAME_EXTENSION = "gemsav";
-    private static final String CHARACTER_EXTENSION = "gemchr";
-    private static final String INTERNAL_DATA_EXTENSION = "dat";
 
     // Methods
     public static String getPreferencesExtension() {
@@ -33,29 +31,5 @@ public class Extension {
 
     public static String getGameExtensionWithPeriod() {
         return "." + Extension.SAVED_GAME_EXTENSION;
-    }
-
-    public static String getCharacterExtension() {
-        return Extension.CHARACTER_EXTENSION;
-    }
-
-    public static String getCharacterExtensionWithPeriod() {
-        return "." + Extension.CHARACTER_EXTENSION;
-    }
-
-    public static String getRaceExtensionWithPeriod() {
-        return "." + Extension.INTERNAL_DATA_EXTENSION;
-    }
-
-    public static String getPersonalityExtensionWithPeriod() {
-        return "." + Extension.INTERNAL_DATA_EXTENSION;
-    }
-
-    public static String getFaithExtensionWithPeriod() {
-        return "." + Extension.INTERNAL_DATA_EXTENSION;
-    }
-
-    public static String getDescriptionExtensionWithPeriod() {
-        return "." + Extension.INTERNAL_DATA_EXTENSION;
     }
 }

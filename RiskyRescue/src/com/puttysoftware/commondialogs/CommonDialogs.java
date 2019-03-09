@@ -1,9 +1,6 @@
 package com.puttysoftware.commondialogs;
 
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 
 import com.puttysoftware.images.BufferedImageIcon;
 
@@ -12,8 +9,6 @@ public class CommonDialogs {
     private static BufferedImageIcon ICON = null;
     private static String DEFAULT_TITLE = null;
     public static final int YES_OPTION = JOptionPane.YES_OPTION;
-    public static final int NO_OPTION = JOptionPane.NO_OPTION;
-    public static final int CANCEL_OPTION = JOptionPane.CANCEL_OPTION;
 
     // Constructor
     private CommonDialogs() {
@@ -95,31 +90,6 @@ public class CommonDialogs {
     }
 
     /**
-     * Displays a password input dialog, allowing the user to enter a value.
-     *
-     * @param prompt
-     *            The input prompt.
-     * @param title
-     *            The dialog title.
-     * @return The value the user input.
-     */
-    public static char[] showPasswordInputDialog(final String prompt,
-            final String title, final int length) {
-        final JPanel panel = new JPanel();
-        final JLabel label = new JLabel(prompt);
-        final JPasswordField pass = new JPasswordField(length);
-        panel.add(label);
-        panel.add(pass);
-        final int option = JOptionPane.showOptionDialog(null, panel, title,
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-                CommonDialogs.ICON, null, null);
-        if (option == JOptionPane.OK_OPTION) {
-            return pass.getPassword();
-        }
-        return null;
-    }
-
-    /**
      * Displays a text input dialog, allowing the user to enter a value.
      *
      * @param prompt
@@ -165,14 +135,6 @@ public class CommonDialogs {
         return JOptionPane.showConfirmDialog(null, prompt, title,
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.INFORMATION_MESSAGE, CommonDialogs.ICON);
-    }
-
-    public static int showCustomDialog(final String prompt, final String title,
-            final String[] buttonNames, final String defaultButton) {
-        return JOptionPane.showOptionDialog(null, prompt, title,
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.INFORMATION_MESSAGE, CommonDialogs.ICON,
-                buttonNames, defaultButton);
     }
 
     /**

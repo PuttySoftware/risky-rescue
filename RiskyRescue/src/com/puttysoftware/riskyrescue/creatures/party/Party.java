@@ -175,43 +175,6 @@ public class Party {
         return result;
     }
 
-    private String[] buildNameList() {
-        String[] tempNames = new String[this.members.length];
-        int nnc = 0;
-        for (int x = 0; x < tempNames.length; x++) {
-            PartyMember pm = this.getMember(x);
-            if (pm != null) {
-                tempNames[x] = pm.getName();
-                nnc++;
-            }
-        }
-        String[] names = new String[nnc];
-        nnc = 0;
-        for (int x = 0; x < tempNames.length; x++) {
-            if (tempNames[x] != null) {
-                names[nnc] = tempNames[x];
-                nnc++;
-            }
-        }
-        return names;
-    }
-
-    PartyMember pickOnePartyMemberCreate() {
-        String[] pickNames = this.buildNameList();
-        String response = CommonDialogs.showInputDialog("Pick 1 Party Member",
-                "Create Party", pickNames, pickNames[0]);
-        if (response != null) {
-            int loc = this.findMember(response, 0, this.members.length);
-            if (loc != -1) {
-                return this.getMember(loc);
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
     void addHero(PartyMember hero) {
         this.members[0] = hero;
         this.player = new Player(hero);
@@ -229,18 +192,6 @@ public class Party {
         this.battlers[0] = this.player;
         this.battlers[1] = this.buddy;
         this.activePCs = 2;
-    }
-
-    private int findMember(String name, int start, int limit) {
-        for (int x = start; x < limit; x++) {
-            PartyMember pm = this.getMember(x);
-            if (pm != null) {
-                if (pm.getName().equals(name)) {
-                    return x;
-                }
-            }
-        }
-        return -1;
     }
 
     static Party read(XDataReader worldFile) throws IOException {

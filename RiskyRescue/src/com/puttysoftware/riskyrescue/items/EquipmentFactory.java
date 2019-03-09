@@ -64,14 +64,6 @@ class EquipmentFactory {
         return e;
     }
 
-    static Equipment createEnhancedEquipment(Equipment oldE, int bonus) {
-        Equipment e = new Equipment(oldE);
-        e.setPotency(oldE.getMaterial()
-                * ArmorMaterialConstants.MATERIALS_POWER_MULTIPLIER + bonus);
-        e.enchantName(bonus);
-        return e;
-    }
-
     static String[] createOneHandedWeaponNames() {
         String[] res = new String[WeaponMaterialConstants.MATERIALS_COUNT];
         for (int x = 0; x < res.length; x++) {
@@ -97,10 +89,5 @@ class EquipmentFactory {
                     + ArmorConstants.getArmor()[armorType];
         }
         return res;
-    }
-
-    static String[] createSocksNames() {
-        return new String[] { "Heal Socks", "Regen Socks", "Experience Socks",
-                "Money Socks" };
     }
 }

@@ -7,21 +7,12 @@ package com.puttysoftware.integration;
 
 import java.awt.Desktop;
 import java.awt.desktop.AboutHandler;
-import java.awt.desktop.AppForegroundListener;
-import java.awt.desktop.AppHiddenListener;
-import java.awt.desktop.AppReopenedListener;
 import java.awt.desktop.OpenFilesHandler;
 import java.awt.desktop.OpenURIHandler;
 import java.awt.desktop.PreferencesHandler;
 import java.awt.desktop.PrintFilesHandler;
 import java.awt.desktop.QuitHandler;
 import java.awt.desktop.QuitStrategy;
-import java.awt.desktop.ScreenSleepListener;
-import java.awt.desktop.SystemSleepListener;
-import java.awt.desktop.UserSessionListener;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -71,73 +62,6 @@ public class NativeIntegration {
         return this.otherOS;
     }
 
-    public void addAppForegroundListener(final AppForegroundListener listener) {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.APP_EVENT_FOREGROUND)) {
-                this.desktop.addAppEventListener(listener);
-            }
-        }
-    }
-
-    public void addAppHiddenListener(final AppHiddenListener listener) {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.APP_EVENT_HIDDEN)) {
-                this.desktop.addAppEventListener(listener);
-            }
-        }
-    }
-
-    public void addAppReopenedListener(final AppReopenedListener listener) {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.APP_EVENT_REOPENED)) {
-                this.desktop.addAppEventListener(listener);
-            }
-        }
-    }
-
-    public void addScreenSleepListener(final ScreenSleepListener listener) {
-        if (this.supported) {
-            if (this.desktop
-                    .isSupported(Desktop.Action.APP_EVENT_SCREEN_SLEEP)) {
-                this.desktop.addAppEventListener(listener);
-            }
-        }
-    }
-
-    public void addSystemSleepListener(final SystemSleepListener listener) {
-        if (this.supported) {
-            if (this.desktop
-                    .isSupported(Desktop.Action.APP_EVENT_SYSTEM_SLEEP)) {
-                this.desktop.addAppEventListener(listener);
-            }
-        }
-    }
-
-    public void addUserSessionListener(final UserSessionListener listener) {
-        if (this.supported) {
-            if (this.desktop
-                    .isSupported(Desktop.Action.APP_EVENT_USER_SESSION)) {
-                this.desktop.addAppEventListener(listener);
-            }
-        }
-    }
-
-    public void browse(final URI url) throws IOException {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.BROWSE)) {
-                this.desktop.browse(url);
-            }
-        }
-    }
-
-    public void browseFileDirectory(final File file) throws IOException {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.BROWSE_FILE_DIR)) {
-                this.desktop.browseFileDirectory(file);
-            }
-        }
-    }
-
     // Methods
     public void configureLookAndFeel() {
         if (this.macOS) {
@@ -174,137 +98,11 @@ public class NativeIntegration {
         }
     }
 
-    public void disableSuddenTermination() {
-        if (this.supported) {
-            if (this.desktop
-                    .isSupported(Desktop.Action.APP_SUDDEN_TERMINATION)) {
-                this.desktop.disableSuddenTermination();
-            }
-        }
-    }
-
-    public void edit(final File file) throws IOException {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.EDIT)) {
-                this.desktop.edit(file);
-            }
-        }
-    }
-
     public void enableSuddenTermination() {
         if (this.supported) {
             if (this.desktop
                     .isSupported(Desktop.Action.APP_SUDDEN_TERMINATION)) {
                 this.desktop.enableSuddenTermination();
-            }
-        }
-    }
-
-    public void mail() throws IOException {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.MAIL)) {
-                this.desktop.mail();
-            }
-        }
-    }
-
-    public void mail(final URI mailto) throws IOException {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.MAIL)) {
-                this.desktop.mail(mailto);
-            }
-        }
-    }
-
-    public void moveToTrash(final File file) throws IOException {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.MOVE_TO_TRASH)) {
-                this.desktop.moveToTrash(file);
-            }
-        }
-    }
-
-    public void open(final File file) throws IOException {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.OPEN)) {
-                this.desktop.open(file);
-            }
-        }
-    }
-
-    public void openHelpViewer() {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.APP_HELP_VIEWER)) {
-                this.desktop.openHelpViewer();
-            }
-        }
-    }
-
-    public void print(final File file) throws IOException {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.PRINT)) {
-                this.desktop.print(file);
-            }
-        }
-    }
-
-    public void removeAppForegroundListener(
-            final AppForegroundListener listener) {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.APP_EVENT_FOREGROUND)) {
-                this.desktop.removeAppEventListener(listener);
-            }
-        }
-    }
-
-    public void removeAppHiddenListener(final AppHiddenListener listener) {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.APP_EVENT_HIDDEN)) {
-                this.desktop.removeAppEventListener(listener);
-            }
-        }
-    }
-
-    public void removeAppReopenedListener(final AppReopenedListener listener) {
-        if (this.supported) {
-            if (this.desktop.isSupported(Desktop.Action.APP_EVENT_REOPENED)) {
-                this.desktop.removeAppEventListener(listener);
-            }
-        }
-    }
-
-    public void removeScreenSleepListener(final ScreenSleepListener listener) {
-        if (this.supported) {
-            if (this.desktop
-                    .isSupported(Desktop.Action.APP_EVENT_SCREEN_SLEEP)) {
-                this.desktop.removeAppEventListener(listener);
-            }
-        }
-    }
-
-    public void removeSystemSleepListener(final SystemSleepListener listener) {
-        if (this.supported) {
-            if (this.desktop
-                    .isSupported(Desktop.Action.APP_EVENT_SYSTEM_SLEEP)) {
-                this.desktop.removeAppEventListener(listener);
-            }
-        }
-    }
-
-    public void removeUserSessionListener(final UserSessionListener listener) {
-        if (this.supported) {
-            if (this.desktop
-                    .isSupported(Desktop.Action.APP_EVENT_USER_SESSION)) {
-                this.desktop.removeAppEventListener(listener);
-            }
-        }
-    }
-
-    public void requestForeground(final boolean allWindows) {
-        if (this.supported) {
-            if (this.desktop
-                    .isSupported(Desktop.Action.APP_REQUEST_FOREGROUND)) {
-                this.desktop.requestForeground(allWindows);
             }
         }
     }

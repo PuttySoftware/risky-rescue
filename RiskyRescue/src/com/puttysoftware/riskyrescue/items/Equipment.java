@@ -28,16 +28,6 @@ public class Equipment extends Item {
         this.conditionalSlot = false;
     }
 
-    protected Equipment(final String itemName, final int cost) {
-        super(itemName, 0, 0);
-        this.equipCat = EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ARMOR;
-        this.materialID = ArmorMaterialConstants.MATERIAL_NONE;
-        this.firstSlotUsed = EquipmentSlotConstants.SLOT_SOCKS;
-        this.secondSlotUsed = EquipmentSlotConstants.SLOT_NONE;
-        this.conditionalSlot = false;
-        this.setBuyPrice(cost);
-    }
-
     Equipment(final String itemName, final int itemInitialUses,
             final int itemWeightPerUse, int equipCategory,
             final int newMaterialID) {
@@ -96,12 +86,6 @@ public class Equipment extends Item {
 
     final int getMaterial() {
         return this.materialID;
-    }
-
-    final boolean isTwoHanded() {
-        return this.firstSlotUsed == EquipmentSlotConstants.SLOT_MAINHAND
-                && this.secondSlotUsed == EquipmentSlotConstants.SLOT_OFFHAND
-                && !this.conditionalSlot;
     }
 
     static Equipment readEquipment(XDataReader dr) throws IOException {

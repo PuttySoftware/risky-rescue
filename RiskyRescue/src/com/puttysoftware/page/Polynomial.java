@@ -25,12 +25,6 @@ public class Polynomial {
         this.paramCount = p.paramCount;
     }
 
-    public Polynomial(int maxPower) {
-        this.coefficients = new double[maxPower + 1][Polynomial.DEFAULT_PARAMS];
-        this.max = maxPower;
-        this.paramCount = Polynomial.DEFAULT_PARAMS;
-    }
-
     public Polynomial(int maxPower, int params) {
         this.coefficients = new double[maxPower + 1][params];
         this.max = maxPower;
@@ -44,10 +38,6 @@ public class Polynomial {
 
     public int getParamCount() {
         return this.paramCount;
-    }
-
-    public double getCoefficient(int power) {
-        return this.coefficients[power][Polynomial.DEFAULT_PARAM];
     }
 
     public double getCoefficient(int power, int param) {

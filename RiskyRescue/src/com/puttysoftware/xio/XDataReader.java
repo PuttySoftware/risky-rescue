@@ -3,8 +3,6 @@ package com.puttysoftware.xio;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class XDataReader implements AutoCloseable {
     // Fields
@@ -15,14 +13,6 @@ public class XDataReader implements AutoCloseable {
     public XDataReader(final String filename, final String newDocTag)
             throws IOException {
         this.br = new BufferedReader(new FileReader(filename));
-        this.docTag = newDocTag;
-        this.readXHeader();
-        this.readOpeningDocTag();
-    }
-
-    public XDataReader(final InputStream stream, final String newDocTag)
-            throws IOException {
-        this.br = new BufferedReader(new InputStreamReader(stream));
         this.docTag = newDocTag;
         this.readXHeader();
         this.readOpeningDocTag();

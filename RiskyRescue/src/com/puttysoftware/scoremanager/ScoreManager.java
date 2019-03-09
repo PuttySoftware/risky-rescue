@@ -11,18 +11,15 @@ public class ScoreManager {
     // Fields and Constants
     private static final String NAME_PROMPT = "Enter a name for the score list:"; //$NON-NLS-1$
     private static final String DIALOG_TITLE = "Score Manager"; //$NON-NLS-1$
-    public static final boolean SORT_ORDER_DESCENDING = false;
     protected SortedScoreTable table;
     private String name;
     private String title;
-    private final String viewerTitle;
 
     // Constructors
     public ScoreManager() {
         this.table = new SortedScoreTable();
         this.name = ""; //$NON-NLS-1$
         this.title = ScoreManager.DIALOG_TITLE;
-        this.viewerTitle = ScoreManager.DIALOG_TITLE;
     }
 
     public ScoreManager(final int mv, final int length, final boolean sortOrder,
@@ -36,7 +33,6 @@ public class ScoreManager {
         } else {
             this.title = customTitle;
         }
-        this.viewerTitle = customTitle;
     }
 
     // Methods
@@ -66,18 +62,9 @@ public class ScoreManager {
         return success;
     }
 
-    public boolean checkScore(final long[] newScore) {
-        return this.table.checkScore(newScore);
-    }
-
     public boolean addScore(final long newScore, final String newName) {
         final boolean success = true;
         this.table.addScore(newScore, newName);
         return success;
-    }
-
-    public void viewTable() {
-        ScoreTableViewer.view(this.table, this.viewerTitle,
-                this.table.getUnits());
     }
 }

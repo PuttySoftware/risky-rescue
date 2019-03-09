@@ -199,19 +199,6 @@ public class SpellBook {
         return names;
     }
 
-    public final int getSpellIDByName(String sname) {
-        int x;
-        for (x = 0; x < this.spells.length; x++) {
-            String currName = this.spells[x].getEffect().getName();
-            if (currName.equals(sname)) {
-                // Found it
-                return x;
-            }
-        }
-        // Didn't find it
-        return -1;
-    }
-
     public final void setName(String n) {
         this.name = n;
     }

@@ -31,7 +31,6 @@ import com.puttysoftware.riskyrescue.map.Map;
 import com.puttysoftware.riskyrescue.map.objects.BattleCharacter;
 import com.puttysoftware.riskyrescue.map.objects.Empty;
 import com.puttysoftware.riskyrescue.map.objects.MapObject;
-import com.puttysoftware.riskyrescue.prefs.LocalPreferencesManager;
 import com.puttysoftware.riskyrescue.prefs.PreferencesManager;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScript;
 import com.puttysoftware.riskyrescue.spells.Spell;
@@ -846,12 +845,6 @@ public class BattleLogic {
                     this.decrementActiveActionCounterBy(
                             MapObject.getBattleAPCost());
                     SoundManager.playSound(MapObject.getBattleMoveSoundID());
-                    // If the random battle environment is enabled...
-                    if (LocalPreferencesManager.getRandomBattleEnvironment()) {
-                        // Run any script attached to ground
-                        InternalScriptRunner.runScript(
-                                nextGround.getBattlePostMoveScript(active));
-                    }
                 } else {
                     // Deny move - out of actions
                     if (!this.bd.getActiveCharacter().getTemplate().hasAI()
@@ -882,13 +875,6 @@ public class BattleLogic {
                         Creature enemy = bc.getTemplate();
                         if (useAP) {
                             this.decrementActiveAttackCounter();
-                        }
-                        // If the random battle environment is enabled...
-                        if (LocalPreferencesManager
-                                .getRandomBattleEnvironment()) {
-                            // Run any script attached to ground
-                            InternalScriptRunner.runScript(
-                                    currGround.getBattlePostMoveScript(active));
                         }
                         // Do damage
                         this.computeDamage(enemy, active.getTemplate());

@@ -200,11 +200,6 @@ public abstract class Creature {
         this.fixStatValue(StatConstants.STAT_CURRENT_HP);
     }
 
-    public final void doDamageMultiply(final double damage, boolean max) {
-        this.offsetCurrentHPMultiply(damage, max);
-        this.fixStatValue(StatConstants.STAT_CURRENT_HP);
-    }
-
     public final void doDamagePercentage(final int percent) {
         int fP = percent;
         if (fP > Creature.FULL_HEAL_PERCENTAGE) {
@@ -224,11 +219,6 @@ public abstract class Creature {
 
     public final void drain(final int cost) {
         this.offsetCurrentMP(-cost);
-        this.fixStatValue(StatConstants.STAT_CURRENT_MP);
-    }
-
-    public final void drainMultiply(final double cost, final boolean max) {
-        this.offsetCurrentMPMultiply(cost, max);
         this.fixStatValue(StatConstants.STAT_CURRENT_MP);
     }
 
@@ -695,11 +685,6 @@ public abstract class Creature {
         this.fixStatValue(StatConstants.STAT_CURRENT_HP);
     }
 
-    public final void healMultiply(final double amount, final boolean max) {
-        this.offsetCurrentHPMultiply(amount, max);
-        this.fixStatValue(StatConstants.STAT_CURRENT_HP);
-    }
-
     public final void healAndRegenerateFully() {
         this.healFully();
         this.regenerateFully();
@@ -780,20 +765,8 @@ public abstract class Creature {
         this.fixStatValue(StatConstants.STAT_CURRENT_HP);
     }
 
-    private void offsetCurrentHPMultiply(double value, boolean max) {
-        this.stats[StatConstants.STAT_CURRENT_HP].offsetValueMultiply(value,
-                max, this.getStat(StatConstants.STAT_MAXIMUM_HP));
-        this.fixStatValue(StatConstants.STAT_CURRENT_HP);
-    }
-
     public final void offsetCurrentMP(int value) {
         this.stats[StatConstants.STAT_CURRENT_MP].offsetValue(value);
-        this.fixStatValue(StatConstants.STAT_CURRENT_MP);
-    }
-
-    private void offsetCurrentMPMultiply(double value, boolean max) {
-        this.stats[StatConstants.STAT_CURRENT_MP].offsetValueMultiply(value,
-                max, this.getStat(StatConstants.STAT_MAXIMUM_MP));
         this.fixStatValue(StatConstants.STAT_CURRENT_MP);
     }
 
@@ -846,12 +819,6 @@ public abstract class Creature {
 
     public final void regenerate(final int amount) {
         this.offsetCurrentMP(amount);
-        this.fixStatValue(StatConstants.STAT_CURRENT_MP);
-    }
-
-    public final void regenerateMultiply(final double amount,
-            final boolean max) {
-        this.offsetCurrentMPMultiply(amount, max);
         this.fixStatValue(StatConstants.STAT_CURRENT_MP);
     }
 

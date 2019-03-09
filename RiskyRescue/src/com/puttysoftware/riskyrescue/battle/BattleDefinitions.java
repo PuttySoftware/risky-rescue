@@ -42,7 +42,6 @@ public class BattleDefinitions {
                     this.battlers[x].resetAP();
                     this.battlers[x].resetAttacks();
                     this.battlers[x].resetSpells();
-                    this.battlers[x].resetItems();
                     this.battlers[x].resetSteals();
                     this.battlers[x].resetLocation();
                 }
@@ -57,7 +56,6 @@ public class BattleDefinitions {
                     this.battlers[x].resetAP();
                     this.battlers[x].resetAttacks();
                     this.battlers[x].resetSpells();
-                    this.battlers[x].resetItems();
                     this.battlers[x].resetSteals();
                 }
             }

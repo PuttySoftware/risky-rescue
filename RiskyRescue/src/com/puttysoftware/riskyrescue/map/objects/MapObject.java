@@ -188,25 +188,9 @@ public abstract class MapObject implements RandomGenerationRule {
         return scpt;
     }
 
-    /**
-     *
-     * @param x
-     * @param y
-     * @param z
-     * @param map
-     * @return
-     */
-    public String gameRenderHook(int x, int y, int z, Map map) {
-        return this.getGameCacheName();
-    }
-
     public BufferedImageIcon getImage() {
         return ImageManager.getObjectImage(PartyManager.getMapLevel(),
                 this.imageDesc);
-    }
-
-    public boolean defersSetProperties() {
-        return false;
     }
 
     public boolean overridesDefaultPostMove() {
@@ -221,34 +205,11 @@ public abstract class MapObject implements RandomGenerationRule {
         return this.getName();
     }
 
-    /**
-     *
-     * @param x
-     * @param y
-     * @param z
-     * @param map
-     */
-    public void determineCurrentAppearance(int x, int y, int z, Map map) {
-        // Do nothing
-    }
-
     public boolean hideFromHelp() {
         return false;
     }
 
     abstract public String getName();
-
-    private String getGameImageName() {
-        return this.getGameImageNameHook();
-    }
-
-    private String getGameCacheName() {
-        return this.getGameImageName();
-    }
-
-    final String getEditorImageName() {
-        return this.getEditorImageNameHook();
-    }
 
     protected String getGameImageNameHook() {
         return this.getGameName();

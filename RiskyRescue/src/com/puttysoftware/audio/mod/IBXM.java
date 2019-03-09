@@ -4,7 +4,6 @@ package com.puttysoftware.audio.mod;
  ProTracker, Scream Tracker 3, FastTracker 2 Replay (c)2011 mumart@gmail.com
  */
 public class IBXM {
-    public static final String VERSION = "a61 (c)2011 mumart@gmail.com"; //$NON-NLS-1$
     private static final int OVERSAMPLE = 2;
     private final Module module;
     private final int[] rampBuffer;
@@ -87,36 +86,6 @@ public class IBXM {
         }
         this.filtL = this.filtR = 0;
         this.tick();
-    }
-
-    /* Returns the song duration in samples at the current sampling rate. */
-    public int calculateSongDuration() {
-        int duration = 0;
-        this.setSequencePos(0);
-        boolean songEnd = false;
-        while (!songEnd) {
-            duration += this.tickLen / IBXM.OVERSAMPLE;
-            songEnd = this.tick();
-        }
-        this.setSequencePos(0);
-        return duration;
-    }
-
-    /*
-     * Seek to approximately the specified sample position. The actual sample
-     * position reached is returned.
-     */
-    public int seek(final int samplePos) {
-        this.setSequencePos(0);
-        int currentPos = 0;
-        while (samplePos - currentPos >= this.tickLen) {
-            for (int idx = 0; idx < this.module.numChannels; idx++) {
-                this.channels[idx].updateSampleIdx(this.tickLen);
-            }
-            currentPos += this.tickLen / IBXM.OVERSAMPLE;
-            this.tick();
-        }
-        return currentPos;
     }
 
     /*

@@ -35,8 +35,6 @@ public class StatConstants {
     public static final int STAT_MAGIC_DEFENSE = 24;
     public static final int STAT_MAX_LEVEL = 25;
     public static final int MAX_STORED_STATS = 15;
-    public static final int MAX_DISPLAY_STATS = 25;
-    public static final int MAX_STATS = 26;
     // Factors
     public static final double FACTOR_STRENGTH_ATTACK = 1.0;
     public static final double FACTOR_POWER_ATTACK = 1.0;

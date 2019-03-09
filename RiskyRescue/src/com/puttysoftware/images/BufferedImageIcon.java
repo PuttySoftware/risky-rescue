@@ -13,16 +13,6 @@ public class BufferedImageIcon extends BufferedImage implements Icon {
 
     // Constructors
     /**
-     * Creates a BufferedImageIcon of a given size.
-     *
-     * @param width
-     * @param height
-     */
-    public BufferedImageIcon(final int width, final int height) {
-        super(width, height, BufferedImageIcon.DEFAULT_TYPE);
-    }
-
-    /**
      * Creates a BufferedImageIcon based on a BufferedImage object.
      *
      * @param bi

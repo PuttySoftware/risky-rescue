@@ -41,16 +41,6 @@ public class LocalPreferencesManager {
         LocalPreferencesManager.storeMgr.setBoolean("SoundsEnabled", value);
     }
 
-    public static boolean getRandomBattleEnvironment() {
-        return LocalPreferencesManager.storeMgr
-                .getBoolean("RandomBattleEnvironment", true);
-    }
-
-    public static void setRandomBattleEnvironment(boolean value) {
-        LocalPreferencesManager.storeMgr.setBoolean("RandomBattleEnvironment",
-                value);
-    }
-
     private static String getPrefsDirPrefix() {
         String osName = System.getProperty("os.name");
         if (osName.indexOf("Mac OS X") != -1) {

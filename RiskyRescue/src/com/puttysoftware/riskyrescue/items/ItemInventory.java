@@ -113,32 +113,6 @@ public class ItemInventory {
         }
     }
 
-    public Equipment getEquipmentInSlot(int slot) {
-        return this.equipment[slot];
-    }
-
-    void setEquipmentInSlot(int slot, Equipment e) {
-        this.equipment[slot] = e;
-    }
-
-    String[] generateEquipmentEnhancementStringArray() {
-        String[] result = new String[this.equipment.length];
-        StringBuilder sb;
-        for (int x = 0; x < result.length - 1; x++) {
-            sb = new StringBuilder();
-            if (this.equipment[x] == null) {
-                sb.append("Nothing (0)");
-            } else {
-                sb.append(this.equipment[x].getName());
-                sb.append(" (");
-                sb.append(this.equipment[x].getPotency());
-                sb.append(")");
-            }
-            result[x] = sb.toString();
-        }
-        return result;
-    }
-
     public String[] generateEquipmentStringArray() {
         String[] result = new String[this.equipment.length + 1];
         StringBuilder sb;

@@ -9,7 +9,6 @@ import com.puttysoftware.randomrange.RandomRange;
 import com.puttysoftware.riskyrescue.RiskyRescue;
 import com.puttysoftware.riskyrescue.assets.SoundManager;
 import com.puttysoftware.riskyrescue.battle.Battle;
-import com.puttysoftware.riskyrescue.game.GameLogic;
 import com.puttysoftware.riskyrescue.items.Shop;
 import com.puttysoftware.riskyrescue.map.Map;
 import com.puttysoftware.riskyrescue.map.objects.MapObject;
@@ -25,9 +24,7 @@ public final class InternalScriptRunner {
 
     public static void runScript(InternalScript s) {
         int actionCounter = 0;
-        Map m = RiskyRescue.getApplication().getScenarioManager().getMap();
         try {
-            GameLogic gm = RiskyRescue.getApplication().getGameManager();
             if (s != null) {
                 int totAct = s.getActionCount();
                 for (int x = 0; x < totAct; x++) {
@@ -56,44 +53,6 @@ public final class InternalScriptRunner {
                         } else {
                             throw new IllegalArgumentException(
                                     "Illegal Shop Type: " + shopType);
-                        }
-                        break;
-                    case MOVE:
-                        // Move
-                        boolean moveType = se.getActionArg(0).getBoolean();
-                        boolean eventFlag = se.getActionArg(1).getBoolean();
-                        int moveX = se.getActionArg(2).getInteger();
-                        int moveY = se.getActionArg(3).getInteger();
-                        int moveZ = se.getActionArg(4).getInteger();
-                        if (moveType == InternalScriptConstants.MOVE_ABSOLUTE) {
-                            // Check
-                            if (moveX < 0) {
-                                // Negative means keep as-is
-                                moveX = m.getPlayerLocationX();
-                            }
-                            if (moveY < 0) {
-                                // Negative means keep as-is
-                                moveY = m.getPlayerLocationY();
-                            }
-                            if (moveZ < 0) {
-                                // Negative means keep as-is
-                                moveZ = m.getPlayerLocationZ();
-                            }
-                        }
-                        if (moveType == InternalScriptConstants.MOVE_RELATIVE) {
-                            if (eventFlag) {
-                                gm.updatePositionRelative(moveX, moveY, moveZ);
-                            } else {
-                                gm.updatePositionRelativeNoEvents(moveX, moveY,
-                                        moveZ);
-                            }
-                        } else {
-                            if (eventFlag) {
-                                gm.updatePositionAbsolute(moveX, moveY, moveZ);
-                            } else {
-                                gm.updatePositionAbsoluteNoEvents(moveX, moveY,
-                                        moveZ);
-                            }
                         }
                         break;
                     case DECAY:

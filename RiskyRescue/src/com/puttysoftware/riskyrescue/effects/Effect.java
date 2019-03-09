@@ -22,7 +22,6 @@ public class Effect {
     private int rounds;
     private final int initialRounds;
     private final String[] messages;
-    public static final int DEFAULT_SCALE_FACTOR = 1;
     public static final int DEFAULT_SCALE_STAT = StatConstants.STAT_NONE;
     private static final int ROUNDS_INFINITE = -1;
     public static final int MESSAGE_INITIAL = 0;

@@ -28,7 +28,6 @@ class BattleStats {
     private JLabel apLabel;
     private JLabel attLeftLabel;
     private JLabel splLabel;
-    private JLabel itmLabel;
     private JLabel stlLabel;
 
     // Constructors
@@ -53,7 +52,6 @@ class BattleStats {
             this.apLabel.setText(bc.getAPString());
             this.attLeftLabel.setText(bc.getAttackString());
             this.splLabel.setText(bc.getSpellString());
-            this.itmLabel.setText(bc.getItemString());
             this.stlLabel.setText(bc.getStealString());
         }
     }
@@ -70,7 +68,6 @@ class BattleStats {
         this.apLabel = new JLabel("", null, SwingConstants.LEFT);
         this.attLeftLabel = new JLabel("", null, SwingConstants.LEFT);
         this.splLabel = new JLabel("", null, SwingConstants.LEFT);
-        this.itmLabel = new JLabel("", null, SwingConstants.LEFT);
         this.stlLabel = new JLabel("", null, SwingConstants.LEFT);
         this.statsPane.add(this.nameLabel);
         this.statsPane.add(this.teamLabel);
@@ -81,7 +78,6 @@ class BattleStats {
         this.statsPane.add(this.apLabel);
         this.statsPane.add(this.attLeftLabel);
         this.statsPane.add(this.splLabel);
-        this.statsPane.add(this.itmLabel);
         this.statsPane.add(this.stlLabel);
     }
 

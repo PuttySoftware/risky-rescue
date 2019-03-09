@@ -12,12 +12,10 @@ closed_door
 ground
 hazard
 healer
-items
 monster
 off_wall
 open_door
 regenerator
-spells
 wall
 weapons
 darkness

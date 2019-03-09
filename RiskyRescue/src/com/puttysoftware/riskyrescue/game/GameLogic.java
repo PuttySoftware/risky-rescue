@@ -451,7 +451,6 @@ public class GameLogic {
             m.addLevel(Support.getGameMapSize(), Support.getGameMapSize(),
                     Support.getGameMapFloorSize());
             m.fillLevelRandomly(new Tile(), new Empty());
-            m.save();
             this.resetViewingWindow();
             m.resetVisibleSquares();
             int px = m.getPlayerLocationX();
@@ -579,7 +578,6 @@ public class GameLogic {
             m.addLevel(Support.getGameMapSize(), Support.getGameMapSize(),
                     Support.getGameMapFloorSize());
             m.fillLevelRandomly(new Tile(), new Empty());
-            m.save();
             this.resetViewingWindow();
             int px = m.getPlayerLocationX();
             int py = m.getPlayerLocationY();

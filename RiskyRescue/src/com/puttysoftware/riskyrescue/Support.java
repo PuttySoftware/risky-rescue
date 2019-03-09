@@ -12,7 +12,6 @@ import com.puttysoftware.errorlogger.ErrorLogger;
 import com.puttysoftware.fileutils.DirectoryUtilities;
 import com.puttysoftware.riskyrescue.creatures.Creature;
 import com.puttysoftware.riskyrescue.scenario.Scenario;
-import com.puttysoftware.updater.ProductData;
 
 public class Support {
     // Constants
@@ -30,8 +29,6 @@ public class Support {
     private static final int VERSION_MAJOR = 1;
     private static final int VERSION_MINOR = 0;
     private static final int VERSION_BUGFIX = 0;
-    private static final int VERSION_CODE = ProductData.CODE_STABLE;
-    private static final int VERSION_PRERELEASE = 0;
     private static Scenario scen = null;
     private static final int BATTLE_MAP_SIZE = 9;
     private static final int BATTLE_MAP_SIZE_DEBUG = 9;
@@ -128,25 +125,7 @@ public class Support {
     }
 
     public static String getVersionString() {
-        if (Support.isBetaModeEnabled()) {
-            int code = Support.VERSION_CODE;
-            String rt;
-            if (code == ProductData.CODE_BETA) {
-                rt = "-beta";
-            } else {
-                rt = "";
-            }
-            return "" + Support.VERSION_MAJOR + "." + Support.VERSION_MINOR
-                    + "." + Support.VERSION_BUGFIX + rt
-                    + Support.VERSION_PRERELEASE;
-        } else {
-            return "" + Support.VERSION_MAJOR + "." + Support.VERSION_MINOR
-                    + "." + Support.VERSION_BUGFIX;
-        }
-    }
-
-    private static boolean isBetaModeEnabled() {
-        int code = Support.VERSION_CODE;
-        return code != ProductData.CODE_STABLE;
+        return "" + Support.VERSION_MAJOR + "." + Support.VERSION_MINOR + "."
+                + Support.VERSION_BUGFIX;
     }
 }

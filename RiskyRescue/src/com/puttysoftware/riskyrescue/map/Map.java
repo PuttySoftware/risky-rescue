@@ -56,7 +56,7 @@ public class Map implements MapConstants {
         }
         return this;
     }
-    
+
     public static int getLastLevelNumber() {
         return Map.MAX_LEVELS - 1;
     }
@@ -85,16 +85,8 @@ public class Map implements MapConstants {
         return this.mapData[this.activeLevel].getRegionSize();
     }
 
-    public void setGeneratorRandomness(int value, int max) {
-        this.mapData[this.activeLevel].setGeneratorRandomness(value, max);
-    }
-
     public boolean isLevelOffsetValid(int level) {
         return (this.activeLevel + level) >= 0;
-    }
-
-    public void switchLevel(int level) {
-        this.switchLevelInternal(level);
     }
 
     public void switchLevelOffset(int level) {
@@ -244,14 +236,6 @@ public class Map implements MapConstants {
             final MapObject pass1FillTop) {
         this.mapData[this.activeLevel].fillRandomly(this, this.activeLevel,
                 pass1FillBottom, pass1FillTop);
-    }
-
-    public void save() {
-        this.mapData[this.activeLevel].save();
-    }
-
-    public void restore() {
-        this.mapData[this.activeLevel].restore();
     }
 
     public ArrayList<InternalScriptArea> getScriptAreasAtPoint(Point p, int z) {

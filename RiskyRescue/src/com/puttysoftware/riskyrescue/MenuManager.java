@@ -55,17 +55,6 @@ public class MenuManager {
         return this.mainMenuBar;
     }
 
-    public void setEditorMenus() {
-        this.fileOpenSavedGame.setEnabled(false);
-        this.fileClose.setEnabled(true);
-        this.filePreferences.setEnabled(true);
-        this.fileSave.setEnabled(false);
-        this.fileSaveAs.setEnabled(false);
-        this.fileExit.setEnabled(true);
-        this.disableBattleMenus();
-        this.disableGameMenus();
-    }
-
     public void setBattleMenus() {
         this.fileOpenSavedGame.setEnabled(false);
         this.fileClose.setEnabled(false);
@@ -87,17 +76,6 @@ public class MenuManager {
     }
 
     public void setPrefMenus() {
-        this.fileOpenSavedGame.setEnabled(false);
-        this.fileClose.setEnabled(false);
-        this.fileSave.setEnabled(false);
-        this.fileSaveAs.setEnabled(false);
-        this.filePreferences.setEnabled(false);
-        this.fileExit.setEnabled(true);
-        this.disableGameMenus();
-        this.disableBattleMenus();
-    }
-
-    void setHelpMenus() {
         this.fileOpenSavedGame.setEnabled(false);
         this.fileClose.setEnabled(false);
         this.fileSave.setEnabled(false);

@@ -4,7 +4,6 @@ defense
 dungeon_level
 experience
 health
-items
 magic
 melee_attack
 money

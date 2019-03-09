@@ -28,7 +28,6 @@ public class RiskyRescue {
     // Constants
     private static Application application;
     private static final String PROGRAM_NAME = "RiskyRescue";
-    public static final int GENERATOR_RANDOMNESS_MAX = 6;
 
     // Methods
     public static Application getApplication() {
@@ -81,6 +80,7 @@ public class RiskyRescue {
             Application.playLogoSound();
             RiskyRescue.application.getGUIManager().showGUI();
             // Register platform hooks
+            ni.enableSuddenTermination();
             ni.setAboutHandler(RiskyRescue.application.getAboutDialog());
             ni.setPreferencesHandler(new PrefsBoxer());
             ni.setQuitHandler(new Quitter());

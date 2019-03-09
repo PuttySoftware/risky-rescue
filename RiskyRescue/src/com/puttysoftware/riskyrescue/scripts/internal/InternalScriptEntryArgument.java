@@ -9,18 +9,15 @@ public class InternalScriptEntryArgument {
     // Constants
     private static final byte USES_INTEGER = 1;
     private static final byte USES_STRING = 2;
-    private static final byte USES_BOOLEAN = 3;
     // Fields
     private final byte useCode;
     private final int intArg;
     private final String strArg;
-    private final boolean booArg;
 
     // Constructors
     public InternalScriptEntryArgument(int data) {
         this.useCode = InternalScriptEntryArgument.USES_INTEGER;
         this.intArg = data;
-        this.booArg = false;
         this.strArg = null;
     }
 
@@ -28,14 +25,6 @@ public class InternalScriptEntryArgument {
         this.useCode = InternalScriptEntryArgument.USES_STRING;
         this.strArg = data;
         this.intArg = 0;
-        this.booArg = false;
-    }
-
-    public InternalScriptEntryArgument(boolean data) {
-        this.useCode = InternalScriptEntryArgument.USES_BOOLEAN;
-        this.booArg = data;
-        this.intArg = 0;
-        this.strArg = null;
     }
 
     // Methods
@@ -47,17 +36,11 @@ public class InternalScriptEntryArgument {
         return this.useCode == InternalScriptEntryArgument.USES_STRING;
     }
 
-    private boolean isBoolean() {
-        return this.useCode == InternalScriptEntryArgument.USES_BOOLEAN;
-    }
-
     public Class<?> getArgumentClass() {
         if (this.isInteger()) {
             return int.class;
         } else if (this.isString()) {
             return String.class;
-        } else if (this.isBoolean()) {
-            return boolean.class;
         } else {
             return null;
         }
@@ -70,8 +53,6 @@ public class InternalScriptEntryArgument {
             return this.getString();
         } else if (argt.equals(int.class)) {
             return Integer.toString(this.getInteger());
-        } else if (argt.equals(boolean.class)) {
-            return Boolean.toString(this.getBoolean());
         } else {
             // Shouldn't ever get here
             return "";
@@ -86,15 +67,10 @@ public class InternalScriptEntryArgument {
         return this.strArg;
     }
 
-    public boolean getBoolean() {
-        return this.booArg;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (this.booArg ? 1231 : 1237);
         result = prime * result + this.intArg;
         result = prime * result
                 + ((this.strArg == null) ? 0 : this.strArg.hashCode());
@@ -113,9 +89,6 @@ public class InternalScriptEntryArgument {
             return false;
         }
         InternalScriptEntryArgument other = (InternalScriptEntryArgument) obj;
-        if (this.booArg != other.booArg) {
-            return false;
-        }
         if (this.intArg != other.intArg) {
             return false;
         }

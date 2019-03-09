@@ -28,8 +28,4 @@ public class RandomRange {
                 RandomnessSource.nextInt() % (this.maximum - this.minimum + 1))
                 + this.minimum;
     }
-
-    public static int generateRaw() {
-        return RandomnessSource.nextInt();
-    }
 }

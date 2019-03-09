@@ -236,7 +236,7 @@ class LayeredTower {
                     if (this.areCoordsInBounds(x1, y1, x2, y2)) {
                         // In bounds
                         result = result
-                                || this.isSquareVisibleLOS(x1, y1, x2, y2);
+                                && this.isSquareVisibleLOS(x1, y1, x2, y2);
                     } else {
                         // Out of bounds
                         result = result

@@ -28,6 +28,10 @@ public final class ZipUtilities {
 
     private static void zip(final File directory, final File base,
             final ZipOutputStream zos) throws IOException {
+        if (directory == null || base == null || zos == null) {
+            // Abort
+            return;
+        }
         final File[] files = directory.listFiles();
         final byte[] buffer = new byte[8192];
         int read = 0;

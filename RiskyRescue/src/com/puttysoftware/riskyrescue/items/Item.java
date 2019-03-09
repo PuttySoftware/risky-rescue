@@ -151,10 +151,6 @@ public class Item {
         return this.name;
     }
 
-    final int getBuyPrice() {
-        return this.buyPrice;
-    }
-
     final int getPotency() {
         return this.potency;
     }
@@ -177,23 +173,6 @@ public class Item {
 
     private final int getUses() {
         return this.uses;
-    }
-
-    private final boolean isUsable() {
-        return this.uses > 0;
-    }
-
-    public final boolean use() {
-        if (this.uses > 0) {
-            this.uses--;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    final boolean isCombatUsable() {
-        return this.isUsable() && this.combatUsable;
     }
 
     protected static Item readItem(XDataReader dr) throws IOException {

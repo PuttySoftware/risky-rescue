@@ -81,17 +81,6 @@ public class ScenarioManager {
         app.getMenuManager().checkFlags();
     }
 
-    public void loadFromOSHandler(String filename) { // NO_UCD
-        String extension;
-        final File file = new File(filename);
-        String newFilename = file.getAbsolutePath();
-        extension = ScenarioManager.getExtension(file);
-        if (extension.equals(Extension.getGameExtension())) {
-            this.lastUsedGameFile = newFilename;
-            ScenarioManager.loadFile(newFilename);
-        }
-    }
-
     public void loadSavedGame() {
         String title;
         if (Support.inDebugMode()) {
@@ -227,16 +216,6 @@ public class ScenarioManager {
         RiskyRescue.getApplication().showMessage("Saving " + sg + " file...");
         SaveTask xst = new SaveTask(filename);
         xst.start();
-    }
-
-    private static String getExtension(final File f) {
-        String ext = null;
-        final String s = f.getName();
-        final int i = s.lastIndexOf('.');
-        if ((i > 0) && (i < s.length() - 1)) {
-            ext = s.substring(i + 1).toLowerCase();
-        }
-        return ext;
     }
 
     private static String getExtension(final String s) {

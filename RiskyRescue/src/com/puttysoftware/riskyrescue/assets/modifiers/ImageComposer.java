@@ -41,18 +41,13 @@ public class ImageComposer {
             } else {
                 BufferedImageIcon result = ImageComposer
                         .getCompositeImage(icons[0], icons[1]);
-                if (result != null) {
-                    for (int x = 2; x < icons.length; x++) {
-                        result = ImageComposer.getCompositeImage(result,
-                                icons[x]);
-                        if (result == null) {
-                            return null;
-                        }
+                for (int x = 2; x < icons.length; x++) {
+                    result = ImageComposer.getCompositeImage(result, icons[x]);
+                    if (result == null) {
+                        return null;
                     }
-                    return result;
-                } else {
-                    return null;
                 }
+                return result;
             }
         } catch (final IllegalArgumentException ia) {
             return null;

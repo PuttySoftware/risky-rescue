@@ -36,10 +36,7 @@ public class Application {
     public static final int STATUS_GAME = 1;
     private static final int STATUS_PREFS = 2;
     public static final int STATUS_BATTLE = 3;
-    static final int STATUS_EDITOR = 4;
-    public static final int STATUS_SHOP = 5;
-    private static final int STATUS_NULL = 6;
-    public static final int EDITOR_NAME = 0;
+    private static final int STATUS_NULL = 4;
 
     // Constructors
     public Application() {
@@ -83,14 +80,6 @@ public class Application {
 
     public void setInBattle() {
         this.currentMode = Application.STATUS_BATTLE;
-    }
-
-    public void setInEditor() {
-        this.currentMode = Application.STATUS_EDITOR;
-    }
-
-    public void setInShop() {
-        this.currentMode = Application.STATUS_SHOP;
     }
 
     public int getMode() {

@@ -41,10 +41,6 @@ public class Spell {
         return this.cost;
     }
 
-    int getCostForPower(int power) {
-        return this.cost * power;
-    }
-
     BattleTarget getTarget() {
         return this.target;
     }

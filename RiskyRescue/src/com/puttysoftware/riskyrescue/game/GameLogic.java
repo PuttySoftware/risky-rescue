@@ -336,12 +336,7 @@ public class GameLogic {
         GameLogic.fireStepActions(m.getPlayerLocationX(),
                 m.getPlayerLocationY(), m.getPlayerLocationZ());
         this.redrawMap();
-        if (PreferencesManager
-                .getMusicEnabled(PreferencesManager.MUSIC_DUNGEON)) {
-            MusicManager.stopMusic();
-            MusicManager.playMusic(MusicConstants.DUNGEON,
-                    PartyManager.getMapLevel());
-        }
+        GameLogic.playMusic();
     }
 
     public void redrawMap() {
@@ -434,9 +429,18 @@ public class GameLogic {
         this.redrawMap();
     }
 
+    private static void playMusic() {
+        if (PreferencesManager
+                .getMusicEnabled(PreferencesManager.MUSIC_DUNGEON)) {
+            MusicManager.stopMusic();
+            MusicManager.playMusic(MusicConstants.DUNGEON,
+                    PartyManager.getMapLevel());
+        }
+    }
+
     public void showOutput() {
-        this.gameGUI.showOutput(RiskyRescue.getApplication()
-                .getScenarioManager().getMap().getPlayerLocationZ());
+        this.gameGUI.showOutput();
+        GameLogic.playMusic();
     }
 
     public void hideOutput() {

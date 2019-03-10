@@ -22,8 +22,6 @@ import com.puttysoftware.riskyrescue.Application;
 import com.puttysoftware.riskyrescue.RiskyRescue;
 import com.puttysoftware.riskyrescue.Support;
 import com.puttysoftware.riskyrescue.assets.ImageManager;
-import com.puttysoftware.riskyrescue.assets.MusicConstants;
-import com.puttysoftware.riskyrescue.assets.MusicManager;
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
 import com.puttysoftware.riskyrescue.assets.modifiers.ImageComposer;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
@@ -181,28 +179,15 @@ class GameGUI {
         this.getStatGUI().updateStats();
     }
 
-    public void showOutput(final int level) {
+    public void showOutput() {
         final Application app = RiskyRescue.getApplication();
         app.getMenuManager().setGameMenus();
-        if (PreferencesManager
-                .getMusicEnabled(PreferencesManager.MUSIC_DUNGEON)) {
-            MusicManager.stopMusic();
-            MusicManager.playMusic(MusicConstants.DUNGEON, level);
-        }
         this.outputFrame.setVisible(true);
         app.attachMenus(this.outputFrame);
     }
 
     public void hideOutput() {
-        if (PreferencesManager
-                .getMusicEnabled(PreferencesManager.MUSIC_DUNGEON)) {
-            if (MusicManager.isMusicPlaying()) {
-                MusicManager.stopMusic();
-            }
-        }
-        if (this.outputFrame != null) {
-            this.outputFrame.setVisible(false);
-        }
+        this.outputFrame.setVisible(false);
     }
 
     private void setUpGUI() {

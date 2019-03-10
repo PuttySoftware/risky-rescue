@@ -28,11 +28,11 @@ public class PartyManager {
     }
 
     // Methods
-    public static boolean createParty(JFrame owner) {
+    public static boolean createParty(final JFrame owner) {
         PartyManager.party = new Party();
         PartyManager.dungeonLevel = 1;
         int mem = 0;
-        PartyMember hero = PartyManager.createHero(owner);
+        final PartyMember hero = PartyManager.createHero(owner);
         if (hero != null) {
             PartyManager.party.addHero(hero);
             mem++;
@@ -75,14 +75,16 @@ public class PartyManager {
         }
     }
 
-    public static void loadGameHook(XDataReader partyFile) throws IOException {
-        boolean containsPCData = partyFile.readBoolean();
+    public static void loadGameHook(final XDataReader partyFile)
+            throws IOException {
+        final boolean containsPCData = partyFile.readBoolean();
         if (containsPCData) {
             PartyManager.party = Party.read(partyFile);
         }
     }
 
-    public static void saveGameHook(XDataWriter partyFile) throws IOException {
+    public static void saveGameHook(final XDataWriter partyFile)
+            throws IOException {
         if (PartyManager.party != null) {
             partyFile.writeBoolean(true);
             PartyManager.party.write(partyFile);
@@ -101,18 +103,19 @@ public class PartyManager {
         PartyManager.party.activateBuddy();
     }
 
-    private static PartyMember createHero(JFrame owner) {
-        String heroName = PCNameGenerator.generate(); // Make a random hero name
-        String buddyName = PCNameGenerator.generate(); // Make a random
-                                                       // buddy name
-        PCImage pci = PCImagePickerDialog.showDialog(owner,
+    private static PartyMember createHero(final JFrame owner) {
+        final String heroName = PCNameGenerator.generate(); // Make a random
+                                                            // hero name
+        final String buddyName = PCNameGenerator.generate(); // Make a random
+        // buddy name
+        final PCImage pci = PCImagePickerDialog.showDialog(owner,
                 heroName + " (Hero): Pick Image");
         if (pci != null) {
-            PCImage newBuddyPCI = PCImagePickerDialog.showDialog(owner,
+            final PCImage newBuddyPCI = PCImagePickerDialog.showDialog(owner,
                     buddyName + " (Buddy): Pick Image");
             if (newBuddyPCI != null) {
-                PCImage buddyPCI = newBuddyPCI;
-                PartyMember buddy = new PartyMember(buddyPCI, buddyName);
+                final PCImage buddyPCI = newBuddyPCI;
+                final PartyMember buddy = new PartyMember(buddyPCI, buddyName);
                 PartyManager.party.addBuddy(buddy);
                 return new PartyMember(pci, heroName);
             }

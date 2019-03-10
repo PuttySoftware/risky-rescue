@@ -67,7 +67,7 @@ public class RiskyRescue {
             } else {
                 suffix = "";
             }
-            NativeIntegration ni = new NativeIntegration();
+            final NativeIntegration ni = new NativeIntegration();
             // Integrate with host platform
             ni.configureLookAndFeel();
             // Set defaults
@@ -84,7 +84,7 @@ public class RiskyRescue {
             ni.setAboutHandler(RiskyRescue.application.getAboutDialog());
             ni.setPreferencesHandler(new PrefsBoxer());
             ni.setQuitHandler(new Quitter());
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             RiskyRescue.logError(t);
         }
     }
@@ -95,7 +95,7 @@ public class RiskyRescue {
         }
 
         @Override
-        public void handlePreferences(PreferencesEvent inE) {
+        public void handlePreferences(final PreferencesEvent inE) {
             PreferencesManager.showPrefs();
         }
     }
@@ -106,9 +106,9 @@ public class RiskyRescue {
         }
 
         @Override
-        public void handleQuitRequestWith(QuitEvent event,
-                QuitResponse response) {
-            ScenarioManager mm = RiskyRescue.getApplication()
+        public void handleQuitRequestWith(final QuitEvent event,
+                final QuitResponse response) {
+            final ScenarioManager mm = RiskyRescue.getApplication()
                     .getScenarioManager();
             boolean saved = true;
             int status;
@@ -126,11 +126,11 @@ public class RiskyRescue {
                 PreferencesManager.writePrefs();
                 // Run cleanup task
                 try {
-                    File dirToDelete = new File(
+                    final File dirToDelete = new File(
                             System.getProperty("java.io.tmpdir")
                                     + File.pathSeparator + "RiskyRescue");
                     DirectoryUtilities.removeDirectory(dirToDelete);
-                } catch (Throwable t) {
+                } catch (final Throwable t) {
                     // Ignore
                 }
                 response.performQuit();

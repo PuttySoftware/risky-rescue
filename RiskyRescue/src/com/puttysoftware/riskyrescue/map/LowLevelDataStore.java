@@ -10,16 +10,16 @@ import com.puttysoftware.storage.ObjectStorage;
 
 class LowLevelDataStore extends ObjectStorage {
     // Constructor
-    LowLevelDataStore(int... shape) {
+    LowLevelDataStore(final int... shape) {
         super(shape);
     }
 
     // Methods
-    public MapObject getMapCell(int... loc) {
+    public MapObject getMapCell(final int... loc) {
         return (MapObject) this.getCell(loc);
     }
 
-    public void setMapCell(MapObject obj, int... loc) {
+    public void setMapCell(final MapObject obj, final int... loc) {
         this.setCell(obj, loc);
     }
 }

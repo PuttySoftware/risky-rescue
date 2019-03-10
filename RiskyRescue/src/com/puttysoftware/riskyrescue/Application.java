@@ -94,7 +94,7 @@ public class Application {
         return this.formerMode;
     }
 
-    public void showMessage(String msg) {
+    public void showMessage(final String msg) {
         if (this.currentMode == Application.STATUS_GAME) {
             this.getGameManager().setStatusMessage(msg);
         } else if (this.currentMode == Application.STATUS_BATTLE) {
@@ -156,7 +156,7 @@ public class Application {
         return this.objects;
     }
 
-    public Shop getGenericShop(int shopType) {
+    public Shop getGenericShop(final int shopType) {
         switch (shopType) {
         case ShopTypes.SHOP_TYPE_ARMOR:
             return this.armor;

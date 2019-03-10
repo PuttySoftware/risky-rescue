@@ -14,9 +14,9 @@ public class Effect {
     // Fields
     private final String name;
     private boolean isMultiply;
-    private Fraction initialValue;
-    private Fraction value;
-    private Fraction scaleFactor;
+    private final Fraction initialValue;
+    private final Fraction value;
+    private final Fraction scaleFactor;
     private int scaleStat;
     private int affectedStat;
     private int rounds;
@@ -77,11 +77,11 @@ public class Effect {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (this.getClass() != obj.getClass()) {
             return false;
         }
         final Effect other = (Effect) obj;
@@ -130,7 +130,7 @@ public class Effect {
 
     public String getCurrentMessage() {
         String msg = Effect.getNullMessage();
-        if (this.rounds == (this.initialRounds - 1)) {
+        if (this.rounds == this.initialRounds - 1) {
             if (!this.messages[Effect.MESSAGE_INITIAL]
                     .equals(Effect.getNullMessage())) {
                 msg += this.messages[Effect.MESSAGE_INITIAL] + "\n";
@@ -153,7 +153,7 @@ public class Effect {
         return msg;
     }
 
-    public void setMessage(int which, String newMessage) {
+    public void setMessage(final int which, final String newMessage) {
         this.messages[which] = newMessage;
     }
 
@@ -175,7 +175,7 @@ public class Effect {
         return this.isMultiply;
     }
 
-    public void setMultiply(boolean mult) {
+    public void setMultiply(final boolean mult) {
         this.isMultiply = mult;
     }
 
@@ -192,14 +192,14 @@ public class Effect {
     }
 
     private boolean areRoundsInfinite() {
-        return (this.rounds == Effect.ROUNDS_INFINITE);
+        return this.rounds == Effect.ROUNDS_INFINITE;
     }
 
     public boolean isActive() {
         if (this.areRoundsInfinite()) {
             return true;
         } else {
-            return (this.rounds > 0);
+            return this.rounds > 0;
         }
     }
 
@@ -209,8 +209,8 @@ public class Effect {
     }
 
     public void useEffect(final Creature target) {
-        boolean affectsCHP = this.affectedStat == StatConstants.STAT_CURRENT_HP;
-        boolean affectsCMP = this.affectedStat == StatConstants.STAT_CURRENT_MP;
+        final boolean affectsCHP = this.affectedStat == StatConstants.STAT_CURRENT_HP;
+        final boolean affectsCMP = this.affectedStat == StatConstants.STAT_CURRENT_MP;
         double hpEffect = 0;
         if (affectsCHP) {
             hpEffect = this.getEffect();
@@ -245,26 +245,26 @@ public class Effect {
         return this.value.toDouble();
     }
 
-    public void scaleEffect(Creature scaleTo) {
-        int scst = this.scaleStat;
-        Fraction scstVal = new Fraction(scaleTo.getStat(scst), 1);
-        Fraction effectiveVal = scstVal.multiply(this.scaleFactor);
+    public void scaleEffect(final Creature scaleTo) {
+        final int scst = this.scaleStat;
+        final Fraction scstVal = new Fraction(scaleTo.getStat(scst), 1);
+        final Fraction effectiveVal = scstVal.multiply(this.scaleFactor);
         this.value.add(effectiveVal);
     }
 
-    public void setEffect(int n, int d) {
+    public void setEffect(final int n, final int d) {
         this.value.setNumerator(n);
         this.value.setDenominator(d);
         this.initialValue.setNumerator(n);
         this.initialValue.setDenominator(d);
     }
 
-    public void setScaleFactor(int n, int d) {
+    public void setScaleFactor(final int n, final int d) {
         this.scaleFactor.setNumerator(n);
         this.scaleFactor.setDenominator(d);
     }
 
-    public void setScaleStat(int newScaleStat) {
+    public void setScaleStat(final int newScaleStat) {
         this.scaleStat = newScaleStat;
     }
 }

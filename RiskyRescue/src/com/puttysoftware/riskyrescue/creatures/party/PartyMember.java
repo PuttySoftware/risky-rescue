@@ -45,8 +45,8 @@ public class PartyMember extends Creature {
         this.healAndRegenerateFully();
         this.setGold(PartyMember.START_GOLD);
         this.setExperience(0L);
-        Page nextLevelEquation = new Page(3, 0, true);
-        double value = BASE_COEFF;
+        final Page nextLevelEquation = new Page(3, 0, true);
+        final double value = PartyMember.BASE_COEFF;
         nextLevelEquation.setCoefficient(1, value);
         nextLevelEquation.setCoefficient(2, value);
         nextLevelEquation.setCoefficient(3, value);
@@ -74,8 +74,8 @@ public class PartyMember extends Creature {
         this.offsetAgility(StatConstants.GAIN_AGILITY);
         this.offsetLuck(StatConstants.GAIN_LUCK);
         this.healAndRegenerateFully();
-        InternalScript levelUpScript = new InternalScript();
-        InternalScriptEntry act0 = new InternalScriptEntry();
+        final InternalScript levelUpScript = new InternalScript();
+        final InternalScriptEntry act0 = new InternalScriptEntry();
         act0.setActionCode(InternalScriptActionCode.UPDATE_GSA);
         act0.addActionArg(new InternalScriptEntryArgument(
                 PartyManager.getDungeonLevel() - this.getLevel()));
@@ -95,7 +95,7 @@ public class PartyMember extends Creature {
         this.setGold(newGold);
         this.setLoad(newLoad);
         this.setExperience(newExperience);
-        SpellBook book = new PartyMemberSpellBook();
+        final SpellBook book = new PartyMemberSpellBook();
         for (int x = 0; x < known.length; x++) {
             if (known[x]) {
                 book.learnSpellByID(x);
@@ -117,35 +117,36 @@ public class PartyMember extends Creature {
         return this.name;
     }
 
-    public static PartyMember read(XDataReader worldFile) throws IOException {
-        int strength = worldFile.readInt();
-        int block = worldFile.readInt();
-        int agility = worldFile.readInt();
-        int vitality = worldFile.readInt();
-        int intelligence = worldFile.readInt();
-        int luck = worldFile.readInt();
-        int lvl = worldFile.readInt();
-        int cHP = worldFile.readInt();
-        int cMP = worldFile.readInt();
-        int gld = worldFile.readInt();
-        int apr = worldFile.readInt();
-        int spr = worldFile.readInt();
-        int ipr = worldFile.readInt();
-        int tpr = worldFile.readInt();
-        int load = worldFile.readInt();
-        long exp = worldFile.readLong();
-        PCImage pci = PCImage.read(worldFile);
-        int max = worldFile.readInt();
-        boolean[] known = new boolean[max];
+    public static PartyMember read(final XDataReader worldFile)
+            throws IOException {
+        final int strength = worldFile.readInt();
+        final int block = worldFile.readInt();
+        final int agility = worldFile.readInt();
+        final int vitality = worldFile.readInt();
+        final int intelligence = worldFile.readInt();
+        final int luck = worldFile.readInt();
+        final int lvl = worldFile.readInt();
+        final int cHP = worldFile.readInt();
+        final int cMP = worldFile.readInt();
+        final int gld = worldFile.readInt();
+        final int apr = worldFile.readInt();
+        final int spr = worldFile.readInt();
+        final int ipr = worldFile.readInt();
+        final int tpr = worldFile.readInt();
+        final int load = worldFile.readInt();
+        final long exp = worldFile.readLong();
+        final PCImage pci = PCImage.read(worldFile);
+        final int max = worldFile.readInt();
+        final boolean[] known = new boolean[max];
         for (int x = 0; x < max; x++) {
             known[x] = worldFile.readBoolean();
         }
-        long[] prestige = new long[PrestigeConstants.MAX_PRESTIGE];
+        final long[] prestige = new long[PrestigeConstants.MAX_PRESTIGE];
         for (int x = 0; x < PrestigeConstants.MAX_PRESTIGE; x++) {
             prestige[x] = worldFile.readLong();
         }
-        String n = worldFile.readString();
-        PartyMember pm = new PartyMember(pci, n);
+        final String n = worldFile.readString();
+        final PartyMember pm = new PartyMember(pci, n);
         pm.setStrength(strength);
         pm.setBlock(block);
         pm.setAgility(agility);
@@ -161,7 +162,7 @@ public class PartyMember extends Creature {
         return pm;
     }
 
-    public void write(XDataWriter worldFile) throws IOException {
+    public void write(final XDataWriter worldFile) throws IOException {
         worldFile.writeInt(this.getStrength());
         worldFile.writeInt(this.getBlock());
         worldFile.writeInt(this.getAgility());
@@ -179,7 +180,7 @@ public class PartyMember extends Creature {
         worldFile.writeInt(this.getLoad());
         worldFile.writeLong(this.getExperience());
         this.pci.write(worldFile);
-        int max = this.getSpellBook().getSpellCount();
+        final int max = this.getSpellBook().getSpellCount();
         worldFile.writeInt(max);
         for (int x = 0; x < max; x++) {
             worldFile.writeBoolean(this.getSpellBook().isSpellKnown(x));

@@ -18,15 +18,15 @@ public class MapObjectList {
 
     // Constructor
     public MapObjectList() {
-        MapObject[] allDefaultObjects = { new Empty(), new Tile(),
+        final MapObject[] allDefaultObjects = { new Empty(), new Tile(),
                 new HazardousGround(), new Wall(), new WallOff(), new WallOn(),
                 new ClosedDoor(), new OpenDoor(), new Button(),
                 new StairsDown(), new StairsUp(), new SealingWall(),
                 new ArmorShop(), new HealShop(), new Regenerator(),
                 new WeaponsShop() };
         this.allObjects = new ArrayList<>();
-        for (int x = 0; x < allDefaultObjects.length; x++) {
-            this.allObjects.add(allDefaultObjects[x]);
+        for (final MapObject allDefaultObject : allDefaultObjects) {
+            this.allObjects.add(allDefaultObject);
         }
     }
 
@@ -36,8 +36,8 @@ public class MapObjectList {
     }
 
     public String[] getAllDescriptions() {
-        MapObject[] objs = this.getAllObjects();
-        String[] tempAllDescriptions = new String[objs.length];
+        final MapObject[] objs = this.getAllObjects();
+        final String[] tempAllDescriptions = new String[objs.length];
         int x;
         int count = 0;
         for (x = 0; x < objs.length; x++) {
@@ -49,7 +49,7 @@ public class MapObjectList {
         if (count == 0) {
             return null;
         } else {
-            String[] allDescriptions = new String[count];
+            final String[] allDescriptions = new String[count];
             for (x = 0; x < count; x++) {
                 allDescriptions[x] = tempAllDescriptions[x];
             }
@@ -58,8 +58,8 @@ public class MapObjectList {
     }
 
     public MapObject[] getAllGroundLayerObjects() {
-        MapObject[] objs = this.getAllObjects();
-        MapObject[] tempAllGroundLayerObjects = new MapObject[this
+        final MapObject[] objs = this.getAllObjects();
+        final MapObject[] tempAllGroundLayerObjects = new MapObject[this
                 .getAllObjects().length];
         int objectCount = 0;
         for (int x = 0; x < objs.length; x++) {
@@ -67,29 +67,29 @@ public class MapObjectList {
                 tempAllGroundLayerObjects[x] = objs[x];
             }
         }
-        for (int x = 0; x < tempAllGroundLayerObjects.length; x++) {
-            if (tempAllGroundLayerObjects[x] != null) {
+        for (final MapObject tempAllGroundLayerObject : tempAllGroundLayerObjects) {
+            if (tempAllGroundLayerObject != null) {
                 objectCount++;
             }
         }
-        MapObject[] allGroundLayerObjects = new MapObject[objectCount];
+        final MapObject[] allGroundLayerObjects = new MapObject[objectCount];
         objectCount = 0;
-        for (int x = 0; x < tempAllGroundLayerObjects.length; x++) {
-            if (tempAllGroundLayerObjects[x] != null) {
-                allGroundLayerObjects[objectCount] = tempAllGroundLayerObjects[x];
+        for (final MapObject tempAllGroundLayerObject : tempAllGroundLayerObjects) {
+            if (tempAllGroundLayerObject != null) {
+                allGroundLayerObjects[objectCount] = tempAllGroundLayerObject;
                 objectCount++;
             }
         }
         return allGroundLayerObjects;
     }
 
-    public final MapObject[] getAllRequired(int layer, int level) {
-        MapObject[] objs = this.getAllObjects();
-        MapObject[] tempAllRequired = new MapObject[objs.length];
+    public final MapObject[] getAllRequired(final int layer, final int level) {
+        final MapObject[] objs = this.getAllObjects();
+        final MapObject[] tempAllRequired = new MapObject[objs.length];
         int x;
         int count = 0;
         for (x = 0; x < objs.length; x++) {
-            if ((objs[x].getLayer() == layer) && objs[x].isRequired(level)) {
+            if (objs[x].getLayer() == layer && objs[x].isRequired(level)) {
                 tempAllRequired[count] = objs[x];
                 count++;
             }
@@ -97,7 +97,7 @@ public class MapObjectList {
         if (count == 0) {
             return null;
         } else {
-            MapObject[] allRequired = new MapObject[count];
+            final MapObject[] allRequired = new MapObject[count];
             for (x = 0; x < count; x++) {
                 allRequired[x] = tempAllRequired[x];
             }
@@ -105,13 +105,13 @@ public class MapObjectList {
         }
     }
 
-    public final MapObject[] getAllNotRequired(int layer) {
-        MapObject[] objs = this.getAllObjects();
-        MapObject[] tempAllWithoutPrereq = new MapObject[objs.length];
+    public final MapObject[] getAllNotRequired(final int layer) {
+        final MapObject[] objs = this.getAllObjects();
+        final MapObject[] tempAllWithoutPrereq = new MapObject[objs.length];
         int x;
         int count = 0;
         for (x = 0; x < objs.length; x++) {
-            if ((objs[x].getLayer() == layer) && !(objs[x].isRequired(-2))) {
+            if (objs[x].getLayer() == layer && !objs[x].isRequired(-2)) {
                 tempAllWithoutPrereq[count] = objs[x];
                 count++;
             }
@@ -119,7 +119,7 @@ public class MapObjectList {
         if (count == 0) {
             return null;
         } else {
-            MapObject[] allWithoutPrereq = new MapObject[count];
+            final MapObject[] allWithoutPrereq = new MapObject[count];
             for (x = 0; x < count; x++) {
                 allWithoutPrereq[x] = tempAllWithoutPrereq[x];
             }
@@ -127,12 +127,12 @@ public class MapObjectList {
         }
     }
 
-    public final MapObject getInstanceByName(String name) {
+    public final MapObject getInstanceByName(final String name) {
         if (name == null) {
             // No object specified, give up
             return null;
         }
-        MapObject[] objs = this.getAllObjects();
+        final MapObject[] objs = this.getAllObjects();
         MapObject instance = null;
         int x;
         for (x = 0; x < objs.length; x++) {
@@ -144,16 +144,15 @@ public class MapObjectList {
         return instance;
     }
 
-    public MapObject readMapObjectX(XDataReader reader, int formatVersion)
-            throws IOException {
-        MapObject[] objs = this.getAllObjects();
+    public MapObject readMapObjectX(final XDataReader reader,
+            final int formatVersion) throws IOException {
+        final MapObject[] objs = this.getAllObjects();
         MapObject o = null;
         String UID = "";
         if (formatVersion == FormatConstants.SCENARIO_FORMAT_1) {
             UID = reader.readString();
         }
-        for (int x = 0; x < objs.length; x++) {
-            MapObject instance = objs[x];
+        for (final MapObject instance : objs) {
             if (formatVersion == FormatConstants.SCENARIO_FORMAT_1) {
                 o = instance.readMapObject(reader, UID, formatVersion);
             }

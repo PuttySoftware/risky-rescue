@@ -28,11 +28,11 @@ public class MusicManager {
             return MusicManager.cache.get(filename);
         } else {
             try {
-                MODFactory newValue = new MODFactory(TEMP)
+                final MODFactory newValue = new MODFactory(MusicManager.TEMP)
                         .loadResource(MusicManager.LOAD_PATH + filename);
                 MusicManager.cache.put(filename, newValue);
                 return newValue;
-            } catch (IOException ioe) {
+            } catch (final IOException ioe) {
                 Support.getNonFatalLogger().logNonFatalError(ioe);
                 return null;
             }
@@ -53,9 +53,9 @@ public class MusicManager {
             // Stop the music
             try {
                 MusicManager.CURRENT_MUSIC.stopLoop();
-            } catch (BufferUnderflowException bue) {
+            } catch (final BufferUnderflowException bue) {
                 // Ignore
-            } catch (Throwable t) {
+            } catch (final Throwable t) {
                 Support.getErrorLogger().logError(t);
             }
         }

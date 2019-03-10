@@ -12,8 +12,9 @@ class EquipmentFactory {
     }
 
     // Methods
-    static Equipment createOneHandedWeapon(int material, int bonus) {
-        Equipment e = new Equipment(
+    static Equipment createOneHandedWeapon(final int material,
+            final int bonus) {
+        final Equipment e = new Equipment(
                 WeaponMaterialConstants.MATERIAL_COMMON_NAMES[material] + " "
                         + WeaponConstants.get1HWeapons(),
                 0, 0,
@@ -30,8 +31,9 @@ class EquipmentFactory {
         return e;
     }
 
-    static Equipment createTwoHandedWeapon(int material, int bonus) {
-        Equipment e = new Equipment(
+    static Equipment createTwoHandedWeapon(final int material,
+            final int bonus) {
+        final Equipment e = new Equipment(
                 WeaponMaterialConstants.MATERIAL_COMMON_NAMES[material] + " "
                         + WeaponConstants.get2HWeapons(),
                 0, 0,
@@ -48,8 +50,9 @@ class EquipmentFactory {
         return e;
     }
 
-    static Equipment createArmor(int material, int armorType, int bonus) {
-        Equipment e = new Equipment(
+    static Equipment createArmor(final int material, final int armorType,
+            final int bonus) {
+        final Equipment e = new Equipment(
                 ArmorMaterialConstants.MATERIAL_COMMON_NAMES[material] + " "
                         + ArmorConstants.getArmor()[armorType],
                 0, 0, EquipmentCategoryConstants.EQUIPMENT_CATEGORY_ARMOR,
@@ -65,7 +68,7 @@ class EquipmentFactory {
     }
 
     static String[] createOneHandedWeaponNames() {
-        String[] res = new String[WeaponMaterialConstants.MATERIALS_COUNT];
+        final String[] res = new String[WeaponMaterialConstants.MATERIALS_COUNT];
         for (int x = 0; x < res.length; x++) {
             res[x] = WeaponMaterialConstants.MATERIAL_COMMON_NAMES[x] + " "
                     + WeaponConstants.get1HWeapons();
@@ -74,7 +77,7 @@ class EquipmentFactory {
     }
 
     static String[] createTwoHandedWeaponNames() {
-        String[] res = new String[WeaponMaterialConstants.MATERIALS_COUNT];
+        final String[] res = new String[WeaponMaterialConstants.MATERIALS_COUNT];
         for (int x = 0; x < res.length; x++) {
             res[x] = WeaponMaterialConstants.MATERIAL_COMMON_NAMES[x] + " "
                     + WeaponConstants.get2HWeapons();
@@ -82,8 +85,8 @@ class EquipmentFactory {
         return res;
     }
 
-    static String[] createArmorNames(int armorType) {
-        String[] res = new String[ArmorMaterialConstants.MATERIALS_COUNT];
+    static String[] createArmorNames(final int armorType) {
+        final String[] res = new String[ArmorMaterialConstants.MATERIALS_COUNT];
         for (int x = 0; x < res.length; x++) {
             res[x] = ArmorMaterialConstants.MATERIAL_COMMON_NAMES[x] + " "
                     + ArmorConstants.getArmor()[armorType];

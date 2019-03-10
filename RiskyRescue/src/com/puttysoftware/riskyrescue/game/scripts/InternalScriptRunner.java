@@ -22,31 +22,32 @@ public final class InternalScriptRunner {
         // Do nothing
     }
 
-    public static void runScript(InternalScript s) {
+    public static void runScript(final InternalScript s) {
         int actionCounter = 0;
         try {
             if (s != null) {
-                int totAct = s.getActionCount();
+                final int totAct = s.getActionCount();
                 for (int x = 0; x < totAct; x++) {
                     actionCounter = x + 1;
-                    InternalScriptEntry se = s.getAction(x);
+                    final InternalScriptEntry se = s.getAction(x);
                     InternalScriptRunner.validateScriptEntry(se);
-                    InternalScriptActionCode code = se.getActionCode();
+                    final InternalScriptActionCode code = se.getActionCode();
                     switch (code) {
                     case MESSAGE:
                         // Show the message
-                        String msg = se.getFirstActionArg().getString();
+                        final String msg = se.getFirstActionArg().getString();
                         RiskyRescue.getApplication().showMessage(msg);
                         break;
                     case SOUND:
                         // Play the sound
-                        int snd = se.getFirstActionArg().getInteger();
+                        final int snd = se.getFirstActionArg().getInteger();
                         SoundManager.playSound(snd);
                         break;
                     case SHOP:
                         // Show the shop
-                        int shopType = se.getFirstActionArg().getInteger();
-                        Shop shop = RiskyRescue.getApplication()
+                        final int shopType = se.getFirstActionArg()
+                                .getInteger();
+                        final Shop shop = RiskyRescue.getApplication()
                                 .getGenericShop(shopType);
                         if (shop != null) {
                             shop.showShop();
@@ -59,11 +60,11 @@ public final class InternalScriptRunner {
                         RiskyRescue.getApplication().getGameManager().decay();
                         break;
                     case SWAP_PAIRS:
-                        String swap1 = se.getActionArg(0).getString();
-                        String swap2 = se.getActionArg(1).getString();
-                        MapObject swapObj1 = RiskyRescue.getApplication()
+                        final String swap1 = se.getActionArg(0).getString();
+                        final String swap2 = se.getActionArg(1).getString();
+                        final MapObject swapObj1 = RiskyRescue.getApplication()
                                 .getObjects().getInstanceByName(swap1);
-                        MapObject swapObj2 = RiskyRescue.getApplication()
+                        final MapObject swapObj2 = RiskyRescue.getApplication()
                                 .getObjects().getInstanceByName(swap2);
                         RiskyRescue.getApplication().getScenarioManager()
                                 .getMap()
@@ -74,15 +75,15 @@ public final class InternalScriptRunner {
                                 .redrawMap();
                         break;
                     case ADD_TO_SCORE:
-                        int points = se.getActionArg(0).getInteger();
+                        final int points = se.getActionArg(0).getInteger();
                         RiskyRescue.getApplication().getGameManager()
                                 .addToScore(points);
                         break;
                     case RANDOM_CHANCE:
                         // Random Chance
-                        int threshold = se.getActionArg(0).getInteger();
-                        RandomRange random = new RandomRange(0, 9999);
-                        int chance = random.generate();
+                        final int threshold = se.getActionArg(0).getInteger();
+                        final RandomRange random = new RandomRange(0, 9999);
+                        final int chance = random.generate();
                         if (chance > threshold) {
                             return;
                         }
@@ -103,7 +104,7 @@ public final class InternalScriptRunner {
                                             .doFixedBattle(Map
                                                     .getTemporaryBattleCopy(),
                                                     battle);
-                                } catch (Exception e) {
+                                } catch (final Exception e) {
                                     // Something went wrong in the battle
                                     RiskyRescue.logError(e);
                                 }
@@ -111,12 +112,12 @@ public final class InternalScriptRunner {
                         }.start();
                         break;
                     case RELATIVE_LEVEL_CHANGE:
-                        int rDestLevel = se.getActionArg(0).getInteger();
+                        final int rDestLevel = se.getActionArg(0).getInteger();
                         RiskyRescue.getApplication().getGameManager()
                                 .goToLevelRelative(rDestLevel);
                         break;
                     case UPDATE_GSA:
-                        int gsaMod = se.getActionArg(0).getInteger();
+                        final int gsaMod = se.getActionArg(0).getInteger();
                         RiskyRescue.getApplication().getScenarioManager()
                                 .getMap().rebuildGSA(gsaMod);
                         break;
@@ -126,19 +127,19 @@ public final class InternalScriptRunner {
                     }
                 }
             }
-        } catch (Exception e) {
-            String beginMsg = "Buggy Internal Script, action #" + actionCounter
-                    + ": ";
-            String endMsg = e.getMessage();
-            String scriptMsg = beginMsg + endMsg;
+        } catch (final Exception e) {
+            final String beginMsg = "Buggy Internal Script, action #"
+                    + actionCounter + ": ";
+            final String endMsg = e.getMessage();
+            final String scriptMsg = beginMsg + endMsg;
             RiskyRescue.logNonFatalError(
                     new InternalScriptException(scriptMsg, e));
         }
     }
 
-    private static void validateScriptEntry(InternalScriptEntry se) {
-        InternalScriptActionCode code = se.getActionCode();
-        int rargc = InternalScriptConstants.ARGUMENT_COUNT_VALIDATION[code
+    private static void validateScriptEntry(final InternalScriptEntry se) {
+        final InternalScriptActionCode code = se.getActionCode();
+        final int rargc = InternalScriptConstants.ARGUMENT_COUNT_VALIDATION[code
                 .ordinal()];
         int aargc;
         if (se.getActionArgs() != null) {
@@ -150,13 +151,13 @@ public final class InternalScriptRunner {
             throw new IllegalArgumentException("Expected " + rargc
                     + " arguments, found " + aargc + " arguments!");
         }
-        Class<?>[] rargt = InternalScriptConstants.ARGUMENT_TYPE_VALIDATION[code
+        final Class<?>[] rargt = InternalScriptConstants.ARGUMENT_TYPE_VALIDATION[code
                 .ordinal()];
         if (rargt != null) {
-            Class<?>[] aargt = new Class[aargc];
+            final Class<?>[] aargt = new Class[aargc];
             for (int x = 0; x < aargc; x++) {
                 aargt[x] = se.getActionArg(x).getArgumentClass();
-                if (!(aargt[x].getName().equals(rargt[x].getName()))) {
+                if (!aargt[x].getName().equals(rargt[x].getName())) {
                     throw new IllegalArgumentException(
                             "Expected argument of type " + rargt[x].getName()
                                     + " at position " + (x + 1) + ", found "

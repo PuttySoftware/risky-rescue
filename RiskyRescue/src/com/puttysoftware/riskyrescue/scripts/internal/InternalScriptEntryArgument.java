@@ -15,13 +15,13 @@ public class InternalScriptEntryArgument {
     private final String strArg;
 
     // Constructors
-    public InternalScriptEntryArgument(int data) {
+    public InternalScriptEntryArgument(final int data) {
         this.useCode = InternalScriptEntryArgument.USES_INTEGER;
         this.intArg = data;
         this.strArg = null;
     }
 
-    public InternalScriptEntryArgument(String data) {
+    public InternalScriptEntryArgument(final String data) {
         this.useCode = InternalScriptEntryArgument.USES_STRING;
         this.strArg = data;
         this.intArg = 0;
@@ -48,7 +48,7 @@ public class InternalScriptEntryArgument {
 
     @Override
     public String toString() {
-        Class<?> argt = this.getArgumentClass();
+        final Class<?> argt = this.getArgumentClass();
         if (argt.equals(String.class)) {
             return this.getString();
         } else if (argt.equals(int.class)) {
@@ -73,12 +73,12 @@ public class InternalScriptEntryArgument {
         int result = 1;
         result = prime * result + this.intArg;
         result = prime * result
-                + ((this.strArg == null) ? 0 : this.strArg.hashCode());
+                + (this.strArg == null ? 0 : this.strArg.hashCode());
         return prime * result + this.useCode;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -88,7 +88,7 @@ public class InternalScriptEntryArgument {
         if (!(obj instanceof InternalScriptEntryArgument)) {
             return false;
         }
-        InternalScriptEntryArgument other = (InternalScriptEntryArgument) obj;
+        final InternalScriptEntryArgument other = (InternalScriptEntryArgument) obj;
         if (this.intArg != other.intArg) {
             return false;
         }

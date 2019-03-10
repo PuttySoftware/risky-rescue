@@ -18,7 +18,7 @@ public class FlagStorage {
     // Constructor
     /**
      * Main constructor.
-     * 
+     *
      * @param shape
      *            simulated dimensions for the stored data
      */
@@ -36,7 +36,7 @@ public class FlagStorage {
     // Methods
     /**
      * Check for equality.
-     * 
+     *
      * @param obj
      *            the other object to check
      * @return true if equal, false otherwise
@@ -61,7 +61,7 @@ public class FlagStorage {
 
     /**
      * Get data at a given location in storage.
-     * 
+     *
      * @param loc
      *            the location to get data from
      * @return the data at that location
@@ -73,7 +73,7 @@ public class FlagStorage {
 
     /**
      * Get the shape (dimensions) of the storage.
-     * 
+     *
      * @return the shape, as an array of integers
      */
     public final int[] getShape() {
@@ -92,7 +92,7 @@ public class FlagStorage {
 
     /**
      * Utility to convert simulated indexes to raw indexes.
-     * 
+     *
      * @param loc
      *            a simulated index
      * @return a raw index
@@ -115,7 +115,7 @@ public class FlagStorage {
 
     /**
      * Change stored data at a given location.
-     * 
+     *
      * @param obj
      *            the new data value
      * @param loc

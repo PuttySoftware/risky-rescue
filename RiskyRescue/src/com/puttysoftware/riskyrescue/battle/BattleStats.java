@@ -41,7 +41,7 @@ class BattleStats {
         return this.statsPane;
     }
 
-    public void updateStats(BattleCharacter bc) {
+    public void updateStats(final BattleCharacter bc) {
         if (bc != null) {
             this.nameLabel.setText(bc.getName());
             this.teamLabel.setText(bc.getTeamString());
@@ -82,29 +82,35 @@ class BattleStats {
     }
 
     private void updateIcons() {
-        BufferedImageIcon nameImage = ImageManager.getStatImage(StatImage.NAME);
+        final BufferedImageIcon nameImage = ImageManager
+                .getStatImage(StatImage.NAME);
         this.nameLabel.setIcon(nameImage);
-        BufferedImageIcon teamImage = ImageManager.getStatImage(StatImage.TEAM);
+        final BufferedImageIcon teamImage = ImageManager
+                .getStatImage(StatImage.TEAM);
         this.teamLabel.setIcon(teamImage);
-        BufferedImageIcon hpImage = ImageManager.getStatImage(StatImage.HEALTH);
+        final BufferedImageIcon hpImage = ImageManager
+                .getStatImage(StatImage.HEALTH);
         this.hpLabel.setIcon(hpImage);
-        BufferedImageIcon mpImage = ImageManager.getStatImage(StatImage.MAGIC);
+        final BufferedImageIcon mpImage = ImageManager
+                .getStatImage(StatImage.MAGIC);
         this.mpLabel.setIcon(mpImage);
-        BufferedImageIcon attImage = ImageManager
+        final BufferedImageIcon attImage = ImageManager
                 .getStatImage(StatImage.MELEE_ATTACK);
         this.attLabel.setIcon(attImage);
-        BufferedImageIcon defImage = ImageManager
+        final BufferedImageIcon defImage = ImageManager
                 .getStatImage(StatImage.DEFENSE);
         this.defLabel.setIcon(defImage);
-        BufferedImageIcon apImage = ImageManager
+        final BufferedImageIcon apImage = ImageManager
                 .getStatImage(StatImage.ACTIONS);
         this.apLabel.setIcon(apImage);
-        BufferedImageIcon attLeftImage = ImageManager
+        final BufferedImageIcon attLeftImage = ImageManager
                 .getStatImage(StatImage.ATTACKS);
         this.attLeftLabel.setIcon(attLeftImage);
-        BufferedImageIcon spImage = ImageManager.getStatImage(StatImage.SPELLS);
+        final BufferedImageIcon spImage = ImageManager
+                .getStatImage(StatImage.SPELLS);
         this.splLabel.setIcon(spImage);
-        BufferedImageIcon stImage = ImageManager.getStatImage(StatImage.STEALS);
+        final BufferedImageIcon stImage = ImageManager
+                .getStatImage(StatImage.STEALS);
         this.stlLabel.setIcon(stImage);
     }
 }

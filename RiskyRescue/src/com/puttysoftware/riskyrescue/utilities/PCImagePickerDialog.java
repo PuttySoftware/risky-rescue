@@ -40,10 +40,11 @@ public class PCImagePickerDialog extends JDialog implements ActionListener {
      * screen; otherwise, it should be the component on top of which the dialog
      * should appear.
      */
-    public static PCImage showDialog(Component frameComp, String title) {
-        Frame frame = JOptionPane.getFrameForComponent(frameComp);
-        dialog = new PCImagePickerDialog(frame, title);
-        dialog.setVisible(true);
+    public static PCImage showDialog(final Component frameComp,
+            final String title) {
+        final Frame frame = JOptionPane.getFrameForComponent(frameComp);
+        PCImagePickerDialog.dialog = new PCImagePickerDialog(frame, title);
+        PCImagePickerDialog.dialog.setVisible(true);
         if (PCImagePickerDialog.cancel) {
             return null;
         }
@@ -51,79 +52,79 @@ public class PCImagePickerDialog extends JDialog implements ActionListener {
                 PCImagePickerDialog.skinValue, PCImagePickerDialog.hairValue);
     }
 
-    private PCImagePickerDialog(Frame frame, String title) {
+    private PCImagePickerDialog(final Frame frame, final String title) {
         super(frame, title, true);
         // Initialize the combo boxes
-        String[] cNames = PCImage.getClothingNames();
+        final String[] cNames = PCImage.getClothingNames();
         this.clothing = new JComboBox<>(new DefaultComboBoxModel<>(cNames));
-        int cStart = new RandomRange(0, cNames.length - 1).generate();
+        final int cStart = new RandomRange(0, cNames.length - 1).generate();
         this.clothing.setSelectedIndex(cStart);
         PCImagePickerDialog.clothingValue = cStart;
         this.clothing.addItemListener(il -> {
-            int c = this.clothing.getSelectedIndex();
+            final int c = this.clothing.getSelectedIndex();
             PCImagePickerDialog.clothingValue = c;
             this.imageLabel.setIcon(ImageManager.getPCPickerImage(
                     PCImage.getPCImageName(c, PCImagePickerDialog.skinValue,
                             PCImagePickerDialog.hairValue)));
         });
-        String[] sNames = PCImage.getSkinNames();
+        final String[] sNames = PCImage.getSkinNames();
         this.skin = new JComboBox<>(new DefaultComboBoxModel<>(sNames));
-        int sStart = new RandomRange(0, sNames.length - 1).generate();
+        final int sStart = new RandomRange(0, sNames.length - 1).generate();
         this.skin.setSelectedIndex(sStart);
         PCImagePickerDialog.skinValue = sStart;
         this.skin.addItemListener(il -> {
-            int s = this.skin.getSelectedIndex();
+            final int s = this.skin.getSelectedIndex();
             PCImagePickerDialog.skinValue = s;
             this.imageLabel.setIcon(ImageManager.getPCPickerImage(
                     PCImage.getPCImageName(PCImagePickerDialog.clothingValue, s,
                             PCImagePickerDialog.hairValue)));
         });
-        String[] hNames = PCImage.getHairNames();
+        final String[] hNames = PCImage.getHairNames();
         this.hair = new JComboBox<>(new DefaultComboBoxModel<>(hNames));
-        int hStart = new RandomRange(0, hNames.length - 1).generate();
+        final int hStart = new RandomRange(0, hNames.length - 1).generate();
         this.hair.setSelectedIndex(hStart);
         PCImagePickerDialog.hairValue = hStart;
         this.hair.addItemListener(il -> {
-            int h = this.hair.getSelectedIndex();
+            final int h = this.hair.getSelectedIndex();
             PCImagePickerDialog.hairValue = h;
             this.imageLabel.setIcon(ImageManager.getPCPickerImage(
                     PCImage.getPCImageName(PCImagePickerDialog.clothingValue,
                             PCImagePickerDialog.skinValue, h)));
         });
-        BufferedImageIcon image = ImageManager
+        final BufferedImageIcon image = ImageManager
                 .getPCPickerImage("" + cStart + sStart + hStart);
         // Create and initialize the buttons.
-        JButton cancelButton = new JButton("Cancel");
+        final JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(this);
         final JButton setButton = new JButton("OK");
         setButton.setActionCommand("OK");
         setButton.addActionListener(this);
-        getRootPane().setDefaultButton(setButton);
+        this.getRootPane().setDefaultButton(setButton);
         // image preview thing
-        JPanel imagePane = new JPanel();
+        final JPanel imagePane = new JPanel();
         imagePane.setLayout(new FlowLayout());
         this.imageLabel.setIcon(image);
         imagePane.add(this.imageLabel);
         // main part of the dialog
-        JPanel pickerPane = new JPanel();
+        final JPanel pickerPane = new JPanel();
         pickerPane.setLayout(new BoxLayout(pickerPane, BoxLayout.PAGE_AXIS));
-        JLabel clothingLabel = new JLabel("Clothing:");
+        final JLabel clothingLabel = new JLabel("Clothing:");
         clothingLabel.setLabelFor(this.clothing);
         pickerPane.add(clothingLabel);
         pickerPane.add(this.clothing);
         pickerPane.add(Box.createRigidArea(new Dimension(0, 5)));
-        JLabel skinLabel = new JLabel("Skin:");
+        final JLabel skinLabel = new JLabel("Skin:");
         skinLabel.setLabelFor(this.skin);
         pickerPane.add(skinLabel);
         pickerPane.add(this.skin);
         pickerPane.add(Box.createRigidArea(new Dimension(0, 5)));
-        JLabel hairLabel = new JLabel("Hair:");
+        final JLabel hairLabel = new JLabel("Hair:");
         hairLabel.setLabelFor(this.hair);
         pickerPane.add(hairLabel);
         pickerPane.add(this.hair);
         pickerPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         // Lay out the buttons from left to right.
-        JPanel buttonPane = new JPanel();
+        final JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
         buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
         buttonPane.add(Box.createHorizontalGlue());
@@ -131,17 +132,17 @@ public class PCImagePickerDialog extends JDialog implements ActionListener {
         buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
         buttonPane.add(setButton);
         // Put everything together, using the content pane's BorderLayout.
-        Container contentPane = getContentPane();
+        final Container contentPane = this.getContentPane();
         contentPane.add(imagePane, BorderLayout.WEST);
         contentPane.add(pickerPane, BorderLayout.CENTER);
         contentPane.add(buttonPane, BorderLayout.PAGE_END);
         // Finalize layout
-        pack();
+        this.pack();
     }
 
     // Handle clicks on the Set and Cancel buttons.
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
         if ("OK".equals(e.getActionCommand())) {
             PCImagePickerDialog.cancel = false;
         } else if ("Cancel".equals(e.getActionCommand())) {

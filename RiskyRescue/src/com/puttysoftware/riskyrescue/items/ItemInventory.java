@@ -26,8 +26,8 @@ public class ItemInventory {
     }
 
     // Methods
-    void equipOneHandedWeapon(Creature pc, Equipment ei, boolean useFirst,
-            boolean playSound) {
+    void equipOneHandedWeapon(final Creature pc, final Equipment ei,
+            final boolean useFirst, final boolean playSound) {
         // Fix character load, changing weapons
         if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null
                 && useFirst) {
@@ -60,7 +60,8 @@ public class ItemInventory {
         }
     }
 
-    void equipTwoHandedWeapon(Creature pc, Equipment ei, boolean playSound) {
+    void equipTwoHandedWeapon(final Creature pc, final Equipment ei,
+            final boolean playSound) {
         // Fix character load, changing weapons
         if (this.equipment[EquipmentSlotConstants.SLOT_MAINHAND] != null) {
             pc.offsetLoad(-this.equipment[EquipmentSlotConstants.SLOT_MAINHAND]
@@ -76,7 +77,8 @@ public class ItemInventory {
         }
     }
 
-    void equipArmor(Creature pc, Equipment ei, boolean playSound) {
+    void equipArmor(final Creature pc, final Equipment ei,
+            final boolean playSound) {
         // Fix character load, changing armor
         if (ei.getFirstSlotUsed() == EquipmentSlotConstants.SLOT_OFFHAND) {
             // Check for two-handed weapon
@@ -114,7 +116,7 @@ public class ItemInventory {
     }
 
     public String[] generateEquipmentStringArray() {
-        String[] result = new String[this.equipment.length + 1];
+        final String[] result = new String[this.equipment.length + 1];
         StringBuilder sb;
         for (int x = 0; x < result.length - 1; x++) {
             sb = new StringBuilder();
@@ -176,19 +178,19 @@ public class ItemInventory {
         return total;
     }
 
-    public static ItemInventory readItemInventory(XDataReader dr)
+    public static ItemInventory readItemInventory(final XDataReader dr)
             throws IOException {
-        ItemInventory ii = new ItemInventory();
+        final ItemInventory ii = new ItemInventory();
         for (int x = 0; x < ii.equipment.length; x++) {
-            Equipment ei = Equipment.readEquipment(dr);
+            final Equipment ei = Equipment.readEquipment(dr);
             ii.equipment[x] = ei;
         }
         return ii;
     }
 
-    public void writeItemInventory(XDataWriter dw) throws IOException {
+    public void writeItemInventory(final XDataWriter dw) throws IOException {
         for (int x = 0; x < this.equipment.length; x++) {
-            Equipment ei = this.equipment[x];
+            final Equipment ei = this.equipment[x];
             if (ei != null) {
                 ei.writeEquipment(dw);
             } else {
@@ -200,12 +202,12 @@ public class ItemInventory {
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = 1;
+        final int result = 1;
         return prime * result + Arrays.hashCode(this.equipment);
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -215,7 +217,7 @@ public class ItemInventory {
         if (!(obj instanceof ItemInventory)) {
             return false;
         }
-        ItemInventory other = (ItemInventory) obj;
+        final ItemInventory other = (ItemInventory) obj;
         if (!Arrays.equals(this.equipment, other.equipment)) {
             return false;
         }

@@ -8,12 +8,12 @@ public class Polynomial {
     protected int max;
 
     // Constructors
-    protected Polynomial(Polynomial p) {
+    protected Polynomial(final Polynomial p) {
         this.coefficients = p.coefficients;
         this.max = p.max;
     }
 
-    public Polynomial(int maxPower) {
+    public Polynomial(final int maxPower) {
         this.coefficients = new double[maxPower + 1];
         this.max = maxPower;
     }
@@ -23,11 +23,11 @@ public class Polynomial {
         return this.max;
     }
 
-    public void setCoefficient(int power, double value) {
+    public void setCoefficient(final int power, final double value) {
         this.coefficients[power] = value;
     }
 
-    public long evaluate(int paramValue) {
+    public long evaluate(final int paramValue) {
         int x;
         long result = 0;
         for (x = 0; x < this.coefficients.length; x++) {
@@ -45,7 +45,7 @@ public class Polynomial {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -55,7 +55,7 @@ public class Polynomial {
         if (!(obj instanceof Polynomial)) {
             return false;
         }
-        Polynomial other = (Polynomial) obj;
+        final Polynomial other = (Polynomial) obj;
         if (!Arrays.equals(this.coefficients, other.coefficients)) {
             return false;
         }

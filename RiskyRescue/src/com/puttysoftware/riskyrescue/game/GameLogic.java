@@ -38,7 +38,7 @@ public class GameLogic {
     private boolean savedGameFlag;
     private final ScoreTracker st;
     private boolean stateChanged;
-    private GameGUI gameGUI;
+    private final GameGUI gameGUI;
     private boolean runBattles;
 
     // Constructors
@@ -52,7 +52,7 @@ public class GameLogic {
 
     // Methods
     public boolean newGame() {
-        JFrame owner = RiskyRescue.getApplication().getOutputFrame();
+        final JFrame owner = RiskyRescue.getApplication().getOutputFrame();
         if (this.savedGameFlag) {
             if (PartyManager.getParty() != null) {
                 return true;
@@ -68,7 +68,7 @@ public class GameLogic {
         return this.gameGUI.getViewManager();
     }
 
-    public void addToScore(long points) {
+    public void addToScore(final long points) {
         this.st.addToScore(points);
     }
 
@@ -76,7 +76,7 @@ public class GameLogic {
         this.st.showCurrentScore();
     }
 
-    private static void fireStepActions(int x, int y, int z) {
+    private static void fireStepActions(final int x, final int y, final int z) {
         RiskyRescue.getApplication().getScenarioManager().getMap()
                 .updateVisibleSquares(x, y, z);
     }
@@ -89,7 +89,7 @@ public class GameLogic {
         this.stateChanged = true;
     }
 
-    public void setSavedGameFlag(boolean value) {
+    public void setSavedGameFlag(final boolean value) {
         this.savedGameFlag = value;
     }
 
@@ -101,13 +101,14 @@ public class GameLogic {
         this.gameGUI.setStatusMessage(msg);
     }
 
-    public void updatePositionRelative(int x, int y, int z) {
-        Map m = RiskyRescue.getApplication().getScenarioManager().getMap();
+    public void updatePositionRelative(final int x, final int y, final int z) {
+        final Map m = RiskyRescue.getApplication().getScenarioManager()
+                .getMap();
         boolean redrawsSuspended = false;
         int px = m.getPlayerLocationX();
         int py = m.getPlayerLocationY();
         int pz = m.getPlayerLocationZ();
-        Application app = RiskyRescue.getApplication();
+        final Application app = RiskyRescue.getApplication();
         boolean proceed = false;
         MapObject o = new Empty();
         MapObject groundInto = new Empty();
@@ -205,10 +206,10 @@ public class GameLogic {
         if (this.runBattles) {
             if (!Support.inDebugMode()) {
                 // Process random battles
-                ArrayList<InternalScriptArea> areaScripts = app
+                final ArrayList<InternalScriptArea> areaScripts = app
                         .getScenarioManager().getMap()
                         .getScriptAreasAtPoint(new Point(px, py), pz);
-                for (InternalScriptArea isa : areaScripts) {
+                for (final InternalScriptArea isa : areaScripts) {
                     InternalScriptRunner.runScript(isa);
                 }
                 // Process step actions
@@ -239,22 +240,24 @@ public class GameLogic {
     private static boolean checkSolid(final int z, final MapObject inside,
             final MapObject below, final MapObject nextBelow,
             final MapObject nextAbove) {
-        Map m = RiskyRescue.getApplication().getScenarioManager().getMap();
-        boolean insideSolid = inside.isConditionallySolid(m, z);
-        boolean belowSolid = below.isConditionallySolid(m, z);
-        boolean nextBelowSolid = nextBelow.isConditionallySolid(m, z);
-        boolean nextAboveSolid = nextAbove.isConditionallySolid(m, z);
+        final Map m = RiskyRescue.getApplication().getScenarioManager()
+                .getMap();
+        final boolean insideSolid = inside.isConditionallySolid(m, z);
+        final boolean belowSolid = below.isConditionallySolid(m, z);
+        final boolean nextBelowSolid = nextBelow.isConditionallySolid(m, z);
+        final boolean nextAboveSolid = nextAbove.isConditionallySolid(m, z);
         return !(insideSolid || belowSolid || nextBelowSolid || nextAboveSolid);
     }
 
     private static void fireMoveFailedActions(final int x, final int y,
             final int z, final MapObject inside, final MapObject below,
             final MapObject nextBelow, final MapObject nextAbove) {
-        Map m = RiskyRescue.getApplication().getScenarioManager().getMap();
-        boolean insideSolid = inside.isConditionallySolid(m, z);
-        boolean belowSolid = below.isConditionallySolid(m, z);
-        boolean nextBelowSolid = nextBelow.isConditionallySolid(m, z);
-        boolean nextAboveSolid = nextAbove.isConditionallySolid(m, z);
+        final Map m = RiskyRescue.getApplication().getScenarioManager()
+                .getMap();
+        final boolean insideSolid = inside.isConditionallySolid(m, z);
+        final boolean belowSolid = below.isConditionallySolid(m, z);
+        final boolean nextBelowSolid = nextBelow.isConditionallySolid(m, z);
+        final boolean nextAboveSolid = nextAbove.isConditionallySolid(m, z);
         if (insideSolid) {
             InternalScriptRunner
                     .runScript(MapObject.getMoveFailedScript(false, x, y, z));
@@ -275,8 +278,8 @@ public class GameLogic {
 
     public void goToLevelRelative(final int level) {
         // Level change
-        Application app = RiskyRescue.getApplication();
-        Map m = app.getScenarioManager().getMap();
+        final Application app = RiskyRescue.getApplication();
+        final Map m = app.getScenarioManager().getMap();
         final boolean levelExists = m.doesLevelExistOffset(level);
         if (!levelExists && m.isLevelOffsetValid(level)) {
             // The player will spawn atop stairs that need saving
@@ -293,9 +296,9 @@ public class GameLogic {
             m.fillLevelRandomly(new Tile(), new Empty());
             this.resetViewingWindow();
             m.resetVisibleSquares();
-            int px = m.getPlayerLocationX();
-            int py = m.getPlayerLocationY();
-            int pz = m.getPlayerLocationZ();
+            final int px = m.getPlayerLocationX();
+            final int py = m.getPlayerLocationY();
+            final int pz = m.getPlayerLocationZ();
             m.updateVisibleSquares(px, py, pz);
         } else if (levelExists && m.isLevelOffsetValid(level)) {
             // The player will spawn atop stairs that need saving
@@ -309,7 +312,7 @@ public class GameLogic {
             m.switchLevelOffset(level);
         } else {
             // Attempted to leave the dungeon...
-            Party party = PartyManager.getParty();
+            final Party party = PartyManager.getParty();
             if (party.getActivePCCount() == 2 && party.isAlive()) {
                 // If our buddy is with us and everyone is alive, we win!
                 this.victory();
@@ -362,7 +365,7 @@ public class GameLogic {
 
     public void exitGame() {
         this.stateChanged = true;
-        Application app = RiskyRescue.getApplication();
+        final Application app = RiskyRescue.getApplication();
         // Reset saved game flag
         this.savedGameFlag = false;
         app.getScenarioManager().setDirty(false);
@@ -403,7 +406,7 @@ public class GameLogic {
 
     public void playMap() {
         Map m;
-        Application app = RiskyRescue.getApplication();
+        final Application app = RiskyRescue.getApplication();
         app.getGUIManager().hideGUI();
         app.setInGame();
         if (app.getScenarioManager().getLoaded()) {
@@ -419,9 +422,9 @@ public class GameLogic {
                     Support.getGameMapFloorSize());
             m.fillLevelRandomly(new Tile(), new Empty());
             this.resetViewingWindow();
-            int px = m.getPlayerLocationX();
-            int py = m.getPlayerLocationY();
-            int pz = m.getPlayerLocationZ();
+            final int px = m.getPlayerLocationX();
+            final int py = m.getPlayerLocationY();
+            final int pz = m.getPlayerLocationZ();
             m.updateVisibleSquares(px, py, pz);
             this.stateChanged = false;
         }

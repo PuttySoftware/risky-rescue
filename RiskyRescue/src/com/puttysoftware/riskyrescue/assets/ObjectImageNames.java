@@ -12,7 +12,7 @@ public class ObjectImageNames {
     private static String[] CACHE;
     private static boolean CACHE_CREATED = false;
 
-    public static String getName(ObjectImage oi) {
+    public static String getName(final ObjectImage oi) {
         if (!ObjectImageNames.CACHE_CREATED) {
             ObjectImageNames.CACHE = ImageDataManager.getObjectImageData();
             ObjectImageNames.CACHE_CREATED = true;

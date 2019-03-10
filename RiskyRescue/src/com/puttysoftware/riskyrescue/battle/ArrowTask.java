@@ -18,11 +18,11 @@ import com.puttysoftware.riskyrescue.map.objects.Wall;
 
 class ArrowTask extends Thread {
     // Fields
-    private int x, y;
-    private BattleDefinitions bd;
+    private final int x, y;
+    private final BattleDefinitions bd;
 
     // Constructors
-    ArrowTask(int newX, int newY, BattleDefinitions defs) {
+    ArrowTask(final int newX, final int newY, final BattleDefinitions defs) {
         this.x = newX;
         this.y = newY;
         this.bd = defs;
@@ -33,21 +33,21 @@ class ArrowTask extends Thread {
     public void run() {
         try {
             boolean res = true;
-            Application app = RiskyRescue.getApplication();
-            Map m = this.bd.getBattleMap();
-            int px = this.bd.getActiveCharacter().getX();
-            int py = this.bd.getActiveCharacter().getY();
+            final Application app = RiskyRescue.getApplication();
+            final Map m = this.bd.getBattleMap();
+            final int px = this.bd.getActiveCharacter().getX();
+            final int py = this.bd.getActiveCharacter().getY();
             int cumX = this.x;
             int cumY = this.y;
-            int incX = this.x;
-            int incY = this.y;
+            final int incX = this.x;
+            final int incY = this.y;
             MapObject o = null;
             try {
                 o = m.getBattleCell(px + cumX, py + cumY);
             } catch (final ArrayIndexOutOfBoundsException ae) {
                 o = new Wall();
             }
-            Arrow a = Arrow.createArrow(incX, incY);
+            final Arrow a = Arrow.createArrow(incX, incY);
             SoundManager.playSound(SoundConstants.ARROW_SHOOT);
             while (res) {
                 res = o.arrowHitCheck();
@@ -75,7 +75,7 @@ class ArrowTask extends Thread {
                 // Arrow hit a creature, hurt it
                 SoundManager.playSound(SoundConstants.ARROW_HIT);
                 hit = (BattleCharacter) o;
-                BattleLogic bl = app.getBattle();
+                final BattleLogic bl = app.getBattle();
                 hit.getTemplate().doDamagePercentage(1);
                 bl.setStatusMessage("Ow, you got shot!");
             } else {
@@ -83,7 +83,7 @@ class ArrowTask extends Thread {
                 SoundManager.playSound(SoundConstants.ARROW_DIE);
             }
             app.getBattle().arrowDone(hit);
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             RiskyRescue.logError(t);
         }
     }

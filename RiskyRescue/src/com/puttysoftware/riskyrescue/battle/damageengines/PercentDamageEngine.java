@@ -23,16 +23,17 @@ class PercentDamageEngine extends DamageEngine {
     private boolean pierce = false;
 
     @Override
-    public int computeDamage(Creature enemy, Creature acting) {
+    public int computeDamage(final Creature enemy, final Creature acting) {
         this.dodged = false;
         this.missed = false;
         this.crit = false;
         this.pierce = false;
         // Compute Damage
-        double attack = acting.getEffectedAttack();
-        double defense = enemy.getEffectedStat(StatConstants.STAT_DEFENSE);
-        double absorb = (PercentDamageEngine.ABSORB - enemy.getArmorBlock())
-                / PercentDamageEngine.ABSORB;
+        final double attack = acting.getEffectedAttack();
+        final double defense = enemy
+                .getEffectedStat(StatConstants.STAT_DEFENSE);
+        final double absorb = (PercentDamageEngine.ABSORB
+                - enemy.getArmorBlock()) / PercentDamageEngine.ABSORB;
         this.didPierce();
         double rawDamage;
         if (this.pierce) {
@@ -40,15 +41,15 @@ class PercentDamageEngine extends DamageEngine {
         } else {
             rawDamage = Math.max(1.0, (attack - defense) * absorb);
         }
-        int rHit = new RandomRange(0, 10000).generate();
-        int aHit = acting.getHit();
+        final int rHit = new RandomRange(0, 10000).generate();
+        final int aHit = acting.getHit();
         if (rHit > aHit) {
             // Weapon missed
             this.missed = true;
             return 0;
         } else {
-            int rEvade = new RandomRange(0, 10000).generate();
-            int aEvade = enemy.getEvade();
+            final int rEvade = new RandomRange(0, 10000).generate();
+            final int aEvade = enemy.getEvade();
             if (rEvade < aEvade) {
                 // Enemy dodged
                 this.dodged = true;
@@ -66,8 +67,8 @@ class PercentDamageEngine extends DamageEngine {
                             PercentDamageEngine.MULTIPLIER_MIN,
                             PercentDamageEngine.MULTIPLIER_MAX);
                 }
-                int multiplier = rDamage.generate();
-                int unadjustedDamage = (int) ((rawDamage * multiplier)
+                final int multiplier = rDamage.generate();
+                final int unadjustedDamage = (int) (rawDamage * multiplier
                         / PercentDamageEngine.MULTIPLIER_DIVIDE);
                 return Math.max(1, unadjustedDamage);
             }
@@ -95,8 +96,8 @@ class PercentDamageEngine extends DamageEngine {
     }
 
     private void didPierce() {
-        int rPierce = new RandomRange(0, 10000).generate();
-        int aPierce = PIERCE_CHANCE;
+        final int rPierce = new RandomRange(0, 10000).generate();
+        final int aPierce = PercentDamageEngine.PIERCE_CHANCE;
         if (rPierce < aPierce) {
             this.pierce = true;
         } else {
@@ -105,8 +106,8 @@ class PercentDamageEngine extends DamageEngine {
     }
 
     private void didCrit() {
-        int rCrit = new RandomRange(0, 10000).generate();
-        int aCrit = CRIT_CHANCE;
+        final int rCrit = new RandomRange(0, 10000).generate();
+        final int aCrit = PercentDamageEngine.CRIT_CHANCE;
         if (rCrit < aCrit) {
             this.crit = true;
         } else {

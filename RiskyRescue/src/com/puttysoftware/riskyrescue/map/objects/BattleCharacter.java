@@ -21,7 +21,7 @@ public class BattleCharacter extends MapObject {
     private boolean isActive;
 
     // Constructors
-    public BattleCharacter(Creature newTemplate) {
+    public BattleCharacter(final Creature newTemplate) {
         super(ObjectImage.EMPTY, true, false);
         this.template = newTemplate;
         this.actionCounter = newTemplate.getActionsPerRound();
@@ -40,19 +40,19 @@ public class BattleCharacter extends MapObject {
         return this.template.getY();
     }
 
-    public final void setX(int newX) {
+    public final void setX(final int newX) {
         this.template.setX(newX);
     }
 
-    public final void setY(int newY) {
+    public final void setY(final int newY) {
         this.template.setY(newY);
     }
 
-    public final void offsetX(int newX) {
+    public final void offsetX(final int newX) {
         this.template.offsetX(newX);
     }
 
-    public final void offsetY(int newY) {
+    public final void offsetY(final int newY) {
         this.template.offsetY(newY);
     }
 
@@ -101,7 +101,7 @@ public class BattleCharacter extends MapObject {
         this.actionCounter = this.template.getActionsPerRound();
     }
 
-    public final void modifyAP(int mod) {
+    public final void modifyAP(final int mod) {
         this.actionCounter -= mod;
     }
 
@@ -113,7 +113,7 @@ public class BattleCharacter extends MapObject {
         this.attackCounter = this.template.getEffectedAttacksPerRound();
     }
 
-    public final void modifyAttacks(int mod) {
+    public final void modifyAttacks(final int mod) {
         this.attackCounter -= mod;
     }
 
@@ -125,7 +125,7 @@ public class BattleCharacter extends MapObject {
         this.spellCounter = this.template.getEffectedSpellsPerRound();
     }
 
-    public final void modifySpells(int mod) {
+    public final void modifySpells(final int mod) {
         this.spellCounter -= mod;
     }
 
@@ -137,7 +137,7 @@ public class BattleCharacter extends MapObject {
         this.stealCounter = this.template.getEffectedStealsPerRound();
     }
 
-    public final void modifySteals(int mod) {
+    public final void modifySteals(final int mod) {
         this.stealCounter -= mod;
     }
 
@@ -186,7 +186,7 @@ public class BattleCharacter extends MapObject {
     }
 
     @Override
-    public int getCustomProperty(int propID) {
+    public int getCustomProperty(final int propID) {
         switch (propID) {
         case 0:
             return this.getX();
@@ -198,7 +198,7 @@ public class BattleCharacter extends MapObject {
     }
 
     @Override
-    public void setCustomProperty(int propID, int value) {
+    public void setCustomProperty(final int propID, final int value) {
         switch (propID) {
         case 0:
             this.setX(value);
@@ -233,11 +233,11 @@ public class BattleCharacter extends MapObject {
         result = prime * result + this.spellCounter;
         result = prime * result + this.stealCounter;
         return prime * result
-                + ((this.template == null) ? 0 : this.template.hashCode());
+                + (this.template == null ? 0 : this.template.hashCode());
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -247,7 +247,7 @@ public class BattleCharacter extends MapObject {
         if (!(obj instanceof BattleCharacter)) {
             return false;
         }
-        BattleCharacter other = (BattleCharacter) obj;
+        final BattleCharacter other = (BattleCharacter) obj;
         if (this.actionCounter != other.actionCounter) {
             return false;
         }

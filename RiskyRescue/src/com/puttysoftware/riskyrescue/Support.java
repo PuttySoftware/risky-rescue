@@ -76,11 +76,11 @@ public class Support {
     }
 
     public static void deleteScenario() {
-        File scenFile = new File(Support.scen.getBasePath());
+        final File scenFile = new File(Support.scen.getBasePath());
         if (scenFile.isDirectory() && scenFile.exists()) {
             try {
                 DirectoryUtilities.removeDirectory(scenFile);
-            } catch (Throwable t) {
+            } catch (final Throwable t) {
                 // Ignore
             }
         }

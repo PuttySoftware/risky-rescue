@@ -68,23 +68,23 @@ public abstract class Arrow extends MapObject {
 
     // Factory
     public static Arrow createArrow(final int dirX, final int dirY) {
-        int fdX = (int) Math.signum(dirX);
-        int fdY = (int) Math.signum(dirY);
-        if ((fdX == 0) && (fdY == -1)) {
+        final int fdX = (int) Math.signum(dirX);
+        final int fdY = (int) Math.signum(dirY);
+        if (fdX == 0 && fdY == -1) {
             return new ArrowN();
-        } else if ((fdX == 0) && (fdY == 1)) {
+        } else if (fdX == 0 && fdY == 1) {
             return new ArrowS();
-        } else if ((fdX == -1) && (fdY == 0)) {
+        } else if (fdX == -1 && fdY == 0) {
             return new ArrowW();
-        } else if ((fdX == 1) && (fdY == 0)) {
+        } else if (fdX == 1 && fdY == 0) {
             return new ArrowE();
-        } else if ((fdX == 1) && (fdY == 1)) {
+        } else if (fdX == 1 && fdY == 1) {
             return new ArrowSE();
-        } else if ((fdX == -1) && (fdY == 1)) {
+        } else if (fdX == -1 && fdY == 1) {
             return new ArrowSW();
-        } else if ((fdX == -1) && (fdY == -1)) {
+        } else if (fdX == -1 && fdY == -1) {
             return new ArrowNW();
-        } else if ((fdX == 1) && (fdY == -1)) {
+        } else if (fdX == 1 && fdY == -1) {
             return new ArrowNE();
         } else {
             return null;
@@ -92,7 +92,7 @@ public abstract class Arrow extends MapObject {
     }
 
     // Constructors
-    protected Arrow(ObjectImage oi) {
+    protected Arrow(final ObjectImage oi) {
         super(oi, true, false);
     }
 
@@ -117,12 +117,12 @@ public abstract class Arrow extends MapObject {
     }
 
     @Override
-    public int getCustomProperty(int propID) {
+    public int getCustomProperty(final int propID) {
         return MapObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
-    public void setCustomProperty(int propID, int value) {
+    public void setCustomProperty(final int propID, final int value) {
         // Do nothing
     }
 }

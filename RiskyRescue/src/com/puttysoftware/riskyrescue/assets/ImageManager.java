@@ -25,18 +25,18 @@ public class ImageManager {
 
     public static BufferedImageIcon getObjectImage(final int dungeonIndex,
             final ObjectImage oi) {
-        String name = ObjectImageNames.getName(oi);
+        final String name = ObjectImageNames.getName(oi);
         return ImageManager.getImage(name, "objects/dungeon" + dungeonIndex);
     }
 
     public static BufferedImageIcon getMonsterImage(final int dungeonIndex,
             final int nameIndex) {
-        String name = MonsterNames.getImageName(dungeonIndex, nameIndex);
+        final String name = MonsterNames.getImageName(dungeonIndex, nameIndex);
         return ImageManager.getImage(name, "monsters/dungeon" + dungeonIndex);
     }
 
     public static BufferedImageIcon getPlayerImage(final PCImage pci) {
-        String name = pci.getImageName();
+        final String name = pci.getImageName();
         return ImageManager.getImage(name, "players");
     }
 
@@ -47,14 +47,14 @@ public class ImageManager {
     }
 
     public static BufferedImageIcon getStatImage(final StatImage si) {
-        String name = StatImageNames.getName(si);
+        final String name = StatImageNames.getName(si);
         return ImageManager.getImage(name, "stats");
     }
 
     static BufferedImageIcon getUncachedImage(final String name,
             final String cat) {
         try {
-            URL url = ImageManager.LOAD_CLASS
+            final URL url = ImageManager.LOAD_CLASS
                     .getResource(ImageManager.INTERNAL_LOAD_PATH + cat + "/"
                             + name + ".png");
             final BufferedImage image = ImageIO.read(url);

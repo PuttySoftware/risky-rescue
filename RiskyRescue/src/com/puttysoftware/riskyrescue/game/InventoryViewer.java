@@ -17,9 +17,9 @@ public final class InventoryViewer {
         } else {
             title = "Equipment";
         }
-        PartyMember member = PartyManager.getParty().getLeader();
+        final PartyMember member = PartyManager.getParty().getLeader();
         if (member != null) {
-            String[] equipString = member.getItems()
+            final String[] equipString = member.getItems()
                     .generateEquipmentStringArray();
             CommonDialogs.showInputDialog("Equipment", title, equipString,
                     equipString[0]);

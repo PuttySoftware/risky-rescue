@@ -23,7 +23,7 @@ public class ArmorShop extends MapObject {
         super(ObjectImage.ARMOR, false, false);
         // Create post-move script
         this.postMove = new InternalScript();
-        InternalScriptEntry act0post = new InternalScriptEntry();
+        final InternalScriptEntry act0post = new InternalScriptEntry();
         act0post.setActionCode(InternalScriptActionCode.SHOP);
         act0post.addActionArg(
                 new InternalScriptEntryArgument(ShopTypes.SHOP_TYPE_ARMOR));
@@ -44,12 +44,12 @@ public class ArmorShop extends MapObject {
     }
 
     @Override
-    public int getCustomProperty(int propID) {
+    public int getCustomProperty(final int propID) {
         return MapObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
-    public void setCustomProperty(int propID, int value) {
+    public void setCustomProperty(final int propID, final int value) {
         // Do nothing
     }
 

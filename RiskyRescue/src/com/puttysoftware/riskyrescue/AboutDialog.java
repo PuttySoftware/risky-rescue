@@ -28,13 +28,13 @@ public class AboutDialog implements AboutHandler {
     private JFrame aboutFrame;
 
     // Constructors
-    AboutDialog(String ver) {
-        setUpGUI(ver);
+    AboutDialog(final String ver) {
+        this.setUpGUI(ver);
     }
 
     // Methods
     @Override
-    public void handleAbout(AboutEvent inE) {
+    public void handleAbout(final AboutEvent inE) {
         this.aboutFrame.setVisible(true);
     }
 
@@ -46,23 +46,23 @@ public class AboutDialog implements AboutHandler {
         this.aboutFrame.setVisible(false);
     }
 
-    private void setUpGUI(String ver) {
+    private void setUpGUI(final String ver) {
         String suffix;
         if (Support.inDebugMode()) {
             suffix = " (DEBUG)";
         } else {
             suffix = "";
         }
-        EventHandler handler = new EventHandler();
+        final EventHandler handler = new EventHandler();
         this.aboutFrame = new JFrame("About RiskyRescue" + suffix);
         final Image iconlogo = LogoManager.getIconLogo();
         this.aboutFrame.setIconImage(iconlogo);
-        Container aboutPane = new Container();
-        Container textPane = new Container();
-        Container buttonPane = new Container();
-        Container logoPane = new Container();
-        JButton aboutOK = new JButton("OK");
-        JLabel miniLabel = new JLabel("", LogoManager.getMiniatureLogo(),
+        final Container aboutPane = new Container();
+        final Container textPane = new Container();
+        final Container buttonPane = new Container();
+        final Container logoPane = new Container();
+        final JButton aboutOK = new JButton("OK");
+        final JLabel miniLabel = new JLabel("", LogoManager.getMiniatureLogo(),
                 SwingConstants.LEFT);
         aboutOK.setDefaultCapable(true);
         this.aboutFrame.getRootPane().setDefaultButton(aboutOK);
@@ -97,12 +97,12 @@ public class AboutDialog implements AboutHandler {
         @Override
         public void actionPerformed(final ActionEvent e) {
             try {
-                AboutDialog ad = AboutDialog.this;
+                final AboutDialog ad = AboutDialog.this;
                 final String cmd = e.getActionCommand();
                 if (cmd.equals("OK")) {
                     ad.hideAboutDialog();
                 }
-            } catch (Exception ex) {
+            } catch (final Exception ex) {
                 RiskyRescue.logError(ex);
             }
         }

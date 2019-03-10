@@ -39,7 +39,7 @@ class StatGUI {
     }
 
     void updateStats() {
-        PartyMember pc = PartyManager.getParty().getLeader();
+        final PartyMember pc = PartyManager.getParty().getLeader();
         this.hpLabel.setText(pc.getHPString());
         this.mpLabel.setText(pc.getMPString());
         this.goldLabel.setText(Integer.toString(pc.getGold()));
@@ -69,23 +69,25 @@ class StatGUI {
     }
 
     void updateImages() {
-        BufferedImageIcon hpImage = ImageManager.getStatImage(StatImage.HEALTH);
+        final BufferedImageIcon hpImage = ImageManager
+                .getStatImage(StatImage.HEALTH);
         this.hpLabel.setIcon(hpImage);
-        BufferedImageIcon mpImage = ImageManager.getStatImage(StatImage.MAGIC);
+        final BufferedImageIcon mpImage = ImageManager
+                .getStatImage(StatImage.MAGIC);
         this.mpLabel.setIcon(mpImage);
-        BufferedImageIcon goldImage = ImageManager
+        final BufferedImageIcon goldImage = ImageManager
                 .getStatImage(StatImage.MONEY);
         this.goldLabel.setIcon(goldImage);
-        BufferedImageIcon attackImage = ImageManager
+        final BufferedImageIcon attackImage = ImageManager
                 .getStatImage(StatImage.MELEE_ATTACK);
         this.attackLabel.setIcon(attackImage);
-        BufferedImageIcon defenseImage = ImageManager
+        final BufferedImageIcon defenseImage = ImageManager
                 .getStatImage(StatImage.DEFENSE);
         this.defenseLabel.setIcon(defenseImage);
-        BufferedImageIcon xpImage = ImageManager
+        final BufferedImageIcon xpImage = ImageManager
                 .getStatImage(StatImage.EXPERIENCE);
         this.xpLabel.setIcon(xpImage);
-        BufferedImageIcon dlImage = ImageManager
+        final BufferedImageIcon dlImage = ImageManager
                 .getStatImage(StatImage.DUNGEON_LEVEL);
         this.dlLabel.setIcon(dlImage);
     }

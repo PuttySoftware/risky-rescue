@@ -14,31 +14,31 @@ public class EquipmentSlotConstants {
     private static String[] ARMOR_SLOT_NAMES = null;
 
     synchronized static String[] getSlotNames() {
-        if (SLOT_NAMES == null) {
-            SLOT_NAMES = new String[MAX_SLOTS];
-            SLOT_NAMES[0] = "Main Hand";
-            SLOT_NAMES[1] = "Off Hand";
+        if (EquipmentSlotConstants.SLOT_NAMES == null) {
+            EquipmentSlotConstants.SLOT_NAMES = new String[EquipmentSlotConstants.MAX_SLOTS];
+            EquipmentSlotConstants.SLOT_NAMES[0] = "Main Hand";
+            EquipmentSlotConstants.SLOT_NAMES[1] = "Off Hand";
         }
-        return SLOT_NAMES;
+        return EquipmentSlotConstants.SLOT_NAMES;
     }
 
     synchronized static String[] getArmorSlotNames() {
-        if (ARMOR_SLOT_NAMES == null) {
-            if (SLOT_NAMES == null) {
+        if (EquipmentSlotConstants.ARMOR_SLOT_NAMES == null) {
+            if (EquipmentSlotConstants.SLOT_NAMES == null) {
                 EquipmentSlotConstants.getSlotNames();
             }
-            String[] temp = SLOT_NAMES;
-            String[] temp2 = new String[temp.length - 1];
+            final String[] temp = EquipmentSlotConstants.SLOT_NAMES;
+            final String[] temp2 = new String[temp.length - 1];
             int offset = 0;
             for (int x = 0; x < temp.length; x++) {
-                if (x == SLOT_MAINHAND) {
+                if (x == EquipmentSlotConstants.SLOT_MAINHAND) {
                     offset++;
                 } else {
                     temp2[x - offset] = temp[x];
                 }
             }
-            ARMOR_SLOT_NAMES = temp2;
+            EquipmentSlotConstants.ARMOR_SLOT_NAMES = temp2;
         }
-        return ARMOR_SLOT_NAMES;
+        return EquipmentSlotConstants.ARMOR_SLOT_NAMES;
     }
 }

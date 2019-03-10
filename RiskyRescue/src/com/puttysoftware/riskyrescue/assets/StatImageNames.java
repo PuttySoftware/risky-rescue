@@ -12,7 +12,7 @@ public class StatImageNames {
     private static String[] CACHE;
     private static boolean CACHE_CREATED = false;
 
-    public static String getName(StatImage si) {
+    public static String getName(final StatImage si) {
         if (!StatImageNames.CACHE_CREATED) {
             StatImageNames.CACHE = ImageDataManager.getStatImageData();
             StatImageNames.CACHE_CREATED = true;

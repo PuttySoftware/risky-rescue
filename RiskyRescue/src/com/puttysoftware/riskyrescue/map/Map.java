@@ -21,7 +21,7 @@ import com.puttysoftware.xio.XDataWriter;
 
 public class Map implements MapConstants {
     // Properties
-    private LayeredTower[] mapData;
+    private final LayeredTower[] mapData;
     private int startW;
     private int locW;
     private int saveW;
@@ -50,7 +50,7 @@ public class Map implements MapConstants {
 
     // Methods
     public Map createMaps() {
-        File mapDir = new File(this.mapBasePath);
+        final File mapDir = new File(this.mapBasePath);
         if (!mapDir.exists()) {
             mapDir.mkdirs();
         }
@@ -62,22 +62,22 @@ public class Map implements MapConstants {
     }
 
     public static Map getTemporaryBattleCopy() {
-        Map temp = new Map();
+        final Map temp = new Map();
         temp.addLevel(Support.getBattleMapSize(), Support.getBattleMapSize(),
                 Support.getBattleMapFloorSize());
         temp.fillLevel(new Tile(), new Empty());
         return temp;
     }
 
-    public void rebuildGSA(int mod) {
+    public void rebuildGSA(final int mod) {
         this.mapData[this.activeLevel].rebuildGSA(mod);
     }
 
-    public void setXPrefixHandler(PrefixIO xph) {
+    public void setXPrefixHandler(final PrefixIO xph) {
         this.xmlPrefixHandler = xph;
     }
 
-    public void setXSuffixHandler(SuffixIO xsh) {
+    public void setXSuffixHandler(final SuffixIO xsh) {
         this.xmlSuffixHandler = xsh;
     }
 
@@ -85,21 +85,21 @@ public class Map implements MapConstants {
         return this.mapData[this.activeLevel].getRegionSize();
     }
 
-    public boolean isLevelOffsetValid(int level) {
-        return (this.activeLevel + level) >= 0;
+    public boolean isLevelOffsetValid(final int level) {
+        return this.activeLevel + level >= 0;
     }
 
-    public void switchLevelOffset(int level) {
+    public void switchLevelOffset(final int level) {
         this.switchLevelInternal(this.activeLevel + level);
     }
 
-    private void switchLevelInternal(int level) {
+    private void switchLevelInternal(final int level) {
         if (this.activeLevel != level) {
             this.activeLevel = level;
         }
     }
 
-    public boolean doesLevelExistOffset(int level) {
+    public boolean doesLevelExistOffset(final int level) {
         if (this.activeLevel + level < 0) {
             return false;
         } else if (this.activeLevel + level >= this.levelCount) {
@@ -113,7 +113,7 @@ public class Map implements MapConstants {
         this.mapData[this.activeLevel].resetVisibleSquares();
     }
 
-    public void updateVisibleSquares(int xp, int yp, int zp) {
+    public void updateVisibleSquares(final int xp, final int yp, final int zp) {
         this.mapData[this.activeLevel].updateVisibleSquares(xp, yp, zp);
     }
 
@@ -178,15 +178,15 @@ public class Map implements MapConstants {
         return this.mapData[this.activeLevel].getColumns();
     }
 
-    public boolean hasNote(int x, int y, int z) {
+    public boolean hasNote(final int x, final int y, final int z) {
         return this.mapData[this.activeLevel].hasNote(y, x, z);
     }
 
-    public void createNote(int x, int y, int z) {
+    public void createNote(final int x, final int y, final int z) {
         this.mapData[this.activeLevel].createNote(y, x, z);
     }
 
-    public MapNote getNote(int x, int y, int z) {
+    public MapNote getNote(final int x, final int y, final int z) {
         return this.mapData[this.activeLevel].getNote(y, x, z);
     }
 
@@ -195,7 +195,8 @@ public class Map implements MapConstants {
         this.mapData[this.activeLevel].findAllObjectPairsAndSwap(o1, o2);
     }
 
-    public boolean isSquareVisible(int x1, int y1, int x2, int y2) {
+    public boolean isSquareVisible(final int x1, final int y1, final int x2,
+            final int y2) {
         return this.mapData[this.activeLevel].isSquareVisible(x1, y1, x2, y2);
     }
 
@@ -222,7 +223,7 @@ public class Map implements MapConstants {
         this.mapData[this.activeLevel].offsetPlayerFloor(newPlayerFloor);
     }
 
-    private void fillLevel(MapObject bottom, MapObject top) {
+    private void fillLevel(final MapObject bottom, final MapObject top) {
         this.mapData[this.activeLevel].fill(bottom, top);
     }
 
@@ -232,12 +233,13 @@ public class Map implements MapConstants {
                 pass1FillBottom, pass1FillTop);
     }
 
-    public ArrayList<InternalScriptArea> getScriptAreasAtPoint(Point p, int z) {
+    public ArrayList<InternalScriptArea> getScriptAreasAtPoint(final Point p,
+            final int z) {
         return this.mapData[this.activeLevel].getScriptAreasAtPoint(p, z);
     }
 
     public Map readMapX() throws IOException {
-        Map m = new Map();
+        final Map m = new Map();
         // Attach handlers
         m.setXPrefixHandler(this.xmlPrefixHandler);
         m.setXSuffixHandler(this.xmlSuffixHandler);
@@ -247,14 +249,14 @@ public class Map implements MapConstants {
                 this.mapBasePath + File.separator + "metafile.xml", "map")) {
             // Read metafile
             version = m.readMapMetafileX(metaReader);
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             throw ioe;
         }
         // Create data reader
         try (XDataReader dataReader = m.getLevelReaderX()) {
             // Read data
             m.readMapLevelX(dataReader, version);
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             throw ioe;
         }
         return m;
@@ -265,12 +267,12 @@ public class Map implements MapConstants {
                 + this.activeLevel + ".xml", "level");
     }
 
-    private int readMapMetafileX(XDataReader reader) throws IOException {
+    private int readMapMetafileX(final XDataReader reader) throws IOException {
         int ver = FormatConstants.LATEST_SCENARIO_FORMAT;
         if (this.xmlPrefixHandler != null) {
             ver = this.xmlPrefixHandler.readPrefix(reader);
         }
-        int levels = reader.readInt();
+        final int levels = reader.readInt();
         this.levelCount = levels;
         this.startW = reader.readInt();
         this.locW = reader.readInt();
@@ -282,8 +284,8 @@ public class Map implements MapConstants {
         return ver;
     }
 
-    private void readMapLevelX(XDataReader reader, int formatVersion)
-            throws IOException {
+    private void readMapLevelX(final XDataReader reader,
+            final int formatVersion) throws IOException {
         if (formatVersion == FormatConstants.SCENARIO_FORMAT_1) {
             this.mapData[this.activeLevel] = LayeredTower
                     .readXLayeredTower(reader, formatVersion);
@@ -298,14 +300,14 @@ public class Map implements MapConstants {
                 this.mapBasePath + File.separator + "metafile.xml", "map")) {
             // Write metafile
             this.writeMapMetafileX(metaWriter);
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             throw ioe;
         }
         // Create data writer
         try (XDataWriter dataWriter = this.getLevelWriterX()) {
             // Write data
             this.writeMapLevelX(dataWriter);
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             throw ioe;
         }
     }
@@ -315,7 +317,8 @@ public class Map implements MapConstants {
                 + this.activeLevel + ".xml", "level");
     }
 
-    private void writeMapMetafileX(XDataWriter writer) throws IOException {
+    private void writeMapMetafileX(final XDataWriter writer)
+            throws IOException {
         if (this.xmlPrefixHandler != null) {
             this.xmlPrefixHandler.writePrefix(writer);
         }
@@ -329,7 +332,7 @@ public class Map implements MapConstants {
         }
     }
 
-    private void writeMapLevelX(XDataWriter writer) throws IOException {
+    private void writeMapLevelX(final XDataWriter writer) throws IOException {
         // Write the level
         this.mapData[this.activeLevel].writeXLayeredTower(writer);
     }

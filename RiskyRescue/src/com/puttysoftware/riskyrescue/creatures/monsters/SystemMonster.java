@@ -30,11 +30,11 @@ public class SystemMonster extends Creature {
     public SystemMonster() {
         super();
         this.setAI(SystemMonster.getInitialAI());
-        SpellBook spells = new SystemMonsterSpellBook();
+        final SpellBook spells = new SystemMonsterSpellBook();
         spells.learnAllSpells();
         this.setSpellBook(spells);
         this.image = this.getInitialImage();
-        int newLevel = PartyManager.getDungeonLevel();
+        final int newLevel = PartyManager.getDungeonLevel();
         this.setLevel(newLevel);
         this.setVitality(this.getInitialVitality());
         this.setCurrentHP(this.getMaximumHP());
@@ -64,7 +64,7 @@ public class SystemMonster extends Creature {
         return null;
     }
 
-    private final void setType(String newType) {
+    private final void setType(final String newType) {
         this.type = newType;
     }
 
@@ -73,10 +73,10 @@ public class SystemMonster extends Creature {
         if (this.getLevel() == 0) {
             return null;
         } else {
-            int dungeonIndex = PartyManager.getMapLevel();
+            final int dungeonIndex = PartyManager.getMapLevel();
             final String[] types = MonsterNames.getAllNames(dungeonIndex);
             final RandomRange r = new RandomRange(0, types.length - 1);
-            int nameIndex = r.generate();
+            final int nameIndex = r.generate();
             this.setType(types[nameIndex]);
             return ImageManager.getMonsterImage(dungeonIndex, nameIndex);
         }
@@ -94,13 +94,12 @@ public class SystemMonster extends Creature {
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = super.hashCode();
-        return prime * result
-                + ((this.type == null) ? 0 : this.type.hashCode());
+        final int result = super.hashCode();
+        return prime * result + (this.type == null ? 0 : this.type.hashCode());
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -110,7 +109,7 @@ public class SystemMonster extends Creature {
         if (!(obj instanceof SystemMonster)) {
             return false;
         }
-        SystemMonster other = (SystemMonster) obj;
+        final SystemMonster other = (SystemMonster) obj;
         if (this.type == null) {
             if (other.type != null) {
                 return false;
@@ -146,9 +145,9 @@ public class SystemMonster extends Creature {
         maxvar = (int) (this.getLevel()
                 * SystemMonster.MAXIMUM_EXPERIENCE_RANDOM_VARIANCE);
         final RandomRange r = new RandomRange(minvar, maxvar);
-        long expbase = PartyManager.getParty().getPartyMaxToNextLevel();
-        long factor = SystemMonster.getBattlesToNextLevel();
-        return (expbase / factor) + r.generate();
+        final long expbase = PartyManager.getParty().getPartyMaxToNextLevel();
+        final long factor = SystemMonster.getBattlesToNextLevel();
+        return expbase / factor + r.generate();
     }
 
     private int getToughness() {
@@ -157,9 +156,10 @@ public class SystemMonster extends Creature {
     }
 
     private int getInitialGold() {
-        int min = 0;
-        int max = this.getToughness() * SystemMonster.GOLD_TOUGHNESS_MULTIPLIER;
-        RandomRange r = new RandomRange(min, max);
+        final int min = 0;
+        final int max = this.getToughness()
+                * SystemMonster.GOLD_TOUGHNESS_MULTIPLIER;
+        final RandomRange r = new RandomRange(min, max);
         return r.generate();
     }
 

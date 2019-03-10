@@ -26,9 +26,9 @@ import com.puttysoftware.xio.XDataWriter;
 
 class LayeredTower {
     // Properties
-    private LowLevelDataStore data;
+    private final LowLevelDataStore data;
     private final FlagStorage visionData;
-    private LowLevelNoteDataStore noteData;
+    private final LowLevelNoteDataStore noteData;
     private final int[] playerLocationData;
     private final int[] savedPlayerLocationData;
     private boolean horizontalWraparoundEnabled;
@@ -38,7 +38,7 @@ class LayeredTower {
     private int visionMode;
     private int visionModeExploreRadius;
     private final ArrayList<InternalScriptArea> scriptAreas;
-    private int regionSize;
+    private final int regionSize;
 
     // Constructors
     LayeredTower(final int rows, final int cols, final int floors) {
@@ -62,19 +62,19 @@ class LayeredTower {
     }
 
     // Methods
-    final void rebuildGSA(int mod) {
+    final void rebuildGSA(final int mod) {
         // Rebuild and add global script area
-        InternalScriptArea globalScriptArea = new InternalScriptArea();
+        final InternalScriptArea globalScriptArea = new InternalScriptArea();
         globalScriptArea.setUpperLeft(new Point(0, 0));
         globalScriptArea.setLowerRight(
                 new Point(this.getRows() - 1, this.getColumns() - 1));
-        InternalScriptEntry act0 = new InternalScriptEntry();
+        final InternalScriptEntry act0 = new InternalScriptEntry();
         act0.setActionCode(InternalScriptActionCode.RANDOM_CHANCE);
-        act0.addActionArg(new InternalScriptEntryArgument(
-                Math.max(500 + (mod * 250), 0)));
+        act0.addActionArg(
+                new InternalScriptEntryArgument(Math.max(500 + mod * 250, 0)));
         act0.finalizeActionArgs();
         globalScriptArea.addAction(act0);
-        InternalScriptEntry act1 = new InternalScriptEntry();
+        final InternalScriptEntry act1 = new InternalScriptEntry();
         act1.setActionCode(InternalScriptActionCode.BATTLE);
         globalScriptArea.addAction(act1);
         globalScriptArea.finalizeActions();
@@ -127,15 +127,15 @@ class LayeredTower {
         return this.data.getShape()[2];
     }
 
-    boolean hasNote(int x, int y, int z) {
+    boolean hasNote(final int x, final int y, final int z) {
         return this.noteData.getNote(y, x, z) != null;
     }
 
-    void createNote(int x, int y, int z) {
+    void createNote(final int x, final int y, final int z) {
         this.noteData.setNote(new MapNote(), y, x, z);
     }
 
-    MapNote getNote(int x, int y, int z) {
+    MapNote getNote(final int x, final int y, final int z) {
         return this.noteData.getNote(y, x, z);
     }
 
@@ -144,7 +144,7 @@ class LayeredTower {
         for (x = 0; x < this.getColumns(); x++) {
             for (y = 0; y < this.getRows(); y++) {
                 for (z = 0; z < this.getFloors(); z++) {
-                    MapObject mo = this.getCell(y, x, z,
+                    final MapObject mo = this.getCell(y, x, z,
                             MapConstants.LAYER_OBJECT);
                     if (mo != null) {
                         if (mo.getName().equals(o1.getName())) {
@@ -170,7 +170,7 @@ class LayeredTower {
         }
     }
 
-    void updateVisibleSquares(int xp, int yp, int zp) {
+    void updateVisibleSquares(final int xp, final int yp, final int zp) {
         if ((this.visionMode
                 | VisionModeConstants.VISION_MODE_EXPLORE) == this.visionMode) {
             for (int x = xp - this.visionModeExploreRadius; x <= xp
@@ -191,7 +191,7 @@ class LayeredTower {
                     boolean alreadyVisible = false;
                     try {
                         alreadyVisible = this.visionData.getCell(fx, fy, zp);
-                    } catch (ArrayIndexOutOfBoundsException aioobe) {
+                    } catch (final ArrayIndexOutOfBoundsException aioobe) {
                         // Ignore
                     }
                     if (!alreadyVisible) {
@@ -200,14 +200,14 @@ class LayeredTower {
                             if (this.isSquareVisibleLOS(x, y, xp, yp)) {
                                 try {
                                     this.visionData.setCell(true, fx, fy, zp);
-                                } catch (ArrayIndexOutOfBoundsException aioobe) {
+                                } catch (final ArrayIndexOutOfBoundsException aioobe) {
                                     // Ignore
                                 }
                             }
                         } else {
                             try {
                                 this.visionData.setCell(true, fx, fy, zp);
-                            } catch (ArrayIndexOutOfBoundsException aioobe) {
+                            } catch (final ArrayIndexOutOfBoundsException aioobe) {
                                 // Ignore
                             }
                         }
@@ -217,7 +217,8 @@ class LayeredTower {
         }
     }
 
-    boolean isSquareVisible(int x1, int y1, int x2, int y2) {
+    boolean isSquareVisible(final int x1, final int y1, final int x2,
+            final int y2) {
         if (this.visionMode == VisionModeConstants.VISION_MODE_NONE) {
             return LayeredTower.isSquareVisibleNone();
         } else {
@@ -250,7 +251,8 @@ class LayeredTower {
         }
     }
 
-    private boolean areCoordsInBounds(int x1, int y1, int x2, int y2) {
+    private boolean areCoordsInBounds(final int x1, final int y1, final int x2,
+            final int y2) {
         int fx1, fx2, fy1, fy2;
         if (this.isHorizontalWraparoundEnabled()) {
             fx1 = this.normalizeColumn(x1);
@@ -275,8 +277,8 @@ class LayeredTower {
         return true;
     }
 
-    private boolean isSquareVisibleExplore(int x2, int y2) {
-        int zLoc = this.getPlayerFloor();
+    private boolean isSquareVisibleExplore(final int x2, final int y2) {
+        final int zLoc = this.getPlayerFloor();
         int fx2, fy2;
         if (this.isHorizontalWraparoundEnabled()) {
             fx2 = this.normalizeColumn(x2);
@@ -290,7 +292,7 @@ class LayeredTower {
         }
         try {
             return this.visionData.getCell(fx2, fy2, zLoc);
-        } catch (ArrayIndexOutOfBoundsException aioobe) {
+        } catch (final ArrayIndexOutOfBoundsException aioobe) {
             return true;
         }
     }
@@ -302,9 +304,9 @@ class LayeredTower {
         fx2 = x2;
         fy1 = y1;
         fy2 = y2;
-        int zLoc = this.getPlayerFloor();
-        int dx = Math.abs(fx2 - fx1);
-        int dy = Math.abs(fy2 - fy1);
+        final int zLoc = this.getPlayerFloor();
+        final int dx = Math.abs(fx2 - fx1);
+        final int dy = Math.abs(fy2 - fy1);
         int sx, sy;
         if (fx1 < fx2) {
             sx = 1;
@@ -324,7 +326,7 @@ class LayeredTower {
             }
             // Does object block LOS?
             try {
-                MapObject obj = this.getCell(fx1, fy1, zLoc,
+                final MapObject obj = this.getCell(fx1, fy1, zLoc,
                         MapConstants.LAYER_OBJECT);
                 if (obj.isSightBlocking()) {
                     // This object blocks LOS
@@ -332,7 +334,7 @@ class LayeredTower {
                         return false;
                     }
                 }
-            } catch (ArrayIndexOutOfBoundsException aioobe) {
+            } catch (final ArrayIndexOutOfBoundsException aioobe) {
                 // Sealing Walls block LOS
                 return false;
             }
@@ -390,7 +392,7 @@ class LayeredTower {
         this.playerLocationData[2] += newPlayerFloor;
     }
 
-    void fill(MapObject bottom, MapObject top) {
+    void fill(final MapObject bottom, final MapObject top) {
         int y, x, z, e;
         for (x = 0; x < this.getColumns(); x++) {
             for (y = 0; y < this.getRows(); y++) {
@@ -407,7 +409,8 @@ class LayeredTower {
         }
     }
 
-    private void fillFloor(MapObject bottom, MapObject top, int z) {
+    private void fillFloor(final MapObject bottom, final MapObject top,
+            final int z) {
         int x, y, e;
         for (x = 0; x < this.getColumns(); x++) {
             for (y = 0; y < this.getRows(); y++) {
@@ -438,10 +441,10 @@ class LayeredTower {
         // Pass 1
         this.fillFloor(pass1FillBottom, pass1FillTop, z);
         // Pass 2
-        int columns = this.getColumns();
-        int rows = this.getRows();
+        final int columns = this.getColumns();
+        final int rows = this.getRows();
         for (e = 0; e < MapConstants.LAYER_COUNT; e++) {
-            MapObject[] objectsWithoutPrerequisites = objects
+            final MapObject[] objectsWithoutPrerequisites = objects
                     .getAllNotRequired(e);
             if (objectsWithoutPrerequisites != null) {
                 r = new RandomRange(0, objectsWithoutPrerequisites.length - 1);
@@ -450,10 +453,11 @@ class LayeredTower {
                         if (e == MapConstants.LAYER_GROUND) {
                             for (x = 0; x < columns; x += this.regionSize) {
                                 for (y = 0; y < rows; y += this.regionSize) {
-                                    MapObject currObj = objectsWithoutPrerequisites[r
+                                    final MapObject currObj = objectsWithoutPrerequisites[r
                                             .generate()];
-                                    boolean okay = currObj.shouldGenerateObject(
-                                            map, y, x, z, w, e);
+                                    final boolean okay = currObj
+                                            .shouldGenerateObject(map, y, x, z,
+                                                    w, e);
                                     if (okay) {
                                         for (u = 0; u < this.regionSize; u++) {
                                             for (v = 0; v < this.regionSize; v++) {
@@ -467,10 +471,11 @@ class LayeredTower {
                         } else {
                             for (x = 0; x < columns; x++) {
                                 for (y = 0; y < rows; y++) {
-                                    MapObject currObj = objectsWithoutPrerequisites[r
+                                    final MapObject currObj = objectsWithoutPrerequisites[r
                                             .generate()];
-                                    boolean okay = currObj.shouldGenerateObject(
-                                            map, y, x, z, w, e);
+                                    final boolean okay = currObj
+                                            .shouldGenerateObject(map, y, x, z,
+                                                    w, e);
                                     if (okay) {
                                         this.setCell(currObj, x, y, z, e);
                                     }
@@ -481,15 +486,16 @@ class LayeredTower {
                 }
             }
         }
-        RandomRange row = new RandomRange(0, this.getRows() - 1);
-        RandomRange column = new RandomRange(0, this.getColumns() - 1);
+        final RandomRange row = new RandomRange(0, this.getRows() - 1);
+        final RandomRange column = new RandomRange(0, this.getColumns() - 1);
         // Pass 4
         for (int layer = 0; layer < MapConstants.LAYER_COUNT; layer++) {
-            MapObject[] requiredObjects = objects.getAllRequired(layer, w);
+            final MapObject[] requiredObjects = objects.getAllRequired(layer,
+                    w);
             if (requiredObjects != null) {
                 int randomColumn = -1, randomRow = -1;
                 for (x = 0; x < requiredObjects.length; x++) {
-                    MapObject currObj = requiredObjects[x];
+                    final MapObject currObj = requiredObjects[x];
                     int min = currObj.getMinimumRequiredQuantity(map, w);
                     int max = currObj.getMaximumRequiredQuantity(map, w);
                     if (min == RandomGenerationRule.NO_LIMIT) {
@@ -508,8 +514,8 @@ class LayeredTower {
                             max = min;
                         }
                     }
-                    RandomRange howMany = new RandomRange(min, max);
-                    int generateHowMany = howMany.generate();
+                    final RandomRange howMany = new RandomRange(min, max);
+                    final int generateHowMany = howMany.generate();
                     for (y = 0; y < generateHowMany; y++) {
                         randomRow = row.generate();
                         randomColumn = column.generate();
@@ -538,8 +544,8 @@ class LayeredTower {
         }
         // Add buddy
         if (w == Map.getLastLevelNumber()) {
-            MapObject currObj = PartyManager.getParty().getBuddy();
-            int layer = currObj.getLayer();
+            final MapObject currObj = PartyManager.getParty().getBuddy();
+            final int layer = currObj.getLayer();
             int randomRow = row.generate();
             int randomColumn = column.generate();
             if (currObj.shouldGenerateObject(map, randomRow, randomColumn, z, w,
@@ -612,9 +618,10 @@ class LayeredTower {
         return this.verticalWraparoundEnabled;
     }
 
-    ArrayList<InternalScriptArea> getScriptAreasAtPoint(Point p, int z) {
-        ArrayList<InternalScriptArea> retVal = new ArrayList<>();
-        for (InternalScriptArea isa : this.scriptAreas) {
+    ArrayList<InternalScriptArea> getScriptAreasAtPoint(final Point p,
+            final int z) {
+        final ArrayList<InternalScriptArea> retVal = new ArrayList<>();
+        for (final InternalScriptArea isa : this.scriptAreas) {
             if (p.x >= isa.getUpperLeft().x && p.x <= isa.getLowerRight().x
                     && p.y >= isa.getUpperLeft().y
                     && p.y <= isa.getLowerRight().y
@@ -625,7 +632,7 @@ class LayeredTower {
         return retVal;
     }
 
-    void writeXLayeredTower(XDataWriter writer) throws IOException {
+    void writeXLayeredTower(final XDataWriter writer) throws IOException {
         int y, x, z, e;
         writer.writeInt(this.getColumns());
         writer.writeInt(this.getRows());
@@ -637,7 +644,7 @@ class LayeredTower {
                         this.getCell(y, x, z, e).writeMapObject(writer);
                     }
                     writer.writeBoolean(this.visionData.getCell(y, x, z));
-                    boolean hasNote = this.hasNote(x, y, z);
+                    final boolean hasNote = this.hasNote(x, y, z);
                     writer.writeBoolean(hasNote);
                     if (hasNote) {
                         this.noteData.getNote(y, x, z).writeNote(writer);
@@ -656,14 +663,14 @@ class LayeredTower {
         writer.writeInt(this.visionModeExploreRadius);
     }
 
-    static LayeredTower readXLayeredTower(XDataReader reader, int ver)
-            throws IOException {
-        MapObjectList objects = new MapObjectList();
+    static LayeredTower readXLayeredTower(final XDataReader reader,
+            final int ver) throws IOException {
+        final MapObjectList objects = new MapObjectList();
         int y, x, z, e, mapSizeX, mapSizeY, mapSizeZ;
         mapSizeX = reader.readInt();
         mapSizeY = reader.readInt();
         mapSizeZ = reader.readInt();
-        LayeredTower lt = new LayeredTower(mapSizeX, mapSizeY, mapSizeZ);
+        final LayeredTower lt = new LayeredTower(mapSizeX, mapSizeY, mapSizeZ);
         for (x = 0; x < lt.getColumns(); x++) {
             for (y = 0; y < lt.getRows(); y++) {
                 for (z = 0; z < lt.getFloors(); z++) {
@@ -675,7 +682,7 @@ class LayeredTower {
                         }
                     }
                     lt.visionData.setCell(reader.readBoolean(), y, x, z);
-                    boolean hasNote = reader.readBoolean();
+                    final boolean hasNote = reader.readBoolean();
                     if (hasNote) {
                         lt.noteData.setNote(MapNote.readNote(reader), y, x, z);
                     }

@@ -5,9 +5,9 @@
  */
 package com.puttysoftware.riskyrescue.map.objects;
 
-import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.RiskyRescue;
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.map.Map;
 import com.puttysoftware.riskyrescue.map.MapConstants;
@@ -24,13 +24,13 @@ public class StairsDown extends MapObject {
     public StairsDown() {
         super(ObjectImage.DOWN, false, false);
         // Create post-move script
-        InternalScript scpt = new InternalScript();
-        InternalScriptEntry entry1 = new InternalScriptEntry();
+        final InternalScript scpt = new InternalScript();
+        final InternalScriptEntry entry1 = new InternalScriptEntry();
         entry1.setActionCode(InternalScriptActionCode.RELATIVE_LEVEL_CHANGE);
         entry1.addActionArg(new InternalScriptEntryArgument(1));
         entry1.finalizeActionArgs();
         scpt.addAction(entry1);
-        InternalScriptEntry entry2 = new InternalScriptEntry();
+        final InternalScriptEntry entry2 = new InternalScriptEntry();
         entry2.setActionCode(InternalScriptActionCode.SOUND);
         entry2.addActionArg(
                 new InternalScriptEntryArgument(SoundConstants.DOWN));
@@ -74,12 +74,12 @@ public class StairsDown extends MapObject {
     }
 
     @Override
-    public int getCustomProperty(int propID) {
+    public int getCustomProperty(final int propID) {
         return MapObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
-    public void setCustomProperty(int propID, int value) {
+    public void setCustomProperty(final int propID, final int value) {
         // Do nothing
     }
 
@@ -89,7 +89,7 @@ public class StairsDown extends MapObject {
     }
 
     @Override
-    public boolean isRequired(int level) {
+    public boolean isRequired(final int level) {
         if (level == Map.getLastLevelNumber()) {
             return false;
         }
@@ -97,7 +97,7 @@ public class StairsDown extends MapObject {
     }
 
     @Override
-    public int getMinimumRequiredQuantity(Map map, int level) {
+    public int getMinimumRequiredQuantity(final Map map, final int level) {
         if (level == Map.getLastLevelNumber()) {
             return 0;
         }
@@ -105,7 +105,7 @@ public class StairsDown extends MapObject {
     }
 
     @Override
-    public int getMaximumRequiredQuantity(Map map, int level) {
+    public int getMaximumRequiredQuantity(final Map map, final int level) {
         if (level == Map.getLastLevelNumber()) {
             return 0;
         }

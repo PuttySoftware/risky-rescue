@@ -16,16 +16,16 @@ public class ImageComposer {
             final BufferedImageIcon... icons) {
         try {
             if (icons.length == 2) {
-                BufferedImageIcon icon1 = icons[0];
-                BufferedImageIcon icon2 = icons[1];
-                BufferedImageIcon result = new BufferedImageIcon(icon2);
+                final BufferedImageIcon icon1 = icons[0];
+                final BufferedImageIcon icon2 = icons[1];
+                final BufferedImageIcon result = new BufferedImageIcon(icon2);
                 if (icon1 != null && icon2 != null) {
                     if (icon1.getWidth() == icon2.getWidth()
                             && icon1.getHeight() == icon2.getHeight()) {
                         for (int x = 0; x < icon1.getWidth(); x++) {
                             for (int y = 0; y < icon1.getHeight(); y++) {
-                                int pixel = icon2.getRGB(x, y);
-                                Color c = new Color(pixel, true);
+                                final int pixel = icon2.getRGB(x, y);
+                                final Color c = new Color(pixel, true);
                                 if (c.getAlpha() == ImageComposer.TRANSPARENT) {
                                     result.setRGB(x, y, icon1.getRGB(x, y));
                                 }

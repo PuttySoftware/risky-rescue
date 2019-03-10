@@ -71,11 +71,12 @@ class GameGUI {
     public void redrawMap() {
         // Draw the map, if it is visible
         if (this.outputFrame.isVisible()) {
-            Application app = RiskyRescue.getApplication();
+            final Application app = RiskyRescue.getApplication();
             int x, y, u, v;
             int xFix, yFix;
             boolean visible;
-            Map m = RiskyRescue.getApplication().getScenarioManager().getMap();
+            final Map m = RiskyRescue.getApplication().getScenarioManager()
+                    .getMap();
             u = m.getPlayerLocationX();
             v = m.getPlayerLocationY();
             for (x = this.vwMgr.getViewingWindowLocationX(); x <= this.vwMgr
@@ -93,9 +94,9 @@ class GameGUI {
                                     MapConstants.LAYER_GROUND);
                             obj2 = m.getCell(y, x, m.getPlayerLocationZ(),
                                     MapConstants.LAYER_OBJECT);
-                            boolean hasNote = m.hasNote(y, x,
+                            final boolean hasNote = m.hasNote(y, x,
                                     m.getPlayerLocationZ());
-                            boolean isPlayer = (u == y && v == x);
+                            final boolean isPlayer = u == y && v == x;
                             if (hasNote) {
                                 if (isPlayer) {
                                     this.drawGrid.setImageCell(
@@ -158,7 +159,8 @@ class GameGUI {
     }
 
     public void resetViewingWindow() {
-        Map m = RiskyRescue.getApplication().getScenarioManager().getMap();
+        final Map m = RiskyRescue.getApplication().getScenarioManager()
+                .getMap();
         this.vwMgr.setViewingWindowLocationX(m.getPlayerLocationY()
                 - GameViewingWindowManager.getOffsetFactor());
         this.vwMgr.setViewingWindowLocationY(m.getPlayerLocationX()
@@ -180,7 +182,7 @@ class GameGUI {
     }
 
     public void showOutput(final int level) {
-        Application app = RiskyRescue.getApplication();
+        final Application app = RiskyRescue.getApplication();
         app.getMenuManager().setGameMenus();
         if (PreferencesManager
                 .getMusicEnabled(PreferencesManager.MUSIC_DUNGEON)) {
@@ -204,7 +206,7 @@ class GameGUI {
     }
 
     private void setUpGUI() {
-        EventHandler handler = new EventHandler();
+        final EventHandler handler = new EventHandler();
         this.borderPane = new Container();
         this.borderPane.setLayout(new BorderLayout());
         this.messageLabel = new JLabel(" ");
@@ -286,7 +288,8 @@ class GameGUI {
 
         public void handleMovement(final KeyEvent e) {
             try {
-                GameLogic gm = RiskyRescue.getApplication().getGameManager();
+                final GameLogic gm = RiskyRescue.getApplication()
+                        .getGameManager();
                 final int keyCode = e.getKeyCode();
                 switch (keyCode) {
                 case KeyEvent.VK_NUMPAD4:
@@ -332,7 +335,7 @@ class GameGUI {
                 default:
                     break;
                 }
-            } catch (Exception ex) {
+            } catch (final Exception ex) {
                 RiskyRescue.logError(ex);
             }
         }
@@ -351,7 +354,7 @@ class GameGUI {
         @Override
         public void windowClosing(final WindowEvent we) {
             try {
-                Application app = RiskyRescue.getApplication();
+                final Application app = RiskyRescue.getApplication();
                 boolean success = false;
                 int status = 0;
                 if (app.getScenarioManager().getDirty()) {
@@ -367,7 +370,7 @@ class GameGUI {
                 } else {
                     app.getGameManager().exitGame();
                 }
-            } catch (Exception ex) {
+            } catch (final Exception ex) {
                 RiskyRescue.logError(ex);
             }
         }

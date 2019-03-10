@@ -21,12 +21,12 @@ public class Wall extends MapObject {
     }
 
     @Override
-    public int getCustomProperty(int propID) {
+    public int getCustomProperty(final int propID) {
         return MapObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
-    public void setCustomProperty(int propID, int value) {
+    public void setCustomProperty(final int propID, final int value) {
         // Do nothing
     }
 
@@ -46,19 +46,19 @@ public class Wall extends MapObject {
     }
 
     @Override
-    public int getMinimumRequiredQuantityInBattle(Map map) {
-        int regionSizeSquared = map.getRegionSize() ^ 2;
-        int mapSize = map.getRows() * map.getColumns();
-        int regionsPerMap = mapSize / regionSizeSquared;
-        return regionsPerMap / (int) (Math.sqrt(Math.sqrt(mapSize)));
+    public int getMinimumRequiredQuantityInBattle(final Map map) {
+        final int regionSizeSquared = map.getRegionSize() ^ 2;
+        final int mapSize = map.getRows() * map.getColumns();
+        final int regionsPerMap = mapSize / regionSizeSquared;
+        return regionsPerMap / (int) Math.sqrt(Math.sqrt(mapSize));
     }
 
     @Override
-    public int getMaximumRequiredQuantityInBattle(Map map) {
-        int regionSizeSquared = map.getRegionSize() ^ 2;
-        int mapSize = map.getRows() * map.getColumns();
-        int regionsPerMap = mapSize / regionSizeSquared;
-        return regionsPerMap / (int) (Math.sqrt(mapSize));
+    public int getMaximumRequiredQuantityInBattle(final Map map) {
+        final int regionSizeSquared = map.getRegionSize() ^ 2;
+        final int mapSize = map.getRows() * map.getColumns();
+        final int regionsPerMap = mapSize / regionSizeSquared;
+        return regionsPerMap / (int) Math.sqrt(mapSize);
     }
 
     @Override

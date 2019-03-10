@@ -18,10 +18,11 @@ class ImageCache {
             final String cat) {
         final String cacheName = name + cat;
         if (!ImageCache.isInCache(cacheName)) {
-            BufferedImageIcon bii = ImageManager.getUncachedImage(name, cat);
+            final BufferedImageIcon bii = ImageManager.getUncachedImage(name,
+                    cat);
             ImageCache.addToCache(cacheName, bii);
         }
-        for (ImageCacheEntry ice : ImageCache.cache) {
+        for (final ImageCacheEntry ice : ImageCache.cache) {
             if (ice.getName().equals(cacheName)) {
                 return ice.getEntry();
             }
@@ -41,7 +42,7 @@ class ImageCache {
         if (ImageCache.cache == null) {
             ImageCache.cache = new ArrayList<>();
         }
-        for (ImageCacheEntry ice : ImageCache.cache) {
+        for (final ImageCacheEntry ice : ImageCache.cache) {
             if (ice.getName().equals(name)) {
                 return true;
             }

@@ -25,8 +25,8 @@ public class Buddy extends BattleCharacter {
     }
 
     @Override
-    public boolean preMoveCheck(boolean inIe, int inDirX, int inDirY,
-            int inDirZ, Map inMap) {
+    public boolean preMoveCheck(final boolean inIe, final int inDirX,
+            final int inDirY, final int inDirZ, final Map inMap) {
         // Your buddy disappears...
         inMap.setCell(this.getSavedObject(), inDirX, inDirY, inDirZ,
                 this.getLayer());
@@ -49,23 +49,24 @@ public class Buddy extends BattleCharacter {
     }
 
     @Override
-    public int getCustomProperty(int propID) {
+    public int getCustomProperty(final int propID) {
         return MapObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
-    public void setCustomProperty(int propID, int value) {
+    public void setCustomProperty(final int propID, final int value) {
         // Do nothing
     }
 
     @Override
-    protected void writeMapObjectHook(XDataWriter writer) throws IOException {
+    protected void writeMapObjectHook(final XDataWriter writer)
+            throws IOException {
         this.getSavedObject().writeMapObject(writer);
     }
 
     @Override
-    protected MapObject readMapObjectHook(XDataReader reader, int formatVersion)
-            throws IOException {
+    protected MapObject readMapObjectHook(final XDataReader reader,
+            final int formatVersion) throws IOException {
         this.setSavedObject(
                 new MapObjectList().readMapObjectX(reader, formatVersion));
         return this;

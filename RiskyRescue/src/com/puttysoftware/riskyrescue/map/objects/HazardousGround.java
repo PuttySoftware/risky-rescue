@@ -5,8 +5,8 @@
  */
 package com.puttysoftware.riskyrescue.map.objects;
 
-import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.creatures.party.PartyManager;
 import com.puttysoftware.riskyrescue.map.Map;
 import com.puttysoftware.riskyrescue.map.MapConstants;
@@ -26,14 +26,14 @@ public class HazardousGround extends MapObject {
     }
 
     private static InternalScript playSoundHook() {
-        InternalScript scpt = new InternalScript();
-        InternalScriptEntry entry0 = new InternalScriptEntry();
+        final InternalScript scpt = new InternalScript();
+        final InternalScriptEntry entry0 = new InternalScriptEntry();
         entry0.setActionCode(InternalScriptActionCode.SOUND);
         entry0.addActionArg(
                 new InternalScriptEntryArgument(SoundConstants.STEP_HAZARD));
         entry0.finalizeActionArgs();
         scpt.addAction(entry0);
-        InternalScriptEntry entry1 = new InternalScriptEntry();
+        final InternalScriptEntry entry1 = new InternalScriptEntry();
         entry1.setActionCode(InternalScriptActionCode.MESSAGE);
         entry1.addActionArg(
                 new InternalScriptEntryArgument("Ow, the hazard hurt you!"));
@@ -46,7 +46,7 @@ public class HazardousGround extends MapObject {
     @Override
     public InternalScript getPostMoveScript(final boolean ie, final int dirX,
             final int dirY, final int dirZ) {
-        InternalScript gs = HazardousGround.playSoundHook();
+        final InternalScript gs = HazardousGround.playSoundHook();
         PartyManager.getParty().hurtPartyPercentage(this.damagePercent);
         return gs;
     }
@@ -54,7 +54,7 @@ public class HazardousGround extends MapObject {
     @Override
     public InternalScript getBattlePostMoveScript(
             final BattleCharacter invoker) {
-        InternalScript gs = HazardousGround.playSoundHook();
+        final InternalScript gs = HazardousGround.playSoundHook();
         invoker.getTemplate().doDamagePercentage(this.damagePercent);
         return gs;
     }
@@ -65,50 +65,50 @@ public class HazardousGround extends MapObject {
     }
 
     @Override
-    public int getCustomProperty(int propID) {
+    public int getCustomProperty(final int propID) {
         return MapObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
-    public void setCustomProperty(int propID, int value) {
+    public void setCustomProperty(final int propID, final int value) {
         // Do nothing
     }
 
     @Override
-    public int getMinimumRequiredQuantity(Map map, int level) {
-        int regionSizeSquared = map.getRegionSize() ^ 2;
-        int mapSize = map.getRows() * map.getColumns();
-        int regionsPerMap = mapSize / regionSizeSquared;
-        return regionsPerMap / (int) (Math.sqrt(Math.sqrt(mapSize)));
+    public int getMinimumRequiredQuantity(final Map map, final int level) {
+        final int regionSizeSquared = map.getRegionSize() ^ 2;
+        final int mapSize = map.getRows() * map.getColumns();
+        final int regionsPerMap = mapSize / regionSizeSquared;
+        return regionsPerMap / (int) Math.sqrt(Math.sqrt(mapSize));
     }
 
     @Override
-    public int getMaximumRequiredQuantity(Map map, int level) {
-        int regionSizeSquared = map.getRegionSize() ^ 2;
-        int mapSize = map.getRows() * map.getColumns();
-        int regionsPerMap = mapSize / regionSizeSquared;
-        return regionsPerMap / (int) (Math.sqrt(mapSize));
+    public int getMaximumRequiredQuantity(final Map map, final int level) {
+        final int regionSizeSquared = map.getRegionSize() ^ 2;
+        final int mapSize = map.getRows() * map.getColumns();
+        final int regionsPerMap = mapSize / regionSizeSquared;
+        return regionsPerMap / (int) Math.sqrt(mapSize);
     }
 
     @Override
-    public boolean isRequired(int level) {
+    public boolean isRequired(final int level) {
         return true;
     }
 
     @Override
-    public int getMinimumRequiredQuantityInBattle(Map map) {
-        int regionSizeSquared = map.getRegionSize() ^ 2;
-        int mapSize = map.getRows() * map.getColumns();
-        int regionsPerMap = mapSize / regionSizeSquared;
-        return regionsPerMap / (int) (Math.sqrt(Math.sqrt(mapSize)));
+    public int getMinimumRequiredQuantityInBattle(final Map map) {
+        final int regionSizeSquared = map.getRegionSize() ^ 2;
+        final int mapSize = map.getRows() * map.getColumns();
+        final int regionsPerMap = mapSize / regionSizeSquared;
+        return regionsPerMap / (int) Math.sqrt(Math.sqrt(mapSize));
     }
 
     @Override
-    public int getMaximumRequiredQuantityInBattle(Map map) {
-        int regionSizeSquared = map.getRegionSize() ^ 2;
-        int mapSize = map.getRows() * map.getColumns();
-        int regionsPerMap = mapSize / regionSizeSquared;
-        return regionsPerMap / (int) (Math.sqrt(mapSize));
+    public int getMaximumRequiredQuantityInBattle(final Map map) {
+        final int regionSizeSquared = map.getRegionSize() ^ 2;
+        final int mapSize = map.getRows() * map.getColumns();
+        final int regionsPerMap = mapSize / regionSizeSquared;
+        return regionsPerMap / (int) Math.sqrt(mapSize);
     }
 
     @Override

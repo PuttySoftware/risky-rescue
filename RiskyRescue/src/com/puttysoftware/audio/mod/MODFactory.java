@@ -30,8 +30,8 @@ public class MODFactory {
 
     public synchronized MODFactory loadResource(final String modRes)
             throws IOException {
-        File tmpMod = new File(
-                this.tempDir + File.pathSeparator + getFileNameOnly(modRes));
+        final File tmpMod = new File(this.tempDir + File.pathSeparator
+                + MODFactory.getFileNameOnly(modRes));
         try (final InputStream is = MODFactory.class
                 .getResourceAsStream(modRes)) {
             try (final FileOutputStream os = new FileOutputStream(tmpMod)) {
@@ -71,40 +71,37 @@ public class MODFactory {
     public synchronized void play() {
         if (this.ibxm != null) {
             this.playing = true;
-            this.playThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    final int[] mixBuf = new int[MODFactory.this.ibxm
-                            .getMixBufferLength()];
-                    final byte[] outBuf = new byte[mixBuf.length * 4];
-                    AudioFormat audioFormat = null;
-                    audioFormat = new AudioFormat(MODFactory.SAMPLE_RATE, 16, 2,
-                            true, true);
-                    try (SourceDataLine audioLine = AudioSystem
-                            .getSourceDataLine(audioFormat)) {
-                        audioLine.open();
-                        audioLine.start();
-                        while (MODFactory.this.playing) {
-                            final int count = MODFactory.this.getAudio(mixBuf);
-                            int outIdx = 0;
-                            for (int mixIdx = 0, mixEnd = count
-                                    * 2; mixIdx < mixEnd; mixIdx++) {
-                                int ampl = mixBuf[mixIdx];
-                                if (ampl > 32767) {
-                                    ampl = 32767;
-                                }
-                                if (ampl < -32768) {
-                                    ampl = -32768;
-                                }
-                                outBuf[outIdx++] = (byte) (ampl >> 8);
-                                outBuf[outIdx++] = (byte) ampl;
+            this.playThread = new Thread(() -> {
+                final int[] mixBuf = new int[MODFactory.this.ibxm
+                        .getMixBufferLength()];
+                final byte[] outBuf = new byte[mixBuf.length * 4];
+                AudioFormat audioFormat = null;
+                audioFormat = new AudioFormat(MODFactory.SAMPLE_RATE, 16, 2,
+                        true, true);
+                try (SourceDataLine audioLine = AudioSystem
+                        .getSourceDataLine(audioFormat)) {
+                    audioLine.open();
+                    audioLine.start();
+                    while (MODFactory.this.playing) {
+                        final int count = MODFactory.this.getAudio(mixBuf);
+                        int outIdx = 0;
+                        for (int mixIdx = 0, mixEnd = count
+                                * 2; mixIdx < mixEnd; mixIdx++) {
+                            int ampl = mixBuf[mixIdx];
+                            if (ampl > 32767) {
+                                ampl = 32767;
                             }
-                            audioLine.write(outBuf, 0, outIdx);
+                            if (ampl < -32768) {
+                                ampl = -32768;
+                            }
+                            outBuf[outIdx++] = (byte) (ampl >> 8);
+                            outBuf[outIdx++] = (byte) ampl;
                         }
-                        audioLine.drain();
-                    } catch (final Exception e) {
-                        // Ignore
+                        audioLine.write(outBuf, 0, outIdx);
                     }
+                    audioLine.drain();
+                } catch (final Exception e) {
+                    // Ignore
                 }
             });
             this.playThread.start();
@@ -133,7 +130,7 @@ public class MODFactory {
     private static String getFileNameOnly(final String s) {
         String fno = null;
         final int i = s.lastIndexOf(File.separatorChar);
-        if ((i > 0) && (i < s.length() - 1)) {
+        if (i > 0 && i < s.length() - 1) {
             fno = s.substring(i + 1);
         } else {
             fno = s;

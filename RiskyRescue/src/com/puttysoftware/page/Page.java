@@ -6,11 +6,12 @@ public final class Page extends Polynomial {
     private boolean experience;
 
     // Constructors
-    private Page(Polynomial p) {
+    private Page(final Polynomial p) {
         super(p);
     }
 
-    public Page(int maxPower, int range, boolean isExperience) {
+    public Page(final int maxPower, final int range,
+            final boolean isExperience) {
         super(maxPower);
         this.maxRange = range;
         this.experience = isExperience;
@@ -26,7 +27,7 @@ public final class Page extends Polynomial {
     }
 
     @Override
-    public long evaluate(int paramValue) {
+    public long evaluate(final int paramValue) {
         int x;
         long result = 0;
         for (x = 0; x < this.coefficients.length; x++) {
@@ -34,7 +35,7 @@ public final class Page extends Polynomial {
         }
         if (this.experience) {
             for (x = 0; x < this.coefficients.length; x++) {
-                result -= (long) (this.coefficients[x]);
+                result -= (long) this.coefficients[x];
             }
         }
         return result;
@@ -49,7 +50,7 @@ public final class Page extends Polynomial {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -59,7 +60,7 @@ public final class Page extends Polynomial {
         if (!(obj instanceof Page)) {
             return false;
         }
-        Page other = (Page) obj;
+        final Page other = (Page) obj;
         if (this.experience != other.experience) {
             return false;
         }

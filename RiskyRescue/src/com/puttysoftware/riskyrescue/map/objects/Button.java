@@ -5,8 +5,8 @@
  */
 package com.puttysoftware.riskyrescue.map.objects;
 
-import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.assets.ObjectImage;
+import com.puttysoftware.riskyrescue.assets.SoundConstants;
 import com.puttysoftware.riskyrescue.map.MapConstants;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScript;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptActionCode;
@@ -25,7 +25,7 @@ public class Button extends MapObject {
         this.onState = new WallOn();
         // Create post-move script
         this.postMove = new InternalScript();
-        InternalScriptEntry act0 = new InternalScriptEntry();
+        final InternalScriptEntry act0 = new InternalScriptEntry();
         act0.setActionCode(InternalScriptActionCode.SWAP_PAIRS);
         act0.addActionArg(
                 new InternalScriptEntryArgument(this.offState.getName()));
@@ -33,10 +33,10 @@ public class Button extends MapObject {
                 new InternalScriptEntryArgument(this.onState.getName()));
         act0.finalizeActionArgs();
         this.postMove.addAction(act0);
-        InternalScriptEntry act1 = new InternalScriptEntry();
+        final InternalScriptEntry act1 = new InternalScriptEntry();
         act1.setActionCode(InternalScriptActionCode.REDRAW);
         this.postMove.addAction(act1);
-        InternalScriptEntry act2 = new InternalScriptEntry();
+        final InternalScriptEntry act2 = new InternalScriptEntry();
         act2.setActionCode(InternalScriptActionCode.SOUND);
         act2.addActionArg(
                 new InternalScriptEntryArgument(SoundConstants.BUTTON));
@@ -57,12 +57,12 @@ public class Button extends MapObject {
     }
 
     @Override
-    public int getCustomProperty(int propID) {
+    public int getCustomProperty(final int propID) {
         return MapObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
-    public void setCustomProperty(int propID, int value) {
+    public void setCustomProperty(final int propID, final int value) {
         // Do nothing
     }
 

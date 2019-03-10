@@ -71,8 +71,8 @@ class BattleGUI {
     }
 
     void showBattle() {
-        Application app = RiskyRescue.getApplication();
-        Map m = app.getScenarioManager().getMap();
+        final Application app = RiskyRescue.getApplication();
+        final Map m = app.getScenarioManager().getMap();
         app.getMenuManager().setBattleMenus();
         if (PreferencesManager
                 .getMusicEnabled(PreferencesManager.MUSIC_BATTLE)) {
@@ -93,23 +93,23 @@ class BattleGUI {
         }
     }
 
-    void redrawBattle(BattleDefinitions bd) {
+    void redrawBattle(final BattleDefinitions bd) {
         // Draw the battle, if it is visible
         if (this.battleFrame.isVisible()) {
             int x, y;
             int xFix, yFix;
-            int xView = this.vwMgr.getViewingWindowLocationX();
-            int yView = this.vwMgr.getViewingWindowLocationY();
-            int xlView = this.vwMgr.getLowerRightViewingWindowLocationX();
-            int ylView = this.vwMgr.getLowerRightViewingWindowLocationY();
+            final int xView = this.vwMgr.getViewingWindowLocationX();
+            final int yView = this.vwMgr.getViewingWindowLocationY();
+            final int xlView = this.vwMgr.getLowerRightViewingWindowLocationX();
+            final int ylView = this.vwMgr.getLowerRightViewingWindowLocationY();
             for (x = xView; x <= xlView; x++) {
                 for (y = yView; y <= ylView; y++) {
                     xFix = x - xView;
                     yFix = y - yView;
                     try {
-                        BufferedImageIcon icon1 = bd.getBattleMap()
+                        final BufferedImageIcon icon1 = bd.getBattleMap()
                                 .getBattleGround(y, x).getImage();
-                        BufferedImageIcon icon2 = bd.getBattleMap()
+                        final BufferedImageIcon icon2 = bd.getBattleMap()
                                 .getBattleCell(y, x).getImage();
                         this.drawGrid.setImageCell(
                                 ImageComposer.getCompositeImage(icon1, icon2),
@@ -126,21 +126,21 @@ class BattleGUI {
         }
     }
 
-    void redrawOneBattleSquare(BattleDefinitions bd, int x, int y,
-            MapObject obj3) {
+    void redrawOneBattleSquare(final BattleDefinitions bd, final int x,
+            final int y, final MapObject obj3) {
         // Draw the battle, if it is visible
         if (this.battleFrame.isVisible()) {
             try {
                 int xFix, yFix;
-                int xView = this.vwMgr.getViewingWindowLocationX();
-                int yView = this.vwMgr.getViewingWindowLocationY();
+                final int xView = this.vwMgr.getViewingWindowLocationX();
+                final int yView = this.vwMgr.getViewingWindowLocationY();
                 xFix = y - xView;
                 yFix = x - yView;
-                BufferedImageIcon icon1 = bd.getBattleMap()
+                final BufferedImageIcon icon1 = bd.getBattleMap()
                         .getBattleGround(x, y).getImage();
-                BufferedImageIcon icon2 = bd.getBattleMap().getBattleCell(x, y)
-                        .getImage();
-                BufferedImageIcon icon3 = obj3.getImage();
+                final BufferedImageIcon icon2 = bd.getBattleMap()
+                        .getBattleCell(x, y).getImage();
+                final BufferedImageIcon icon3 = obj3.getImage();
                 this.drawGrid.setImageCell(
                         ImageComposer.getCompositeImage(icon1, icon2, icon3),
                         xFix, yFix);
@@ -152,14 +152,14 @@ class BattleGUI {
         }
     }
 
-    void updateStatsAndEffects(BattleDefinitions bd) {
+    void updateStatsAndEffects(final BattleDefinitions bd) {
         this.bs.updateStats(bd.getActiveCharacter());
         this.be.updateEffects(bd.getActiveCharacter());
     }
 
     private void setUpGUI() {
-        EventHandler handler = new EventHandler();
-        Container borderPane = new Container();
+        final EventHandler handler = new EventHandler();
+        final Container borderPane = new Container();
         borderPane.setLayout(new BorderLayout());
         this.messageLabel = new JLabel(" ");
         this.messageLabel.setOpaque(true);
@@ -214,7 +214,7 @@ class BattleGUI {
 
         @Override
         public void keyPressed(final KeyEvent e) {
-            BattleGUI bg = BattleGUI.this;
+            final BattleGUI bg = BattleGUI.this;
             if (bg.eventHandlersOn) {
                 if (!PreferencesManager.oneMove()) {
                     if (e.isShiftDown()) {
@@ -228,7 +228,7 @@ class BattleGUI {
 
         @Override
         public void keyReleased(final KeyEvent e) {
-            BattleGUI bg = BattleGUI.this;
+            final BattleGUI bg = BattleGUI.this;
             if (bg.eventHandlersOn) {
                 if (PreferencesManager.oneMove()) {
                     if (e.isShiftDown()) {
@@ -257,8 +257,8 @@ class BattleGUI {
                         return;
                     }
                 }
-                BattleLogic bl = RiskyRescue.getApplication().getBattle();
-                BattleGUI bg = BattleGUI.this;
+                final BattleLogic bl = RiskyRescue.getApplication().getBattle();
+                final BattleGUI bg = BattleGUI.this;
                 if (bg.eventHandlersOn) {
                     final int keyCode = e.getKeyCode();
                     switch (keyCode) {
@@ -301,7 +301,7 @@ class BattleGUI {
                     case KeyEvent.VK_NUMPAD5:
                     case KeyEvent.VK_S:
                         // Confirm before attacking self
-                        int res = CommonDialogs.showConfirmDialog(
+                        final int res = CommonDialogs.showConfirmDialog(
                                 "Are you sure you want to attack yourself?",
                                 "Battle");
                         if (res == JOptionPane.YES_OPTION) {
@@ -312,7 +312,7 @@ class BattleGUI {
                         break;
                     }
                 }
-            } catch (Exception ex) {
+            } catch (final Exception ex) {
                 RiskyRescue.logError(ex);
             }
         }
@@ -329,8 +329,8 @@ class BattleGUI {
                         return;
                     }
                 }
-                BattleLogic bl = RiskyRescue.getApplication().getBattle();
-                BattleGUI bg = BattleGUI.this;
+                final BattleLogic bl = RiskyRescue.getApplication().getBattle();
+                final BattleGUI bg = BattleGUI.this;
                 if (bg.eventHandlersOn) {
                     final int keyCode = e.getKeyCode();
                     switch (keyCode) {
@@ -373,7 +373,7 @@ class BattleGUI {
                     case KeyEvent.VK_NUMPAD5:
                     case KeyEvent.VK_S:
                         // Confirm before shooting self
-                        int res = CommonDialogs.showConfirmDialog(
+                        final int res = CommonDialogs.showConfirmDialog(
                                 "Are you sure you want to shoot yourself?",
                                 "Battle");
                         if (res == JOptionPane.YES_OPTION) {
@@ -384,7 +384,7 @@ class BattleGUI {
                         break;
                     }
                 }
-            } catch (Exception ex) {
+            } catch (final Exception ex) {
                 RiskyRescue.logError(ex);
             }
         }

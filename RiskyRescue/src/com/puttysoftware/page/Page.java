@@ -10,8 +10,8 @@ public final class Page extends Polynomial {
         super(p);
     }
 
-    public Page(int maxPower, int params, int range, boolean isExperience) {
-        super(maxPower, params);
+    public Page(int maxPower, int range, boolean isExperience) {
+        super(maxPower);
         this.maxRange = range;
         this.experience = isExperience;
     }
@@ -30,41 +30,12 @@ public final class Page extends Polynomial {
         int x;
         long result = 0;
         for (x = 0; x < this.coefficients.length; x++) {
-            result += (long) (this.coefficients[x][Polynomial.DEFAULT_PARAM]
-                    * Math.pow(paramValue, x));
+            result += (long) (this.coefficients[x] * Math.pow(paramValue, x));
         }
         if (this.experience) {
             for (x = 0; x < this.coefficients.length; x++) {
-                result -= (long) (this.coefficients[x][Polynomial.DEFAULT_PARAM]);
+                result -= (long) (this.coefficients[x]);
             }
-        }
-        return result;
-    }
-
-    @Override
-    public long evaluate(int[] paramValues) {
-        int x, y;
-        long result = 0;
-        for (x = 0; x < this.coefficients.length; x++) {
-            for (y = 0; y < this.coefficients[x].length; y++) {
-                result += (long) (this.coefficients[x][y]
-                        * Math.pow(paramValues[y], x));
-            }
-        }
-        if (this.experience) {
-            for (x = 0; x < this.coefficients.length; x++) {
-                for (y = 0; y < this.coefficients[x].length; y++) {
-                    result -= (long) (this.coefficients[x][y]);
-                }
-            }
-        }
-        return result;
-    }
-
-    public long[] evaluateToArray() {
-        long[] result = new long[this.maxRange];
-        for (int x = 0; x < result.length; x++) {
-            result[x] = this.evaluate(x + 1);
         }
         return result;
     }

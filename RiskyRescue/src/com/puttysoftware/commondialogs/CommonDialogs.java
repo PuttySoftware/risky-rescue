@@ -8,7 +8,6 @@ public class CommonDialogs {
     // Fields
     private static BufferedImageIcon ICON = null;
     private static String DEFAULT_TITLE = null;
-    public static final int YES_OPTION = JOptionPane.YES_OPTION;
 
     // Constructor
     private CommonDialogs() {

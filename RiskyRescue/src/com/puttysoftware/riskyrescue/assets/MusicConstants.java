@@ -9,6 +9,7 @@ public class MusicConstants {
     // Public Music Constants
     public static final int BATTLE = 0;
     public static final int DUNGEON = 1;
+
     // Private constructor
     private MusicConstants() {
         // Do nothing

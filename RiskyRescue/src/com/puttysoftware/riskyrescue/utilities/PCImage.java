@@ -32,7 +32,9 @@ public class PCImage {
         this.hair = Hair.values()[h];
     }
 
-    public static String getPCImageName(final int c, final int s, final int h) {
+    public static String getPCImageName(final int c, final int s, final int h) { // NO_UCD
+                                                                                 // (actually
+                                                                                 // used)
         return Integer.toString(c) + Integer.toString(s) + Integer.toString(h);
     }
 
@@ -55,7 +57,7 @@ public class PCImage {
         worldFile.writeInt(this.hair.ordinal());
     }
 
-    public static String[] getClothingNames() {
+    public static String[] getClothingNames() { // NO_UCD (actually used)
         Clothing[] values = Clothing.values();
         String[] names = new String[values.length];
         for (int n = 0; n < names.length; n++) {
@@ -73,7 +75,7 @@ public class PCImage {
         return names;
     }
 
-    public static String[] getSkinNames() {
+    public static String[] getSkinNames() { // NO_UCD (actually used)
         Skin[] values = Skin.values();
         String[] names = new String[values.length];
         for (int n = 0; n < names.length; n++) {
@@ -91,7 +93,7 @@ public class PCImage {
         return names;
     }
 
-    public static String[] getHairNames() {
+    public static String[] getHairNames() { // NO_UCD (actually used)
         Hair[] values = Hair.values();
         String[] names = new String[values.length];
         for (int n = 0; n < names.length; n++) {

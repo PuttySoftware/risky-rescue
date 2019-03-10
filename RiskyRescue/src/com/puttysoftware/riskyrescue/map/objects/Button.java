@@ -14,11 +14,11 @@ import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptEntry;
 import com.puttysoftware.riskyrescue.scripts.internal.InternalScriptEntryArgument;
 
 public class Button extends MapObject {
- // Fields
+    // Fields
     private final WallOff offState;
     private final WallOn onState;
     private final InternalScript postMove;
-    
+
     public Button() {
         super(ObjectImage.BUTTON, false, false);
         this.offState = new WallOff();
@@ -44,7 +44,7 @@ public class Button extends MapObject {
         this.postMove.addAction(act2);
         this.postMove.finalizeActions();
     }
- 
+
     @Override
     public InternalScript getPostMoveScript(final boolean ie, final int dirX,
             final int dirY, final int dirZ) {

@@ -13,7 +13,7 @@ public class Tile extends MapObject {
     public Tile() {
         super(ObjectImage.GROUND, false, false);
     }
-    
+
     @Override
     public int getLayer() {
         return MapConstants.LAYER_GROUND;

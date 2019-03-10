@@ -9,7 +9,6 @@ import com.puttysoftware.riskyrescue.assets.ObjectImage;
 import com.puttysoftware.riskyrescue.map.MapConstants;
 
 public class SealingWall extends MapObject {
-
     // Constructors
     public SealingWall() {
         super(ObjectImage.SEALING_WALL, true, true);
@@ -29,7 +28,7 @@ public class SealingWall extends MapObject {
     public void setCustomProperty(int propID, int value) {
         // Do nothing
     }
-    
+
     @Override
     public boolean enabledInBattle() {
         return false;

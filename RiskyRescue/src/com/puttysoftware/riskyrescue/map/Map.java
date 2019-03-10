@@ -170,12 +170,6 @@ public class Map implements MapConstants {
         this.mapData[this.activeLevel].restorePlayerLocation();
     }
 
-    public void setPlayerLocation(int x, int y, int z) {
-        this.mapData[this.activeLevel].setPlayerRow(x);
-        this.mapData[this.activeLevel].setPlayerColumn(y);
-        this.mapData[this.activeLevel].setPlayerFloor(z);
-    }
-
     public int getRows() {
         return this.mapData[this.activeLevel].getRows();
     }
@@ -293,8 +287,6 @@ public class Map implements MapConstants {
         if (formatVersion == FormatConstants.SCENARIO_FORMAT_1) {
             this.mapData[this.activeLevel] = LayeredTower
                     .readXLayeredTower(reader, formatVersion);
-            this.mapData[this.activeLevel].readSavedTowerStateX(reader,
-                    formatVersion);
         } else {
             throw new IOException("Unknown map format version!");
         }
@@ -340,6 +332,5 @@ public class Map implements MapConstants {
     private void writeMapLevelX(XDataWriter writer) throws IOException {
         // Write the level
         this.mapData[this.activeLevel].writeXLayeredTower(writer);
-        this.mapData[this.activeLevel].writeSavedTowerStateX(writer);
     }
 }

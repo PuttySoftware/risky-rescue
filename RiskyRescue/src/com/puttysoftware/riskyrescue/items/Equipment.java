@@ -39,27 +39,7 @@ public class Equipment extends Item {
         this.conditionalSlot = false;
     }
 
-    Equipment(final Equipment e) {
-        super(e.getName(), e);
-        this.equipCat = e.equipCat;
-        this.materialID = e.materialID;
-        this.firstSlotUsed = e.firstSlotUsed;
-        this.secondSlotUsed = e.secondSlotUsed;
-        this.conditionalSlot = e.conditionalSlot;
-    }
-
     // Methods
-    final void enchantName(int bonus) {
-        String oldName = this.getName();
-        // Check - is name enchanted already?
-        if (oldName.charAt(oldName.length() - 2) == '+') {
-            // Yes - remove old enchantment
-            oldName = oldName.substring(0, oldName.length() - 3);
-        }
-        String newName = oldName + " +" + bonus;
-        this.setName(newName);
-    }
-
     final int getFirstSlotUsed() {
         return this.firstSlotUsed;
     }
@@ -82,10 +62,6 @@ public class Equipment extends Item {
 
     public final int getEquipCategory() {
         return this.equipCat;
-    }
-
-    final int getMaterial() {
-        return this.materialID;
     }
 
     static Equipment readEquipment(XDataReader dr) throws IOException {

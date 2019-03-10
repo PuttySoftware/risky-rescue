@@ -50,19 +50,6 @@ public class Item {
         this.combatUsable = false;
     }
 
-    protected Item(final String iName, final Item i) {
-        super();
-        this.name = iName;
-        this.initialUses = i.initialUses;
-        this.uses = i.uses;
-        this.weightPerUse = i.weightPerUse;
-        this.buyPrice = i.buyPrice;
-        this.sellPrice = i.sellPrice;
-        this.weight = i.weight;
-        this.potency = i.potency;
-        this.combatUsable = false;
-    }
-
     // Methods
     @Override
     public String toString() {
@@ -125,10 +112,6 @@ public class Item {
             return false;
         }
         return true;
-    }
-
-    final void setName(String newName) {
-        this.name = newName;
     }
 
     final void setPotency(int newPotency) {

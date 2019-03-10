@@ -1,7 +1,6 @@
 package com.puttysoftware.audio.mod;
 
 public class Module {
-    public String songName = "Blank"; //$NON-NLS-1$
     public int numChannels = 4, numInstruments = 1;
     public int numPatterns = 1, sequenceLength = 1, restartPos = 0;
     public int defaultGVol = 64, defaultSpeed = 6, defaultTempo = 125,
@@ -29,7 +28,7 @@ public class Module {
     }
 
     private void loadMOD(final byte[] moduleData) {
-        this.songName = Module.isoLatin1(moduleData, 0, 20);
+        Module.isoLatin1(moduleData, 0, 20); // Read and ignore song name
         this.sequenceLength = moduleData[950] & 0x7F;
         this.restartPos = moduleData[951] & 0x7F;
         if (this.restartPos >= this.sequenceLength) {
@@ -127,8 +126,8 @@ public class Module {
         for (int instIdx = 1; instIdx <= this.numInstruments; instIdx++) {
             final Instrument instrument = this.instruments[instIdx] = new Instrument();
             final Sample sample = instrument.samples[0];
-            instrument.name = Module.isoLatin1(moduleData, instIdx * 30 - 10,
-                    22);
+            // Read and ignore instrument name
+            Module.isoLatin1(moduleData, instIdx * 30 - 10, 22);
             int sampleLength = Module.ushortbe(moduleData, instIdx * 30 + 12)
                     * 2;
             final int fineTune = (moduleData[instIdx * 30 + 14] & 0xF) << 4;
@@ -158,7 +157,7 @@ public class Module {
     }
 
     private void loadS3M(final byte[] moduleData) {
-        this.songName = Module.codePage850(moduleData, 0, 28);
+        Module.codePage850(moduleData, 0, 28); // Read and ignore song name
         this.sequenceLength = Module.ushortle(moduleData, 32);
         this.numInstruments = Module.ushortle(moduleData, 34);
         this.numPatterns = Module.ushortle(moduleData, 36);
@@ -196,8 +195,8 @@ public class Module {
             final int instOffset = Module.ushortle(moduleData,
                     moduleDataIdx) << 4;
             moduleDataIdx += 2;
-            instrument.name = Module.codePage850(moduleData, instOffset + 48,
-                    28);
+            // Read and ignore instrument name
+            Module.codePage850(moduleData, instOffset + 48, 28);
             if (moduleData[instOffset] != 1) {
                 continue;
             }
@@ -342,7 +341,7 @@ public class Module {
             throw new IllegalArgumentException(
                     "XM format version must be 0x0104!"); //$NON-NLS-1$
         }
-        this.songName = Module.codePage850(moduleData, 17, 20);
+        Module.codePage850(moduleData, 17, 20); // Read and ignore song name
         final boolean deltaEnv = Module.isoLatin1(moduleData, 38, 20)
                 .startsWith("DigiBooster Pro"); //$NON-NLS-1$
         int dataOffset = 60 + Module.intle(moduleData, 60);
@@ -418,10 +417,9 @@ public class Module {
         this.instruments[0] = new Instrument();
         for (int insIdx = 1; insIdx <= this.numInstruments; insIdx++) {
             final Instrument instrument = this.instruments[insIdx] = new Instrument();
-            instrument.name = Module.codePage850(moduleData, dataOffset + 4,
-                    22);
-            final int numSamples = instrument.numSamples = Module
-                    .ushortle(moduleData, dataOffset + 27);
+            // Read and ignore instrument name
+            Module.codePage850(moduleData, dataOffset + 4, 22);
+            final int numSamples = Module.ushortle(moduleData, dataOffset + 27);
             if (numSamples > 0) {
                 instrument.samples = new Sample[numSamples];
                 for (int keyIdx = 0; keyIdx < 96; keyIdx++) {
@@ -509,8 +507,8 @@ public class Module {
                         & 0x10) > 0;
                 sample.panning = moduleData[sampleHeaderOffset + 15] & 0xFF;
                 sample.relNote = moduleData[sampleHeaderOffset + 16];
-                sample.name = Module.codePage850(moduleData,
-                        sampleHeaderOffset + 18, 22);
+                // Read and ignore sample name
+                Module.codePage850(moduleData, sampleHeaderOffset + 18, 22);
                 sampleHeaderOffset += 40;
                 int sampleDataLength = sampleDataBytes;
                 if (sixteenBit) {

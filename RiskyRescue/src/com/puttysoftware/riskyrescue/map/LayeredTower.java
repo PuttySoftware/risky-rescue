@@ -27,7 +27,6 @@ import com.puttysoftware.xio.XDataWriter;
 class LayeredTower {
     // Properties
     private LowLevelDataStore data;
-    private SavedTowerState savedTowerState;
     private final FlagStorage visionData;
     private LowLevelNoteDataStore noteData;
     private final int[] playerLocationData;
@@ -46,7 +45,6 @@ class LayeredTower {
         this.data = new LowLevelDataStore(cols, rows, floors,
                 MapConstants.LAYER_COUNT);
         this.noteData = new LowLevelNoteDataStore(cols, rows, floors);
-        this.savedTowerState = new SavedTowerState(rows, cols, floors);
         this.visionData = new FlagStorage(cols, rows, floors);
         this.playerLocationData = new int[3];
         Arrays.fill(this.playerLocationData, -1);
@@ -86,10 +84,6 @@ class LayeredTower {
 
     int getRegionSize() {
         return this.regionSize;
-    }
-
-    void setGeneratorRandomness(int value, int max) {
-        this.regionSize = 2 ^ (max - value);
     }
 
     MapObject getCell(final int row, final int col, final int floor,
@@ -384,18 +378,6 @@ class LayeredTower {
                 this.playerLocationData, 0, this.playerLocationData.length);
     }
 
-    void setPlayerRow(final int newPlayerRow) {
-        this.playerLocationData[1] = newPlayerRow;
-    }
-
-    void setPlayerColumn(final int newPlayerColumn) {
-        this.playerLocationData[0] = newPlayerColumn;
-    }
-
-    void setPlayerFloor(final int newPlayerFloor) {
-        this.playerLocationData[2] = newPlayerFloor;
-    }
-
     void offsetPlayerRow(final int newPlayerRow) {
         this.playerLocationData[1] += newPlayerRow;
     }
@@ -574,35 +556,6 @@ class LayeredTower {
         }
     }
 
-    void save() {
-        int y, x, z, e;
-        for (x = 0; x < this.getColumns(); x++) {
-            for (y = 0; y < this.getRows(); y++) {
-                for (z = 0; z < this.getFloors(); z++) {
-                    for (e = 0; e < MapConstants.LAYER_COUNT; e++) {
-                        this.savedTowerState.setDataCell(
-                                this.getCell(y, x, z, e), x, y, z, e);
-                    }
-                }
-            }
-        }
-    }
-
-    void restore() {
-        int y, x, z, e;
-        for (x = 0; x < this.getColumns(); x++) {
-            for (y = 0; y < this.getRows(); y++) {
-                for (z = 0; z < this.getFloors(); z++) {
-                    for (e = 0; e < MapConstants.LAYER_COUNT; e++) {
-                        this.setCell(
-                                this.savedTowerState.getDataCell(x, y, z, e), y,
-                                x, z, e);
-                    }
-                }
-            }
-        }
-    }
-
     private int normalizeRow(final int row) {
         int fR = row;
         if (fR < 0) {
@@ -739,15 +692,5 @@ class LayeredTower {
         lt.visionMode = reader.readInt();
         lt.visionModeExploreRadius = reader.readInt();
         return lt;
-    }
-
-    void writeSavedTowerStateX(XDataWriter writer) throws IOException {
-        this.savedTowerState.writeSavedTowerStateX(writer);
-    }
-
-    void readSavedTowerStateX(XDataReader reader, int formatVersion)
-            throws IOException {
-        this.savedTowerState = SavedTowerState.readSavedTowerStateX(reader,
-                formatVersion);
     }
 }

@@ -45,7 +45,7 @@ public class PartyMember extends Creature {
         this.healAndRegenerateFully();
         this.setGold(PartyMember.START_GOLD);
         this.setExperience(0L);
-        Page nextLevelEquation = new Page(3, 1, 0, true);
+        Page nextLevelEquation = new Page(3, 0, true);
         double value = BASE_COEFF;
         nextLevelEquation.setCoefficient(1, value);
         nextLevelEquation.setCoefficient(2, value);

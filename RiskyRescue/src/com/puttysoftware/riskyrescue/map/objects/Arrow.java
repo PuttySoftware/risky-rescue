@@ -37,28 +37,28 @@ public abstract class Arrow extends MapObject {
             super(ObjectImage.ARROW_NORTHWEST);
         }
     }
-    
+
     private static class ArrowS extends Arrow {
         // Constructors
         public ArrowS() {
             super(ObjectImage.ARROW_SOUTH);
         }
     }
-    
+
     private static class ArrowSE extends Arrow {
         // Constructors
         public ArrowSE() {
             super(ObjectImage.ARROW_SOUTHEAST);
         }
     }
-    
+
     private static class ArrowSW extends Arrow {
         // Constructors
         public ArrowSW() {
             super(ObjectImage.ARROW_SOUTHWEST);
         }
     }
-    
+
     private static class ArrowW extends Arrow {
         // Constructors
         public ArrowW() {

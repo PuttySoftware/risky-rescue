@@ -17,26 +17,4 @@ public class Pattern {
         note.effect = this.data[offset + 3] & 0xFF;
         note.param = this.data[offset + 4] & 0xFF;
     }
-
-    public void toStringBuffer(final StringBuffer out) {
-        final char[] hex = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                'A', 'B', 'C', 'D', 'E', 'F' };
-        final int channels = this.data.length / (this.numRows * 5);
-        int data_offset = 0;
-        for (int row = 0; row < this.numRows; row++) {
-            for (int channel = 0; channel < channels; channel++) {
-                for (int n = 0; n < 5; n++) {
-                    final int b = this.data[data_offset++];
-                    if (b == 0) {
-                        out.append("--"); //$NON-NLS-1$
-                    } else {
-                        out.append(hex[b >> 4 & 0xF]);
-                        out.append(hex[b & 0xF]);
-                    }
-                }
-                out.append(' ');
-            }
-            out.append('\n');
-        }
-    }
 }

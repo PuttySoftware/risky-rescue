@@ -71,7 +71,7 @@ public class GUIManager {
     public void hideGUI() {
         this.guiFrame.setVisible(false);
     }
-    
+
     void updateLogo() {
         final BufferedImageIcon logo = LogoManager.getLogo();
         this.logoLabel.setIcon(logo);

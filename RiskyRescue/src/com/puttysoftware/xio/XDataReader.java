@@ -25,17 +25,6 @@ public class XDataReader implements AutoCloseable {
         this.br.close();
     }
 
-    public double readDouble() throws IOException {
-        final String line = this.br.readLine();
-        if (line != null) {
-            final String[] split = XDataReader.splitLine(line);
-            XDataReader.validateOpeningTag(split[0], XDataConstants.DOUBLE_TAG);
-            XDataReader.validateClosingTag(split[2], XDataConstants.DOUBLE_TAG);
-            return Double.parseDouble(split[1]);
-        }
-        throw new IOException("End of file!"); //$NON-NLS-1$
-    }
-
     public int readInt() throws IOException {
         final String line = this.br.readLine();
         if (line != null) {

@@ -6,7 +6,6 @@
 package com.puttysoftware.riskyrescue.items;
 
 public class EquipmentSlotConstants {
-    static final int SLOT_SOCKS = -2;
     static final int SLOT_NONE = -1;
     public static final int SLOT_MAINHAND = 0;
     public static final int SLOT_OFFHAND = 1;

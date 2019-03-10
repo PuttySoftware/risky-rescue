@@ -13,8 +13,8 @@ import com.puttysoftware.fileutils.ResourceStreamReader;
 public class NameDataManager {
     public static String[] getFamilyNameData() {
         try (final ResourceStreamReader rsr = new ResourceStreamReader(
-                NameDataManager.class.getResourceAsStream(
-                        "/assets/data/name/family.txt"))) {
+                NameDataManager.class
+                        .getResourceAsStream("/assets/data/name/family.txt"))) {
             // Fetch data
             final ArrayList<String> data = new ArrayList<>();
             String raw = "0";

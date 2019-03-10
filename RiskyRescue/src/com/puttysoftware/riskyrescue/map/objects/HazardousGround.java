@@ -29,8 +29,8 @@ public class HazardousGround extends MapObject {
         InternalScript scpt = new InternalScript();
         InternalScriptEntry entry0 = new InternalScriptEntry();
         entry0.setActionCode(InternalScriptActionCode.SOUND);
-        entry0.addActionArg(new InternalScriptEntryArgument(
-                SoundConstants.STEP_HAZARD));
+        entry0.addActionArg(
+                new InternalScriptEntryArgument(SoundConstants.STEP_HAZARD));
         entry0.finalizeActionArgs();
         scpt.addAction(entry0);
         InternalScriptEntry entry1 = new InternalScriptEntry();

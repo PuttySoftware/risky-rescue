@@ -26,12 +26,6 @@ public class XDataWriter implements AutoCloseable {
         this.bw.close();
     }
 
-    public void writeDouble(final double d) throws IOException {
-        this.bw.write("<" + XDataConstants.DOUBLE_TAG + ">" + Double.toString(d) //$NON-NLS-1$ //$NON-NLS-2$
-                + "</" + XDataConstants.DOUBLE_TAG + ">" //$NON-NLS-1$ //$NON-NLS-2$
-                + XDataWriter.END_OF_LINE);
-    }
-
     public void writeInt(final int i) throws IOException {
         this.bw.write("<" + XDataConstants.INT_TAG + ">" + Integer.toString(i) //$NON-NLS-1$ //$NON-NLS-2$
                 + "</" + XDataConstants.INT_TAG + ">" //$NON-NLS-1$ //$NON-NLS-2$

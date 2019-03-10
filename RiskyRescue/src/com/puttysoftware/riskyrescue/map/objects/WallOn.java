@@ -33,6 +33,7 @@ public class WallOn extends MapObject {
     public boolean enabledInBattle() {
         return false;
     }
+
     @Override
     public String getName() {
         return "Wall On";

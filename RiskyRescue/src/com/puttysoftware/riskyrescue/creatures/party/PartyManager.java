@@ -50,7 +50,7 @@ public class PartyManager {
     public static int getMapLevel() {
         return PartyManager.dungeonLevel - 1;
     }
-    
+
     public static int getDungeonLevel() {
         return PartyManager.dungeonLevel;
     }

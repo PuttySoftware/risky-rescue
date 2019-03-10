@@ -23,7 +23,8 @@ public class ImageManager {
         return ImageCache.getCachedImage(name, cat);
     }
 
-    public static BufferedImageIcon getObjectImage(final int dungeonIndex, final ObjectImage oi) {
+    public static BufferedImageIcon getObjectImage(final int dungeonIndex,
+            final ObjectImage oi) {
         String name = ObjectImageNames.getName(oi);
         return ImageManager.getImage(name, "objects/dungeon" + dungeonIndex);
     }
@@ -39,7 +40,9 @@ public class ImageManager {
         return ImageManager.getImage(name, "players");
     }
 
-    public static BufferedImageIcon getPCPickerImage(final String name) {
+    public static BufferedImageIcon getPCPickerImage(final String name) { // NO_UCD
+                                                                          // (actually
+                                                                          // used)
         return ImageManager.getImage(name, "players");
     }
 

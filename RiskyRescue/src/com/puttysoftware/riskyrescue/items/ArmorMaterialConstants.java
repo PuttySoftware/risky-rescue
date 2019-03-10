@@ -6,7 +6,6 @@
 package com.puttysoftware.riskyrescue.items;
 
 class ArmorMaterialConstants {
-    static final int MATERIAL_NONE = -1;
     static final int MATERIALS_COUNT = 26;
     static final int MATERIALS_POWER_MULTIPLIER = 1;
     // Names

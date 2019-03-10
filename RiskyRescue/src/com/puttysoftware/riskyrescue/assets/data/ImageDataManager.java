@@ -78,11 +78,11 @@ public class ImageDataManager {
             return null;
         }
     }
-    
+
     public static String[] getStatImageData() {
         try (final ResourceStreamReader rsr = new ResourceStreamReader(
-                ImageDataManager.class.getResourceAsStream(
-                        "/assets/data/image/stats.txt"))) {
+                ImageDataManager.class
+                        .getResourceAsStream("/assets/data/image/stats.txt"))) {
             // Fetch data
             final ArrayList<String> data = new ArrayList<>();
             String raw = "0";

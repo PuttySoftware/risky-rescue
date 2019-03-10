@@ -32,8 +32,8 @@ public class StairsDown extends MapObject {
         scpt.addAction(entry1);
         InternalScriptEntry entry2 = new InternalScriptEntry();
         entry2.setActionCode(InternalScriptActionCode.SOUND);
-        entry2.addActionArg(new InternalScriptEntryArgument(
-                SoundConstants.DOWN));
+        entry2.addActionArg(
+                new InternalScriptEntryArgument(SoundConstants.DOWN));
         entry2.finalizeActionArgs();
         scpt.addAction(entry2);
         scpt.finalizeActions();
@@ -57,7 +57,7 @@ public class StairsDown extends MapObject {
         PartyManager.increaseDungeonLevel();
         return this.postMoveScript;
     }
-    
+
     @Override
     public int getLayer() {
         return MapConstants.LAYER_OBJECT;
@@ -72,7 +72,7 @@ public class StairsDown extends MapObject {
     public int getCustomFormat() {
         return 0;
     }
-    
+
     @Override
     public int getCustomProperty(int propID) {
         return MapObject.DEFAULT_CUSTOM_VALUE;
@@ -82,7 +82,7 @@ public class StairsDown extends MapObject {
     public void setCustomProperty(int propID, int value) {
         // Do nothing
     }
-    
+
     @Override
     public boolean enabledInBattle() {
         return false;

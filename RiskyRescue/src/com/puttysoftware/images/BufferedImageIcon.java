@@ -1,6 +1,5 @@
 package com.puttysoftware.images;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -22,21 +21,6 @@ public class BufferedImageIcon extends BufferedImage implements Icon {
         for (int x = 0; x < bi.getWidth(); x++) {
             for (int y = 0; y < bi.getHeight(); y++) {
                 this.setRGB(x, y, bi.getRGB(x, y));
-            }
-        }
-    }
-
-    /**
-     * Creates a square BufferedImageIcon of a given size and color.
-     *
-     * @param size
-     * @param color
-     */
-    public BufferedImageIcon(final int size, final Color color) {
-        super(size, size, BufferedImageIcon.DEFAULT_TYPE);
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                this.setRGB(x, y, color.getRGB());
             }
         }
     }

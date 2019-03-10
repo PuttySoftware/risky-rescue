@@ -43,9 +43,6 @@ public class ImageComposer {
                         .getCompositeImage(icons[0], icons[1]);
                 for (int x = 2; x < icons.length; x++) {
                     result = ImageComposer.getCompositeImage(result, icons[x]);
-                    if (result == null) {
-                        return null;
-                    }
                 }
                 return result;
             }

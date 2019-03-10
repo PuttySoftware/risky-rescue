@@ -23,7 +23,7 @@ public class EquipmentSlotConstants {
         return SLOT_NAMES;
     }
 
-    static String[] getArmorSlotNames() {
+    synchronized static String[] getArmorSlotNames() {
         if (ARMOR_SLOT_NAMES == null) {
             if (SLOT_NAMES == null) {
                 EquipmentSlotConstants.getSlotNames();

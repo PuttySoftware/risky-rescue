@@ -17,7 +17,10 @@ public final class DirectoryUtilities {
         if (location.isDirectory()) {
             final String[] children = location.list();
             for (final String element : children) {
-                DirectoryUtilities.removeDirectory(new File(location, element));
+                if (element != null) {
+                    DirectoryUtilities
+                            .removeDirectory(new File(location, element));
+                }
             }
             success = location.delete();
             if (!success) {

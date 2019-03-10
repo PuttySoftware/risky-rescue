@@ -27,7 +27,7 @@ public class Support {
     private static final ErrorLogger elog = new ErrorLogger(
             Support.PROGRAM_NAME);
     private static final int VERSION_MAJOR = 1;
-    private static final int VERSION_MINOR = 0;
+    private static final int VERSION_MINOR = 1;
     private static final int VERSION_BUGFIX = 0;
     private static Scenario scen = null;
     private static final int BATTLE_MAP_SIZE = 9;

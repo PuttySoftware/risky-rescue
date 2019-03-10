@@ -272,6 +272,12 @@ public class BattleLogic {
                 this.stopWaitingForAI();
                 break;
             }
+            if (!this.lastAIActionResult) {
+                // Last thing the enemy tried to do failed
+                this.setStatusMessage("The last action attempted by "
+                        + active.getName() + " ended in failure.");
+                SoundManager.playSound(SoundConstants.MONSTER_FAILED);
+            }
             int currResult = this.getResult();
             if (currResult != BattleResults.IN_PROGRESS) {
                 this.terminatedEarly = true;
@@ -1073,7 +1079,9 @@ public class BattleLogic {
             // Deny cast - out of actions
             if (!this.bd.getActiveCharacter().getTemplate().hasAI()
                     || Support.inDebugMode()) {
-                this.setStatusMessage("Out of actions!");
+                if (!this.isWaitingForAI()) {
+                    this.setStatusMessage("Out of actions!");
+                }
             }
             return false;
         }
@@ -1147,7 +1155,9 @@ public class BattleLogic {
             // Deny steal - out of actions
             if (!this.bd.getActiveCharacter().getTemplate().hasAI()
                     || Support.inDebugMode()) {
-                this.setStatusMessage("Out of steals!");
+                if (!this.isWaitingForAI()) {
+                    this.setStatusMessage("Out of steals!");
+                }
             }
             return false;
         }
@@ -1225,7 +1235,9 @@ public class BattleLogic {
             // Deny drain - out of actions
             if (!this.bd.getActiveCharacter().getTemplate().hasAI()
                     || Support.inDebugMode()) {
-                this.setStatusMessage("Out of actions!");
+                if (!this.isWaitingForAI()) {
+                    this.setStatusMessage("Out of actions!");
+                }
             }
             return false;
         }

@@ -12,7 +12,6 @@ closed_door
 ground
 hazard
 healer
-monster
 off_wall
 open_door
 regenerator
